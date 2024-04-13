@@ -1,0 +1,85 @@
+html {
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+  overflow-x: hidden;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-color: #1a1625;
+    color: #fff;
+}
+
+.navbar-brand {
+    color: #a688fa !important;
+}
+
+.nav-link {
+    color: #ba9ffb !important;
+}
+
+#sidebar {
+    background-color: #2f2b3a;
+    color: #ba9ffb;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: -250px;
+    bottom: 0;
+    transition: left 0.3s;
+    padding: 10px;
+}
+
+#sidebar.active {
+    left: 0;
+    margin: 0;
+    padding: 10px;
+    z-index: 1;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+#content-wrapper {
+    transition: margin-left 0.3s;
+}
+
+#content-wrapper.active {
+    margin-left: 250px;
+}
+
+.btn-toolbar{
+    background-color: transparent;
+    border: none;
+    position: fixed;
+    top: 50%;
+}
+
+.rotate-180 {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
+.rotate-360 {
+    transform: rotate(360deg);
+    transition: transform 0.3s ease;
+}
+
+.toolbar-collapse {
+    color: #a688fa;
+    background-color: #333;
+    border: none;
+}

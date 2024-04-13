@@ -1,0 +1,31 @@
+1. Dashboard Sesji
+Stwórz spersonalizowany dashboard, który podsumowuje nadchodz¹ce
+sesje, wa¿ne wydarzenia w kampanii i wszelkie niezbêdne przygotowania. U¿ytkownicy mogliby zobaczyæ najbli¿sze terminy sesji, ich agendê oraz listê postaci uczestnicz¹cych.
+
+2. Planowanie Sesji
+Narzêdzie kalendarzowe, które umo¿liwia planowanie sesji,
+z mo¿liwoœci¹ dodawania notatek, ustalania terminów oraz zapraszania innych graczy. Mo¿liwoœæ potwierdzania obecnoœci u³atwi³aby organizacjê.
+
+3. Baza Danych Postaci
+Sekcja, gdzie gracze mog¹ tworzyæ i zarz¹dzaæ swoimi postaciami, w tym statystykami, ekwipunkiem, histori¹ postaci, i magicznymi przedmiotami. Mo¿liwoœæ eksportowania i importowania postaci w popularnych formatach plików by³aby dodatkowym atutem.
+
+4. Mapy i Lokacje
+Interaktywny modu³ do tworzenia i przechowywania map œwiata gry oraz znacz¹cych lokacji. U¿ytkownicy mogliby dodawaæ w³asne notatki, wa¿ne miejsca oraz œcie¿ki podró¿y.
+
+5. Dziennik Kampanii
+Funkcja umo¿liwiaj¹ca prowadzenie szczegó³owego dziennika z przygód, z mo¿liwoœci¹ dodawania wpisów przez graczy i mistrza podziemi. Dziennik móg³by zawieraæ wa¿ne wydarzenia, decyzje i skutki ich dzia³añ.
+
+6. Biblioteka Zasobów
+Sekcja z zasobami, gdzie mo¿na by przechowywaæ i udostêpniaæ pliki dotycz¹ce gry, takie jak przewodniki, ksi¹¿ki zasad, arkusze postaci, a tak¿e muzyka i dŸwiêki do wykorzystania podczas sesji.
+
+7. Generator Treœci
+Narzêdzie do generowania losowych wydarzeñ, spotkañ, skarbów, czy pu³apek, które mo¿na by natychmiast w³¹czyæ do trwaj¹cej sesji, dodaj¹c element niespodzianki.
+
+8. Czat i Forum
+Zintegrowany system komunikacji dla graczy, w tym czat na ¿ywo podczas sesji oraz forum do dyskusji na tematy zwi¹zane z kampani¹ i wymiany pomys³ów.
+
+9. Statystyki i Analityka
+Sekcja z statystykami dla graczy i mistrza podziemi, gdzie mo¿na by œledziæ postêpy postaci, historiê ich sukcesów i pora¿ek, oraz analizowaæ ró¿ne aspekty kampanii.
+
+10. Mobilna Dostêpnoœæ
+Optymalizacja strony pod k¹tem urz¹dzeñ mobilnych, co pozwoli³oby na ³atwy dostêp i korzystanie z narzêdzi w trakcie sesji niezale¿nie od lokalizacji graczy.
