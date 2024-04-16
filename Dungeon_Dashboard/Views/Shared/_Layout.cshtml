@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="~/Dungeon_Dashboard.styles.css" asp-append-version="true" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Onest:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
-<body style="font-family:'Roboto', sans-serif;">
+<body style="font-family: 'Onest', sans-serif;">
     <div id="content-wrapper">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3">
@@ -29,6 +29,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <ul class="navbar-nav ms-auto">
+                        @if(User.Identity.IsAuthenticated){
+                                <li class="nav-item"><a class="nav-link text-white">@User.Identity.Name</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Logout">Logout</a>
+                                </li>
+                            }else {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                                </li>
+                        }
+                            </ul>
                     </ul>
                 </div>
             </div>
@@ -42,8 +54,14 @@
     </button>
 
     <div class="sidebar" id="sidebar">
-        <h3>SIDEBAR</h3>
-        dupa dupa
+        <h3>D&D</h3>
+        <div class="sidebar-options">
+            <ul>
+                <li><a asp-controller="Sidebar" asp-action="Planner">Session Planner</a></li>
+                <li><a asp-controller="Sidebar" asp-action="Characters">Character</a></li>
+                <li><a asp-controller="Sidebar" asp-action="Journal">Journal</a></li>
+            </ul>
+        </div>
     </div>
 
     <div class="container">

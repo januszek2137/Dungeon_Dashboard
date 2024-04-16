@@ -1,7 +1,7 @@
 html {
   font-size: 14px;
-  font-family: 'Roboto', sans-serif;
   overflow-x: hidden;
+  font-family: "Onest", sans-serif !important;
 }
 
 @media (min-width: 768px) {
@@ -82,4 +82,127 @@ body {
     color: #a688fa;
     background-color: #333;
     border: none;
+}
+
+.sidebar-options{
+    display: block;
+    padding: 0;
+    margin-bottom: 20px;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+
+.sidebar-options a{
+    color: #ba9ffb;
+    text-decoration: none;
+
+}
+
+.sidebar-options ul {
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-options ul li {
+    list-style: none;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+    text-align: center;
+    color: #ba9ffb;
+}
+
+    .sidebar-options ul li:hover {
+        background-color: #3f3a4a;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transform: scale(1.05);
+        transform: translateY(-2px);
+    }
+
+.sidebar-options ul li a {
+    text-decoration: none;
+    color: #ba9ffb;
+}
+
+.sidebar-options ul li a:hover {
+    color: #a688fa;
+}
+
+.sidebar h3{
+    color: #ba9ffb;
+    text-align: center;
+}
+
+h1{
+    color: #ba9ffb;
+}
+
+
+.navbar-nav .nav-item {
+    margin: 5px;
+    text-align: center;
+}
+
+.navbar-nav .nav-link {
+    display: block;
+    padding: 10px 15px;
+    color: #ba9ffb;
+    text-decoration: none;
+    background-color: #2f2b3a;
+    border-radius: 10px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: #3f3a4a;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        color: #a688fa;
+}
+
+.navbar-nav .nav-link.active {
+    background-color: #5f5a6a;
+    color: #fff;
+}
+
+form label {
+    color: #a688fa; /* G³ówny kolor, jasny fiolet */
+}
+
+.btn-primary {
+    background-color: #9e7fed; /* Nieco ciemniejszy fiolet ni¿ g³ówny kolor */
+    border-color: #9e7fed;
+}
+
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-primary:active {
+        background-color: #8e6fe2; /* Jeszcze ciemniejszy fiolet na hover */
+        border-color: #8e6fe2;
+    }
+
+.btn-outline-primary {
+    color: #ba9ffb; /* G³ówny kolor dla tekstu w przycisku obrysu */
+    border-color: #ba9ffb; /* G³ówny kolor dla obrysu */
+}
+
+    .btn-outline-primary:hover,
+    .btn-outline-primary:focus,
+    .btn-outline-primary:active {
+        color: #fff; /* Bia³y tekst na aktywnym/hover przycisku */
+        background-color: #9e7fed; /* T³o zmienia siê na ciemniejszy fiolet */
+        border-color: #9e7fed; /* Obramowanie te¿ na ciemniejszy fiolet */
+    }
+
+@media (max-width: 576px) {
+    .btn-group-vertical {
+        flex-direction: column !important; /* Przyciski pionowo na ma³ych ekranach */
+    }
+}
+
+@media (min-width: 768px) {
+    .btn-group .btn {
+        margin: 0 2px; /* Ma³e odstêpy miêdzy przyciskami na wiêkszych ekranach */
+    }
 }

@@ -1,0 +1,32 @@
+﻿#main {
+    background-color: #2f2b3a;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#main h1 {
+    color: #ba9ffb;
+    margin-right: 20px;
+}
+
+#main img {
+    width: 10%;
+    height: 10%;
+    border-radius: 100px;
+    margin-right: 20px;
+    filter: invert(100);
+    filter: drop-shadow(0 0 0.75rem #ba9ffb);
+
+}
+
+p {
+    color: #ba9ffb;
+    margin-top: 20px;
+}
