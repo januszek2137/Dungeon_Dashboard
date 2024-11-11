@@ -1,0 +1,23 @@
+﻿.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #17182b;
+    border-color: #3c3355;
+    border-radius: 7px;
+}
+
+.card-header {
+    font-weight: bold;
+    font-size: 1.2em;
+    background-color: #3c3355;
+}
+
+input.form-control,
+select.form-control {
+    font-size: 1em;
+}
+
+.btn-lg {
+    width: 100%;
+    padding: 0.5em;
+}

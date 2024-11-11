@@ -1,5 +1,5 @@
 ﻿@model Dungeon_Dashboard.Models.CharacterModel
-
+@using System.Globalization
 @{
     ViewData["Title"] = "Details";
 }
@@ -86,19 +86,41 @@
             @Html.DisplayNameFor(model => model.Skills)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Skills)
+            @{
+                if(Model.Skills != null){
+                    var skills = Model.Skills.Select(skill => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(skill.ToLower())).ToList();
+                    @if(skills.Any()) {
+                        @string.Join(", ", skills)
+                    }
+                }
+            }
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Equipment)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Equipment)
+            @{
+                if (Model.Equipment != null)
+                {
+                    var eq = Model.Equipment.Select(equipment => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(equipment.ToLower())).ToList();
+                    @if(eq.Any()) {
+                        @string.Join(", ", eq)
+                    }
+                }
+            }
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Inventory)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Inventory)
+            @{
+                if(Model.Inventory != null) {
+                    var inv = Model.Inventory.Select(inventory => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(inventory.ToLower())).ToList();
+                    @if(inv.Any()) {
+                        @string.Join(", ", inv)
+                    }
+                }
+            }
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Copper)

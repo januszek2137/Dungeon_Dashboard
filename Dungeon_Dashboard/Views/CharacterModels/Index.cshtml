@@ -9,13 +9,14 @@
 <p>
     <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
-
+<div id="main">
 <div class="character-grid">
     @foreach(var item in Model) {
         <div class="character-card">
-            <h2>@item.Name</h2>
+            <h2 style="color: #8a6de6">@item.Name</h2>
             <p><strong>Class:</strong> @item.Class</p>
             <p><strong>Level:</strong> @item.Level</p>
+            <p><strong>Created by:</strong> @item.CreatedBy</p>
             <div class="character-card-actions">
                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Edit</a>
                 <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
@@ -23,4 +24,5 @@
             </div>
         </div>
     }
+</div>
 </div>

@@ -23,9 +23,9 @@
     text-align: center;
     color: #ba9ffb;
     transition: transform 0.3s ease;
+    background-color: #251f32 !important;
 }
 
-    /* Pseudo-element dla efektu obramowania */
     .character-card::after {
         content: "";
         position: absolute;
@@ -33,32 +33,27 @@
         left: 0;
         right: 0;
         bottom: 0;
-        border-radius: 8px; /* Dopasowanie do karty */
-        border: 1px solid transparent; /* Przezroczyste obramowanie na start */
+        border-radius: 6px;
+        border: 1px solid transparent; 
         transition: 0.3s ease;
-        pointer-events: none; /* Wyłączenie interakcji dla pseudo-elementu */
+        pointer-events: none; 
     }
 
-    /* Efekt hover z poświatą na obramowaniu */
     .character-card:hover::after {
         border-color: #ffe77a; /* Kolor obramowania przy hover */
         filter: drop-shadow(0 0 0.75rem #ba9ffb); /* Efekt poświaty */
     }
 
-    /* Stylizacja nagłówka */
     .character-card h2 {
         margin: 0;
         font-size: 1.2em;
-        
     }
 
-    /* Stylizacja tekstu */
     .character-card p {
         margin: 5px 0;
         font-size: 0.9em;
     }
 
-/* Stylizacja przycisków */
 .character-card-actions {
     display: flex;
     gap: 5px;
