@@ -1,0 +1,72 @@
+﻿/* Kontener siatki */
+.character-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 10px;
+    justify-content: center;
+}
+
+/* Kwadratowy kafelek */
+.character-card {
+    position: relative; /* Ustawiamy kontekst dla pseudo-elementu */
+    border: 1px solid #a679b9;
+    border-radius: 8px;
+    width: 180px;
+    height: 180px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: #ba9ffb;
+    transition: transform 0.3s ease;
+}
+
+    /* Pseudo-element dla efektu obramowania */
+    .character-card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 8px; /* Dopasowanie do karty */
+        border: 1px solid transparent; /* Przezroczyste obramowanie na start */
+        transition: 0.3s ease;
+        pointer-events: none; /* Wyłączenie interakcji dla pseudo-elementu */
+    }
+
+    /* Efekt hover z poświatą na obramowaniu */
+    .character-card:hover::after {
+        border-color: #ffe77a; /* Kolor obramowania przy hover */
+        filter: drop-shadow(0 0 0.75rem #ba9ffb); /* Efekt poświaty */
+    }
+
+    /* Stylizacja nagłówka */
+    .character-card h2 {
+        margin: 0;
+        font-size: 1.2em;
+        
+    }
+
+    /* Stylizacja tekstu */
+    .character-card p {
+        margin: 5px 0;
+        font-size: 0.9em;
+    }
+
+/* Stylizacja przycisków */
+.character-card-actions {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    width: 100%;
+}
+
+    .character-card-actions .btn {
+        font-size: 0.75em;
+        padding: 5px 10px;
+    }

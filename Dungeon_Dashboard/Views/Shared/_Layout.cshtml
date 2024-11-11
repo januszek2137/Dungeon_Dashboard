@@ -31,7 +31,19 @@
                         </li>
                         <ul class="navbar-nav ms-auto">
                         @if(User.Identity.IsAuthenticated){
-                                <li class="nav-item"><a class="nav-link text-white">@User.Identity.Name</a></li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white">
+                                            @{
+                                                var userNameFull = User.Identity.Name;
+                                                var userName = "";
+                                                if (!string.IsNullOrEmpty(userNameFull))
+                                                {
+                                                    userName = userNameFull.Split('@')[0];
+                                                }
+                                            }
+                                        @userName
+                                    </a>
+                                </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Logout">Logout</a>
                                 </li>
@@ -39,7 +51,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Login">Login</a>
                                 </li>
-                        }
+                            }
                             </ul>
                     </ul>
                 </div>
@@ -54,14 +66,26 @@
     </button>
 
     <div class="sidebar" id="sidebar">
-        <h3>D&D</h3>
-        <div class="sidebar-options">
-            <ul>
-                <li><a asp-controller="Sidebar" asp-action="Planner">Session Planner</a></li>
-                <li><a asp-controller="Sidebar" asp-action="Characters">Character</a></li>
-                <li><a asp-controller="Sidebar" asp-action="Journal">Journal</a></li>
-            </ul>
-        </div>
+        @if(User.Identity.IsAuthenticated) {
+            <h3>D&D</h3>
+            <div class="sidebar-options">
+                <ul>
+                    <a asp-controller="Sidebar" asp-action="Planner" class="full-width-link">
+                        <li>Session Planner</li>
+                    </a>
+                    <a asp-controller="CharacterModels" asp-action="Index">
+                        <li>Character</li>
+                    </a>
+                    <a asp-controller="Sidebar" asp-action="Journal">
+                        <li>Journal</li>
+                    </a>
+                </ul>
+            </div>
+        } else {
+            <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+                <h3 style="text-align: center;">Log in to access the dashboard</h3>
+            </div>
+        }
     </div>
 
     <div class="container">

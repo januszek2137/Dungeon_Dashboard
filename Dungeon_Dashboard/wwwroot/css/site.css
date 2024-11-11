@@ -1,22 +1,31 @@
 html {
-  font-size: 14px;
-  overflow-x: hidden;
-  font-family: "Onest", sans-serif !important;
+    font-size: 14px;
+    overflow-x: hidden !important;
+    overflow-y: auto;
+    scrollbar-width: none;
+    font-family: "Onest", sans-serif !important;
+}
+
+#main {
+    background-color: #2f2b3a;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
@@ -45,23 +54,23 @@ body {
     padding: 10px;
 }
 
-#sidebar.active {
-    left: 0;
-    margin: 0;
-    padding: 10px;
-    z-index: 1;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-}
+    #sidebar.active {
+        left: 0;
+        margin: 0;
+        padding: 10px;
+        z-index: 1;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    }
 
 #content-wrapper {
     transition: margin-left 0.3s;
 }
 
-#content-wrapper.active {
-    margin-left: 250px;
-}
+    #content-wrapper.active {
+        margin-left: 250px;
+    }
 
-.btn-toolbar{
+.btn-toolbar {
     background-color: transparent;
     border: none;
     position: fixed;
@@ -84,61 +93,59 @@ body {
     border: none;
 }
 
-.sidebar-options{
+.sidebar-options {
     display: block;
     padding: 0;
     margin-bottom: 20px;
     padding: 10px;
-    transition: background-color 0.3s;
+    transition: background-color 0.1s;
 }
 
-.sidebar-options a{
-    color: #ba9ffb;
-    text-decoration: none;
-
-}
-
-.sidebar-options ul {
-    padding: 0;
-    margin: 0;
-}
-
-.sidebar-options ul li {
-    list-style: none;
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 5px;
-    transition: background-color 0.3s, transform 0.3s;
-    text-align: center;
-    color: #ba9ffb;
-}
-
-    .sidebar-options ul li:hover {
-        background-color: #3f3a4a;
-        cursor: pointer;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transform: scale(1.05);
-        transform: translateY(-2px);
+    .sidebar-options a {
+        color: #ba9ffb;
+        text-decoration: none;
     }
 
-.sidebar-options ul li a {
-    text-decoration: none;
-    color: #ba9ffb;
-}
+    .sidebar-options ul {
+        padding: 0;
+        margin: 0;
+    }
 
-.sidebar-options ul li a:hover {
-    color: #a688fa;
-}
+        .sidebar-options ul li {
+            list-style: none;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+            text-align: center;
+            color: #ba9ffb;
+        }
 
-.sidebar h3{
+            .sidebar-options ul li:hover {
+                background-color: #3f3a4a;
+                cursor: pointer;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                transform: scale(1.05);
+                transform: translateY(-2px);
+            }
+
+            .sidebar-options ul li a {
+                text-decoration: none;
+                color: #ba9ffb;
+            }
+
+                .sidebar-options ul li a:hover {
+                    color: #a688fa;
+                }
+
+.sidebar h3 {
     color: #ba9ffb;
     text-align: center;
 }
 
-h1{
+h1 {
     color: #ba9ffb;
 }
-
 
 .navbar-nav .nav-item {
     margin: 5px;
@@ -155,16 +162,16 @@ h1{
     transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-.navbar-nav .nav-link:hover {
-    background-color: #3f3a4a;
+    .navbar-nav .nav-link:hover {
+        background-color: #3f3a4a;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         color: #a688fa;
-}
+    }
 
-.navbar-nav .nav-link.active {
-    background-color: #5f5a6a;
-    color: #fff;
-}
+    .navbar-nav .nav-link.active {
+        background-color: #5f5a6a;
+        color: #fff;
+    }
 
 form label {
     color: #a688fa; /* G³ówny kolor, jasny fiolet */
@@ -195,14 +202,13 @@ form label {
         border-color: #9e7fed; /* Obramowanie te¿ na ciemniejszy fiolet */
     }
 
-@media (max-width: 576px) {
-    .btn-group-vertical {
-        flex-direction: column !important; /* Przyciski pionowo na ma³ych ekranach */
-    }
+/* Uk³ad przycisków jeden pod drugim */
+.btn-stack {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Pe³na szerokoœæ dla ka¿dego przycisku */
 }
 
-@media (min-width: 768px) {
-    .btn-group .btn {
-        margin: 0 2px; /* Ma³e odstêpy miêdzy przyciskami na wiêkszych ekranach */
+    .btn-stack .btn {
+        margin-bottom: 10px; /* Odstêp miêdzy przyciskami */
     }
-}

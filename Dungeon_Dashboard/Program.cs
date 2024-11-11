@@ -3,6 +3,7 @@ using Dungeon_Dashboard.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDBContext>(options =>
@@ -13,8 +14,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<AppDBContext>();
 
 builder.Services.ConfigureApplicationCookie(options => {
-    options.LoginPath = "/Identity/Pages/Account/Login";
-    options.LogoutPath = "/Identity/Pages/Account/Logout";
+    options.LoginPath = "/Identity/Account/Login";
+    options.LogoutPath = "/Identity/Account/Logout";
 });
 
 // Add services to the container.
@@ -25,8 +26,6 @@ builder.Logging.AddConsole();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 var app = builder.Build();
-
-
 
 // Configure the HTTP request pipeline.
 if(!app.Environment.IsDevelopment()) {
@@ -48,8 +47,5 @@ app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-
-
 
 app.Run();

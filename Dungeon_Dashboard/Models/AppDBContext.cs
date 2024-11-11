@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace Dungeon_Dashboard.Models {
+
     public class AppDBContext : IdentityDbContext {
+
         public AppDBContext(DbContextOptions<AppDBContext> options) : base(options) {
             /* TODO : Add DbSet properties for each model class
             public DbSet<Monster> Monsters { get; set; }
@@ -15,5 +17,7 @@ namespace Dungeon_Dashboard.Models {
             */
         }
 
+        public DbSet<Dungeon_Dashboard.Models.EventModel> EventModel { get; set; } = default!;
+        public DbSet<Dungeon_Dashboard.Models.CharacterModel> CharacterModel { get; set; } = default!;
     }
 }

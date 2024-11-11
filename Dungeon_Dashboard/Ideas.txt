@@ -1,3 +1,7 @@
+!!otwarty dashboard przechodzi miedzy sesjami!!
+
+
+
 1. Dashboard Sesji
 Stwórz spersonalizowany dashboard, który podsumowuje nadchodz¹ce
 sesje, wa¿ne wydarzenia w kampanii i wszelkie niezbêdne przygotowania. U¿ytkownicy mogliby zobaczyæ najbli¿sze terminy sesji, ich agendê oraz listê postaci uczestnicz¹cych.

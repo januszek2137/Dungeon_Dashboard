@@ -4,6 +4,7 @@ using Dungeon_Dashboard.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dungeon_Dashboard.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240416221459_EventMigration")]
+    partial class EventMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,80 +24,6 @@ namespace Dungeon_Dashboard.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Dungeon_Dashboard.Models.CharacterModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ArmorClass")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Charisma")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Class")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Constitution")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Copper")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Dexterity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Electrum")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Equipment")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Gold")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HitPoints")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Intelligence")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Inventory")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Level")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Platinum")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Silver")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Skills")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("Speed")
-                        .HasColumnType("real");
-
-                    b.Property<int>("Strength")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Wisdom")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CharacterModel");
-                });
 
             modelBuilder.Entity("Dungeon_Dashboard.Models.EventModel", b =>
                 {

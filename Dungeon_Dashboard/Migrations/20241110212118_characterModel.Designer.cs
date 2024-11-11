@@ -4,6 +4,7 @@ using Dungeon_Dashboard.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dungeon_Dashboard.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20241110212118_characterModel")]
+    partial class characterModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,6 +55,7 @@ namespace Dungeon_Dashboard.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Equipment")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Gold")
@@ -64,6 +68,7 @@ namespace Dungeon_Dashboard.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Inventory")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Level")
@@ -80,6 +85,7 @@ namespace Dungeon_Dashboard.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Skills")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("Speed")
