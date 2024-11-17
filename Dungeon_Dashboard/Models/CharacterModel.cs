@@ -82,11 +82,11 @@ namespace Dungeon_Dashboard.Models {
         [Required(ErrorMessage = "Charisma is required")]
         [Range(3, 20, ErrorMessage = "Charisma must be between 3 and 20")]
         public int Charisma { get; set; }
-
+        [Required]
         public string[]? Skills { get; set; } = { "None" };
-
+        [Required]
         public string[]? Equipment { get; set; } = { "None" };
-
+        [Required]
         public string[]? Inventory { get; set; } = { "None" };
 
         [Range(0, int.MaxValue, ErrorMessage = "Copper must be a non-negative number")]

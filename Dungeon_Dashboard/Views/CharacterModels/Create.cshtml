@@ -148,7 +148,8 @@
                 <div class="form-group">
                     <label>Skills:</label>
                     <div id="skills-container">
-                        <input type="text" name="Skills" class="form-control" placeholder="Enter a skill" />
+                        <input type="text" name="Skills" class="form-control" placeholder="Enter a skill"/>
+                        <span asp-validation-for="Skills" class="text-danger"></span>
                     </div>
                     <button type="button" onclick="addInput('skills-container', 'Skills')">Add Skill</button>
                 </div>
@@ -157,6 +158,7 @@
                     <label>Equipment:</label>
                     <div id="equipment-container">
                         <input type="text" name="Equipment" class="form-control" placeholder="Enter equipment item" />
+                        <span asp-validation-for="Equipment" class="text-danger"></span>
                     </div>
                     <button type="button" onclick="addInput('equipment-container', 'Equipment')">Add Equipment</button>
                 </div>
@@ -165,6 +167,7 @@
                     <label>Inventory:</label>
                     <div id="inventory-container">
                         <input type="text" name="Inventory" class="form-control" placeholder="Enter inventory item" />
+                        <span asp-validation-for="Inventory" class="text-danger"></span>
                     </div>
                     <button type="button" onclick="addInput('inventory-container', 'Inventory')">Add Inventory Item</button>
                 </div>
