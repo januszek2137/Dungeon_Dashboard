@@ -37,10 +37,10 @@ We’re just getting started! Here are some features we're planning to add in fu
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: React.js, TailwindCSS
-- **Backend**: Node.js, Express
-- **Database**: MongoDB
-- **Other Tools**: Cloudinary (for sheet generation), JWT Authentication
+- **Frontend**: Razor Pages, Bootstrap
+- **Backend**: ASP.NET Core
+- **Database**: MSSql
+- **Other Tools**: Identity Framework, Entity Framework
 
 ---
 
