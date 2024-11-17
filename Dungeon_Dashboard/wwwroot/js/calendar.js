@@ -1,6 +1,14 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
+    function clearModalForm() {
+        $('#newTitle').val('');
+        $('#newDescription').val('');
+        $('#newDate').val('');
+        $('#newTime').val('');
+        $('#newLocation').val('');
+    }
+
+    const calendarEl = document.getElementById('calendar');
+    const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         headerToolbar: {
             left: 'prev,next today',
@@ -27,9 +35,7 @@
         }
     });
     calendar.render();
-});
 
-$(document).ready(function () {
     $("#openModalButton").on('click', function () {
         clearModalForm(); // Clear form before opening new event modal
         $("#newEventModal").modal('show');
@@ -62,11 +68,12 @@ $(document).ready(function () {
             contentType: 'application/json',
             success: function (data) {
                 console.log("Success response received");
-                $("#newEventModal").modal("hide");
-                calendar.getEventSources().forEach(function (source) {
+                
+                calendar.getEventSources().forEach((source) => {
                     source.refetch();
                 });
-                clearModalForm();
+                $("#closeclose").click();
+                console.log($(".close"));
             },
             error: function (xhr, status, error) {
                 console.error("Error saving event", xhr, status, error);
@@ -74,12 +81,10 @@ $(document).ready(function () {
         });
 
 
-        function clearModalForm() {
-            $('#newTitle').val('');
-            $('#newDescription').val('');
-            $('#newDate').val('');
-            $('#newTime').val('');
-            $('#newLocation').val('');
-        }
+        
     });
+});
+
+$(document).ready(function () {
+
 });

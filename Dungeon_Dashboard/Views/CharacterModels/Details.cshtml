@@ -8,6 +8,7 @@
 
 <div>
     <h4>CharacterModel</h4>
+    <a href="@Url.Action("GenerateCharacterPdf", "CharacterModels", new{ id=4 })" class="btn btn-primary">Generate PDF</a>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -87,11 +88,12 @@
         </dt>
         <dd class = "col-sm-10">
             @{
-                if(Model.Skills != null){
-                    var skills = Model.Skills.Select(skill => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(skill.ToLower())).ToList();
-                    @if(skills.Any()) {
-                        @string.Join(", ", skills)
-                    }
+                var skills = new List<string>();
+                if(Model?.Skills != null && Model.Skills.Any()){
+                    skills = Model.Skills
+                    .Where(skill => !string.IsNullOrWhiteSpace(skill))
+                    .Select(skill => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(skill.ToLower())).ToList();
+                    @string.Join(", ", skills)
                 }
             }
         </dd>
@@ -100,9 +102,11 @@
         </dt>
         <dd class = "col-sm-10">
             @{
-                if (Model.Equipment != null)
-                {
-                    var eq = Model.Equipment.Select(equipment => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(equipment.ToLower())).ToList();
+                var eq = new List<string>();
+                if (Model?.Equipment != null && Model.Equipment.Any()){
+                    eq = Model.Equipment
+                    .Where(equipment => !string.IsNullOrWhiteSpace(equipment))
+                    .Select(equipment => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(equipment.ToLower())).ToList();
                     @if(eq.Any()) {
                         @string.Join(", ", eq)
                     }
@@ -114,8 +118,11 @@
         </dt>
         <dd class = "col-sm-10">
             @{
+                var inv = new List<string>();
                 if(Model.Inventory != null) {
-                    var inv = Model.Inventory.Select(inventory => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(inventory.ToLower())).ToList();
+                    inv = Model.Inventory
+                    .Where(inventory => !string.IsNullOrWhiteSpace(inventory))
+                    .Select(inventory => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(inventory.ToLower())).ToList();
                     @if(inv.Any()) {
                         @string.Join(", ", inv)
                     }

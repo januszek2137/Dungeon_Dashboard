@@ -1,5 +1,6 @@
 !!otwarty dashboard przechodzi miedzy sesjami!!
-
+!!generacja karty postaci przy detailsach postaci!!
+!!w widoku CharacterModels/Details przy braku skilli/inv/eq nie wyœwietlaæ pól!!
 
 
 1. Dashboard Sesji

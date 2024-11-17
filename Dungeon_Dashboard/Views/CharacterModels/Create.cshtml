@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="~/css/CreateCharacter.css" />
 
 <script>
-    // Funkcja dodająca nowe pole input dla danego kontenera
     function addInput(containerId, name) {
         const container = document.getElementById(containerId);
         const input = document.createElement("input");
@@ -71,36 +70,41 @@
         <div class="card mb-4">
             <div class="card-header">Attributes</div>
             <div class="card-body row">
-                <div class="col-md-4 form-group">
-                    <label asp-for="Strength">Strength</label>
-                    <input asp-for="Strength" class="form-control" placeholder="0-20" />
+                <div class="col-md-4 form-group slider-container">
+                    <label asp-for="Strength">Strength: <span id="sliderValueStrength"></span></label>
+                    <input type="range" id="sliderStrength" min="3" max="20" value="10" asp-for="Strength" class="form-control form-range" />
                     <span asp-validation-for="Strength" class="text-danger"></span>
                 </div>
-                <div class="col-md-4 form-group">
-                    <label asp-for="Dexterity">Dexterity</label>
-                    <input asp-for="Dexterity" class="form-control" placeholder="0-20" />
+                <div class="col-md-4 form-group slider-container">
+                    <label asp-for="Dexterity">Dexterity: <span id="sliderValueDexterity"></span></label>
+                    <input type="range" id="sliderDexterity" min="3" max="20" value="10" asp-for="Dexterity" class="form-control form-range" />
                     <span asp-validation-for="Dexterity" class="text-danger"></span>
                 </div>
-                <div class="col-md-4 form-group">
-                    <label asp-for="Constitution">Constitution</label>
-                    <input asp-for="Constitution" class="form-control" placeholder="0-20" />
+
+                <div class="col-md-4 form-group slider-container">
+                    <label asp-for="Constitution">Constitution: <span id="sliderValueConstitution"></span></label>
+                    <input type="range" id="sliderConstitution" min="3" max="20" value="10" asp-for="Constitution" class="form-control form-range" />
                     <span asp-validation-for="Constitution" class="text-danger"></span>
                 </div>
-                <div class="col-md-4 form-group">
-                    <label asp-for="Intelligence">Intelligence</label>
-                    <input asp-for="Intelligence" class="form-control" placeholder="0-20" />
+
+                <div class="col-md-4 form-group slider-container">
+                    <label asp-for="Intelligence">Intelligence: <span id="sliderValueIntelligence"></span></label>
+                    <input type="range" id="sliderIntelligence" min="3" max="20" value="10" asp-for="Intelligence" class="form-control form-range" />
                     <span asp-validation-for="Intelligence" class="text-danger"></span>
                 </div>
-                <div class="col-md-4 form-group">
-                    <label asp-for="Wisdom">Wisdom</label>
-                    <input asp-for="Wisdom" class="form-control" placeholder="0-20" />
+
+                <div class="col-md-4 form-group slider-container">
+                    <label asp-for="Wisdom">Wisdom: <span id="sliderValueWisdom"></span></label>
+                    <input type="range" id="sliderWisdom" min="3" max="20" value="10" asp-for="Wisdom" class="form-control form-range" />
                     <span asp-validation-for="Wisdom" class="text-danger"></span>
                 </div>
-                <div class="col-md-4 form-group">
-                    <label asp-for="Charisma">Charisma</label>
-                    <input asp-for="Charisma" class="form-control" placeholder="0-20" />
+
+                <div class="col-md-4 form-group slider-container">
+                    <label asp-for="Charisma">Charisma: <span id="sliderValueCharisma"></span></label>
+                    <input type="range" id="sliderCharisma" min="3" max="20" value="10" asp-for="Charisma" class="form-control form-range" />
                     <span asp-validation-for="Charisma" class="text-danger"></span>
                 </div>
+
             </div>
 
 

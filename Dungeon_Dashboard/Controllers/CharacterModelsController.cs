@@ -1,4 +1,6 @@
 ﻿using Dungeon_Dashboard.Models;
+using iText.Forms;
+using iText.Kernel.Pdf;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -159,6 +161,47 @@ namespace Dungeon_Dashboard.Controllers {
 
         private bool CharacterModelExists(int id) {
             return _context.CharacterModel.Any(e => e.Id == id);
+        }
+
+        public async Task<IActionResult> GenerateCharacterPdf(int id) {
+            var characterModel = await _context.CharacterModel.FindAsync(id);
+            if(characterModel == null) {
+                return NotFound();
+            }
+
+            var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "pdfs", "CharacterSheetTemplate.pdf");
+            var outputPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "pdfs", $"CharacterSheet_{id}.pdf");
+
+            if(!System.IO.File.Exists(templatePath)) {
+                return NotFound($"Template file not found: {templatePath}");
+            }
+
+            try {
+                var outputDirectory = Path.GetDirectoryName(outputPath);
+                using(var memoryStream = new MemoryStream()) {
+                    // Wypełnianie PDF
+                    using(var reader = new PdfReader(templatePath))
+                    using(var writer = new PdfWriter(memoryStream))
+                    using(var pdf = new PdfDocument(reader, writer)) {
+                        var form = PdfAcroForm.GetAcroForm(pdf, true);
+
+                        form.GetField("CharacterName")?.SetValue(characterModel.Name);
+                        form.GetField("ClassLevel")?.SetValue(characterModel.Class.ToString() + characterModel.Level.ToString());
+                        form.GetField("Race ")?.SetValue(characterModel.Race.ToString());
+                        form.GetField("Speed")?.SetValue(characterModel.Speed.ToString());
+                        form.GetField("AC")?.SetValue(characterModel.ArmorClass.ToString());
+
+                        form.FlattenFields();
+                    }
+
+                    byte[] fileBytes = System.IO.File.ReadAllBytes(outputPath);
+
+                    return File(memoryStream.ToArray(), "application/pdf", $"CharacterSheet_{id}.pdf");
+                }
+            } catch(Exception ex) {
+                Console.WriteLine($"Error generating PDF: {ex.Message}");
+                return StatusCode(500, "Internal server error while generating PDF.");
+            }
         }
     }
 }

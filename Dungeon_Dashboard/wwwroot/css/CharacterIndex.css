@@ -10,10 +10,10 @@
 /* Kwadratowy kafelek */
 .character-card {
     position: relative; /* Ustawiamy kontekst dla pseudo-elementu */
-    border: 1px solid #a679b9;
+    border: 1px solid #ba9ffb;
     border-radius: 8px;
-    width: 180px;
-    height: 180px;
+    width: 200px;
+    height: 200px;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -34,14 +34,13 @@
         right: 0;
         bottom: 0;
         border-radius: 6px;
-        border: 1px solid transparent; 
+        border: 1px solid transparent;
         transition: 0.3s ease;
-        pointer-events: none; 
+        pointer-events: none;
     }
 
     .character-card:hover::after {
-        border-color: #ffe77a; /* Kolor obramowania przy hover */
-        filter: drop-shadow(0 0 0.75rem #ba9ffb); /* Efekt poświaty */
+        border-color: #ba9ffb !important;
     }
 
     .character-card h2 {

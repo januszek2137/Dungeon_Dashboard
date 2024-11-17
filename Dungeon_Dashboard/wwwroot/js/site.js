@@ -14,3 +14,20 @@
         this.classList.add("rotate-180");
     }
 });
+
+function updateSliderValue(sliderId, valueId) {
+    const slider = document.getElementById(sliderId);
+    const value = document.getElementById(valueId);
+
+    value.textContent = slider.value;
+
+    slider.addEventListener('input', () => {
+        value.textContent = slider.value;
+    });
+}
+updateSliderValue('sliderStrength', 'sliderValueStrength');
+updateSliderValue('sliderDexterity', 'sliderValueDexterity');
+updateSliderValue('sliderConstitution', 'sliderValueConstitution');
+updateSliderValue('sliderIntelligence', 'sliderValueIntelligence');
+updateSliderValue('sliderWisdom', 'sliderValueWisdom');
+updateSliderValue('sliderCharisma', 'sliderValueCharisma');
