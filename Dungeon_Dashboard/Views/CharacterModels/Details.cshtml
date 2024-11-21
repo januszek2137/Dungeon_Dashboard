@@ -1,167 +1,63 @@
 ﻿@model Dungeon_Dashboard.Models.CharacterModel
-@using System.Globalization
+
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Character Details";
 }
+<link rel="stylesheet" href="/css/CharacterDetails.css" />
+<div class="character-details">
+    <h1 class="character-header text-center">
+        <span class="character-name badge custom-primary">@Model.Name</span>
+        <span class="character-class badge custom-secondary">@Model.Class</span>
+        <span class="character-race badge custom-secondary">@Model.Race</span>
+    </h1>
 
-<h1>Details</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="section-title">Stats</h3>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    💪 Strength: <strong>@Model.Strength</strong>
+                </li>
+                <li class="list-group-item">
+                    🤸 Dexterity: <strong>@Model.Dexterity</strong>
+                </li>
+                <li class="list-group-item">
+                    🏋️ Constitution: <strong>@Model.Constitution</strong>
+                </li>
+                <li class="list-group-item">
+                    🧠 Intelligence: <strong>@Model.Intelligence</strong>
+                </li>
+                <li class="list-group-item">
+                    🦉 Wisdom: <strong>@Model.Wisdom</strong>
+                </li>
+                <li class="list-group-item">
+                    😎 Charisma: <strong>@Model.Charisma</strong>
+                </li>
+            </ul>
+        </div>
 
-<div>
-    <h4>CharacterModel</h4>
-    <a href="@Url.Action("GenerateCharacterPdf", "CharacterModels", new{ id=Model.Id })" class="btn btn-primary">Generate PDF</a>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Class)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Class)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Level)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Level)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Speed)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Speed)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ArmorClass)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ArmorClass)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HitPoints)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HitPoints)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Strength)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Strength)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Dexterity)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Dexterity)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Constitution)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Constitution)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Intelligence)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Intelligence)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Wisdom)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Wisdom)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Charisma)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Charisma)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Skills)
-        </dt>
-        <dd class = "col-sm-10">
-            @{
-                var skills = new List<string>();
-                if(Model?.Skills != null && Model.Skills.Any()){
-                    skills = Model.Skills
-                    .Where(skill => !string.IsNullOrWhiteSpace(skill))
-                    .Select(skill => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(skill.ToLower())).ToList();
-                    @string.Join(", ", skills)
-                }
-            }
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Equipment)
-        </dt>
-        <dd class = "col-sm-10">
-            @{
-                var eq = new List<string>();
-                if (Model?.Equipment != null && Model.Equipment.Any()){
-                    eq = Model.Equipment
-                    .Where(equipment => !string.IsNullOrWhiteSpace(equipment))
-                    .Select(equipment => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(equipment.ToLower())).ToList();
-                    @if(eq.Any()) {
-                        @string.Join(", ", eq)
-                    }
-                }
-            }
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Inventory)
-        </dt>
-        <dd class = "col-sm-10">
-            @{
-                var inv = new List<string>();
-                if(Model.Inventory != null) {
-                    inv = Model.Inventory
-                    .Where(inventory => !string.IsNullOrWhiteSpace(inventory))
-                    .Select(inventory => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(inventory.ToLower())).ToList();
-                    @if(inv.Any()) {
-                        @string.Join(", ", inv)
-                    }
-                }
-            }
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Copper)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Copper)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Silver)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Silver)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Electrum)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Electrum)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Gold)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Gold)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Platinum)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Platinum)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+        <div class="col-md-6">
+            <h3 class="section-title">Skills, Equipment & Inventory</h3>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Skills:</strong>@string.Join(", ", Model.Skills ?? new string[] {"None"})</li>
+                <li class="list-group-item"><strong>Equipment:</strong> @string.Join(", ", Model.Equipment ?? new string[] { "None" })</li>
+                <li class="list-group-item"><strong>Inventory:</strong> @string.Join(", ", Model.Inventory ?? new string[] { "None" })</li>
+            </ul>
+
+            <h3 class="section-title">Currency</h3>
+            <ul class="list-group">
+                <li class="list-group-item">🪙 Copper: <strong>@Model.Copper</strong></li>
+                <li class="list-group-item">🥈 Silver: <strong>@Model.Silver</strong></li>
+                <li class="list-group-item">⚡ Electrum: <strong>@Model.Electrum</strong></li>
+                <li class="list-group-item">🏆 Gold: <strong>@Model.Gold</strong></li>
+                <li class="list-group-item">💎 Platinum: <strong>@Model.Platinum</strong></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="actions mt-4 text-center">
+        <a href="@Url.Action("Edit", "CharacterModels", new { id = Model.Id })" class="btn btn-primary">Edit</a>
+        <a href="@Url.Action("GenerateCharacterPdf", "CharacterModels", new{ id=Model.Id })" class="btn btn-primary">Generate PDF</a>
+        <a href="@Url.Action("Index", "CharacterModels")" class="btn btn-secondary">Back to List</a>
+    </div>
 </div>

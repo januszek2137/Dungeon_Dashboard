@@ -4,7 +4,7 @@
     ViewData["Title"] = "Characters";
 }
 
-<h1>Characters</h1>
+<h1>Characters👤</h1>
 <link rel="stylesheet" href="~/css/CharacterIndex.css" />
 <p>
     <a asp-action="Create" class="btn btn-primary">Create New</a>
@@ -13,10 +13,10 @@
 <div class="character-grid">
     @foreach(var item in Model) {
         <div class="character-card">
-            <h2 style="color: #8a6de6">@item.Name</h2>
-            <p><strong>Class:</strong> @item.Class</p>
-            <p><strong>Level:</strong> @item.Level</p>
-            <p><strong>Created by:</strong> @item.CreatedBy</p>
+                <h2 style="color: #8a6de6">@item.Name</h2>
+                <p><strong>Class: </strong>@item.Class</p>
+                <p><strong>Level: </strong>@item.Level</p>
+                <p><strong>Created by: </strong>@item.CreatedBy</p>
             <div class="character-card-actions">
                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-lg">Edit</a>
                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary btn-lg">Details</a>

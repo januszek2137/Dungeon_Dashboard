@@ -23,44 +23,44 @@
         <h1>Create Character</h1>
         <hr />
         <div class="card mb-4">
-            <div class="card-header">Basic Information</div>
+            <div class="card-header">Basic Informationℹ️</div>
             <div class="card-body">
                 <div class="form-group">
-                    <label asp-for="Name" class="control-label">Name</label>
+                    <label asp-for="Name" class="control-label">✨Name:</label>
                     <input asp-for="Name" class="form-control" placeholder="Name" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Level" class="control-label">Level</label>
+                    <label asp-for="Level" class="control-label">📈Level:</label>
                     <input asp-for="Level" class="form-control" placeholder="Level" />
                     <span asp-validation-for="Level" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Class" class="control-label">Class</label>
+                    <label asp-for="Class" class="control-label">⚔️Class:</label>
                     <select asp-for="Class" asp-items="ViewBag.ClassList" class="form-control">
                         <option value="" disabled selected>Class</option>
                     </select>
                     <span asp-validation-for="Class" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Race" class="control-label">Race</label>
+                    <label asp-for="Race" class="control-label">🌍Race:</label>
                     <select asp-for="Race" asp-items="ViewBag.RaceList" class="form-control">
                         <option value="" disabled selected>Race</option>
                     </select>
                     <span asp-validation-for="Race" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Speed" class="control-label"></label>
+                    <label asp-for="Speed" class="control-label">🏃‍♂️Speed:</label>
                     <input asp-for="Speed" class="form-control" placeholder="Speed" />
                     <span asp-validation-for="Speed" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="HitPoints" class="control-label"></label>
+                    <label asp-for="HitPoints" class="control-label">❤️Hit Points:</label>
                     <input asp-for="HitPoints" class="form-control" placeholder="Hit Points"/>
                     <span asp-validation-for="HitPoints" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="ArmorClass" class="control-label"></label>
+                    <label asp-for="ArmorClass" class="control-label">🛡️Armor Class:</label>
                     <input asp-for="ArmorClass" class="form-control" placeholder="Armor Class"/>
                     <span asp-validation-for="ArmorClass" class="text-danger"></span>
                 </div>
@@ -68,39 +68,39 @@
         </div>
 
         <div class="card mb-4">
-            <div class="card-header">Attributes</div>
+            <div class="card-header">Attributes📋</div>
             <div class="card-body row">
                 <div class="col-md-4 form-group slider-container">
-                    <label asp-for="Strength">Strength: <span id="sliderValueStrength"></span></label>
+                    <label asp-for="Strength">💪Strength: <span id="sliderValueStrength"></span></label>
                     <input type="range" id="sliderStrength" min="3" max="20" value="10" asp-for="Strength" class="form-control form-range" />
                     <span asp-validation-for="Strength" class="text-danger"></span>
                 </div>
                 <div class="col-md-4 form-group slider-container">
-                    <label asp-for="Dexterity">Dexterity: <span id="sliderValueDexterity"></span></label>
+                    <label asp-for="Dexterity">🤸‍♂️Dexterity: <span id="sliderValueDexterity"></span></label>
                     <input type="range" id="sliderDexterity" min="3" max="20" value="10" asp-for="Dexterity" class="form-control form-range" />
                     <span asp-validation-for="Dexterity" class="text-danger"></span>
                 </div>
 
                 <div class="col-md-4 form-group slider-container">
-                    <label asp-for="Constitution">Constitution: <span id="sliderValueConstitution"></span></label>
+                    <label asp-for="Constitution">🏋️‍♀️Constitution: <span id="sliderValueConstitution"></span></label>
                     <input type="range" id="sliderConstitution" min="3" max="20" value="10" asp-for="Constitution" class="form-control form-range" />
                     <span asp-validation-for="Constitution" class="text-danger"></span>
                 </div>
 
                 <div class="col-md-4 form-group slider-container">
-                    <label asp-for="Intelligence">Intelligence: <span id="sliderValueIntelligence"></span></label>
+                    <label asp-for="Intelligence">🧠Intelligence: <span id="sliderValueIntelligence"></span></label>
                     <input type="range" id="sliderIntelligence" min="3" max="20" value="10" asp-for="Intelligence" class="form-control form-range" />
                     <span asp-validation-for="Intelligence" class="text-danger"></span>
                 </div>
 
                 <div class="col-md-4 form-group slider-container">
-                    <label asp-for="Wisdom">Wisdom: <span id="sliderValueWisdom"></span></label>
+                    <label asp-for="Wisdom">🦉Wisdom: <span id="sliderValueWisdom"></span></label>
                     <input type="range" id="sliderWisdom" min="3" max="20" value="10" asp-for="Wisdom" class="form-control form-range" />
                     <span asp-validation-for="Wisdom" class="text-danger"></span>
                 </div>
 
                 <div class="col-md-4 form-group slider-container">
-                    <label asp-for="Charisma">Charisma: <span id="sliderValueCharisma"></span></label>
+                    <label asp-for="Charisma">😎Charisma: <span id="sliderValueCharisma"></span></label>
                     <input type="range" id="sliderCharisma" min="3" max="20" value="10" asp-for="Charisma" class="form-control form-range" />
                     <span asp-validation-for="Charisma" class="text-danger"></span>
                 </div>
@@ -111,42 +111,41 @@
         </div>
 
         <div class="card mb-4 ">
-            <div class="card-header">Currencies</div>
+            <div class="card-header">Currencies💲</div>
             <div class="card-body row d-flex justify-content-between">
                 <div class="col-md-2 form-group">
-                    <label asp-for="Copper">Copper</label>
+                    <label asp-for="Copper">🪙Copper: </label>
                     <input asp-for="Copper" class="form-control" />
                     <span asp-validation-for="Copper" class="text-danger"></span>
                 </div>
                 <div class="col-md-2 form-group">
-                    <label asp-for="Silver">Silver</label>
+                    <label asp-for="Silver">🥈Silver: </label>
                     <input asp-for="Silver" class="form-control" />
                     <span asp-validation-for="Silver" class="text-danger"></span>
                 </div>
                 <div class="col-md-2 form-group">
-                    <label asp-for="Electrum">Electrum</label>
+                    <label asp-for="Electrum">⚡Electrum: </label>
                     <input asp-for="Electrum" class="form-control" />
                     <span asp-validation-for="Electrum" class="text-danger"></span>
                 </div>
                 <div class="col-md-2 form-group">
-                    <label asp-for="Gold">Gold</label>
+                    <label asp-for="Gold">🏆Gold: </label>
                     <input asp-for="Gold" class="form-control" />
                     <span asp-validation-for="Gold" class="text-danger"></span>
                 </div>
                 <div class="col-md-2 form-group">
-                    <label asp-for="Platinum">Platinum</label>
+                    <label asp-for="Platinum">💎Platinum: </label>
                     <input asp-for="Platinum" class="form-control" />
                     <span asp-validation-for="Platinum" class="text-danger"></span>
                 </div>
             </div>
-            <!--EKWIPUNEK-->
             
         </div>
         <div class="card mb-4">
-            <div class="card-header">Character Resources</div>
+            <div class="card-header">Character Resources🔗</div>
             <div class="card-body">
                 <div class="form-group">
-                    <label>Skills:</label>
+                    <label>🎯Skills: </label>
                     <div id="skills-container">
                         <input type="text" name="Skills" class="form-control" placeholder="Enter a skill"/>
                         <span asp-validation-for="Skills" class="text-danger"></span>
@@ -155,7 +154,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Equipment:</label>
+                    <label>⚔️Equipment: </label>
                     <div id="equipment-container">
                         <input type="text" name="Equipment" class="form-control" placeholder="Enter equipment item" />
                         <span asp-validation-for="Equipment" class="text-danger"></span>
@@ -164,7 +163,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Inventory:</label>
+                    <label>🎒Inventory: </label>
                     <div id="inventory-container">
                         <input type="text" name="Inventory" class="form-control" placeholder="Enter inventory item" />
                         <span asp-validation-for="Inventory" class="text-danger"></span>
