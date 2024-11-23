@@ -10,6 +10,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Onest:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cannon-es/dist/cannon-es.js"></script>
+
+
 </head>
 <body style="font-family: 'Onest', sans-serif;">
     <div id="content-wrapper">
@@ -71,14 +75,17 @@
             <div class="sidebar-options">
                 <ul>
                     <a asp-controller="Sidebar" asp-action="Planner" class="full-width-link">
-                        <li>Session Planner</li>
+                        <li>📅Session Planner📅</li>
                     </a>
                     <a asp-controller="CharacterModels" asp-action="Index">
-                        <li>Character</li>
+                        <li>👤Character👤</li>
                     </a>
                     <a asp-controller="Sidebar" asp-action="Journal">
-                        <li>Journal</li>
+                        <li>📓Journal📓</li>
                     </a>
+                     <a href="#" class="full-width-link" data-bs-toggle="modal" data-bs-target="#diceRollerModal">
+                        <li>🎲Dice Roller🎲</li>
+                     </a>
                 </ul>
             </div>
         } else {
@@ -104,5 +111,43 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    <!--DICEROLLER-->
+    <div class="modal fade" id="diceRollerModal" tabindex="-1" aria-labelledby="diceRollerLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="diceRollerLabel">Dice Roller</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="diceRollerForm">
+                        <div class="mb-3">
+                            <label for="diceType" class="form-label">Type of dice</label>
+                            <select class="form-select" id="diceType">
+                                <option value="4">D4</option>
+                                <option value="6" selected>D6</option>
+                                <option value="8">D8</option>
+                                <option value="10">D10</option>
+                                <option value="12">D12</option>
+                                <option value="20">D20</option>
+                                <option value="100">D100</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="diceCount" class="form-label">Number of dice</label>
+                            <input type="number" class="form-control" id="diceCount" min="1" value="1" required>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-lg btn-group-lg" onclick="rollDice()"
+                                style="background-color: #4e4e9c;color: #ffffff;border: 1px solid #6a6abf; width:100%;">
+                            Roll
+                        </button>
+                    </form>
+                    <div class="mt-3" id="diceResult"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

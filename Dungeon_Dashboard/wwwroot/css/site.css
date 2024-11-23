@@ -283,4 +283,58 @@ input[type="range"] {
         box-shadow: none;
     }
 
-    
+.modal-content {
+    background-color: #1a1625;
+}
+
+.modal-dialog {
+    color: #a688fa;
+}
+
+input.form-control, select.form-select {
+    background-color: #252539; /* T³o inputów */
+    color: #e6e6e6; /* Tekst inputów */
+    border: 1px solid #6a6abf; /* Jasnofioletowe obramowanie */
+}
+
+    input.form-control:focus, select.form-select:focus {
+        background-color: #252539; /* T³o nie zmienia siê */
+        color: #e6e6e6; /* Tekst pozostaje jasny */
+        border-color: #8a85ff; /* Obramowanie zmienia kolor przy focus */
+        outline: none; /* Usuniêcie domyœlnego niebieskiego obramowania */
+        box-shadow: 0 0 5px #8a85ff; /* Subtelna poœwiata */
+    }
+button.btn-primary {
+    background-color: #4e4e9c; /* Fioletowy przycisk */
+    color: #ffffff; /* Bia³y tekst */
+    border: 1px solid #6a6abf; /* Obramowanie dopasowane do inputów */
+}
+
+    button.btn-primary:hover {
+        background-color: #6a6abf; /* Jaœniejszy fiolet przy najechaniu */
+        border-color: #8a85ff;
+    }
+
+    button.btn-primary:active {
+        background-color: #8a85ff; /* Jeszcze jaœniejszy efekt po klikniêciu */
+        border-color: #b0b0ff;
+    }
+
+select.form-control {
+    background-color: #252539; /* T³o dla rozwijanych list */
+    color: #e6e6e6; /* Kolor tekstu */
+    border: 1px solid #6a6abf; /* Obramowanie */
+}
+
+    select.form-control:focus {
+        background-color: #252539; /* T³o nie zmienia siê przy focus */
+        color: #e6e6e6; /* Tekst pozostaje jasny */
+        border-color: #8a85ff; /* Jasnofioletowe obramowanie przy focus */
+        outline: none; /* Usuñ domyœlny efekt focus */
+        box-shadow: 0 0 5px #8a85ff; /* Subtelna poœwiata */
+    }
+
+option {
+    background-color: #252539; /* T³o opcji w rozwijanej liœcie */
+    color: #e6e6e6; /* Kolor tekstu opcji */
+}

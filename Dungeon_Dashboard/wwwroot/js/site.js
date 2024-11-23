@@ -31,3 +31,39 @@ updateSliderValue('sliderConstitution', 'sliderValueConstitution');
 updateSliderValue('sliderIntelligence', 'sliderValueIntelligence');
 updateSliderValue('sliderWisdom', 'sliderValueWisdom');
 updateSliderValue('sliderCharisma', 'sliderValueCharisma');
+
+function rollDice() {
+    const diceType = parseInt(document.getElementById("diceType").value);
+    const diceCount = parseInt(document.getElementById("diceCount").value);
+    const results = [];
+    const resultElement = document.getElementById("diceResult");
+    resultElement.innerText = "You rolled: "; // Inicjalizacja tekstu wyniku
+
+    let currentDice = 0; // Licznik aktualnie rzucanej kości
+
+    function rollNextDice() {
+        if (currentDice < diceCount) {
+            const roll = Math.floor(Math.random() * diceType) + 1; // Rzut kostką
+            results.push(roll);
+
+            // Aktualizacja wyniku w trakcie rzutu
+            resultElement.innerText = `You rolled: ${results.join(", ")}`;
+
+            currentDice++;
+
+            // Jeśli rzucamy więcej niż jedną kością, dodajemy opóźnienie
+                setTimeout(rollNextDice, 20); // Opóźnienie przed następnym rzutem
+        } else {
+            // Dodanie sumy po zakończeniu rzutów
+            const total = results.reduce((a, b) => a + b, 0);
+            resultElement.innerText += ` (Total: ${total})`;
+        }
+    }
+
+    rollNextDice(); // Rozpoczęcie sekwencji rzutów
+}
+
+
+
+
+

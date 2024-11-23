@@ -11,18 +11,48 @@
 </p>
 <div id="main">
 <div class="character-grid">
-    @foreach(var item in Model) {
-        <div class="character-card">
+        @foreach(var item in Model) {
+            string emoji = "";
+
+            if(item.Class == Classes.Barbarian) {
+                emoji = "💪";
+            } else if(item.Class == Classes.Bard) {
+                emoji = "🎵";
+            } else if(item.Class == Classes.Cleric) {
+                emoji = "🙏";
+            } else if(item.Class == Classes.Druid) {
+                emoji = "🌿";
+            } else if(item.Class == Classes.Fighter) {
+                emoji = "⚔️";
+            } else if(item.Class == Classes.Monk) {
+                emoji = "🧘";
+            } else if(item.Class == Classes.Paladin) {
+                emoji = "🛡️";
+            } else if(item.Class == Classes.Ranger) {
+                emoji = "🏹";
+            } else if(item.Class == Classes.Rogue) {
+                emoji = "🗡️";
+            } else if(item.Class == Classes.Sorcerer) {
+                emoji = "✨";
+            } else if(item.Class == Classes.Warlock) {
+                emoji = "🔮";
+            } else if(item.Class == Classes.Wizard) {
+                emoji = "📖";
+            } else {
+                emoji = "❓";
+            }
+
+            <div class="character-card">
                 <h2 style="color: #8a6de6">@item.Name</h2>
-                <p><strong>Class: </strong>@item.Class</p>
-                <p><strong>Level: </strong>@item.Level</p>
-                <p><strong>Created by: </strong>@item.CreatedBy</p>
-            <div class="character-card-actions">
+                <p><strong>@($"{emoji}Class: ")</strong>@item.Class</p>
+                <p><strong>📈Level: </strong>@item.Level</p>
+                <p><strong>📝Created by: </strong>@item.CreatedBy</p>
+                <div class="character-card-actions">
                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-lg">Edit</a>
                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary btn-lg">Details</a>
                     <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-primary btn-lg">Delete</a>
+                </div>
             </div>
-        </div>
-    }
+        }
 </div>
 </div>
