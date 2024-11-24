@@ -39,11 +39,18 @@
         }
 
         public int CalculateStatModifier(int stat) {
-            return (stat - 10) / 2;
+            if(stat >= 3 && stat <= 20)
+                return (stat - 10) / 2;
+            else
+                throw new ArgumentOutOfRangeException("Stat must be between 3 and 20");
         }
 
         public int CalculatePassiveWisdom(int wisdom) {
-            return 10 + CalculateStatModifier(wisdom);
+            if(wisdom >= 3 && wisdom <= 20) {
+                return 10 + CalculateStatModifier(wisdom);
+            } else {
+                throw new ArgumentOutOfRangeException("Wisdom must be between 3 and 20");
+            }
         }
     }
 }

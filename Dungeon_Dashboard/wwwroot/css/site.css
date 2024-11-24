@@ -213,8 +213,6 @@ form label {
         margin-bottom: 10px; /* Odstêp miêdzy przyciskami */
     }
 
-
-
 .slider-container {
     background-color: #393549;
     border-radius: 10px;
@@ -236,8 +234,6 @@ label {
     margin-bottom: 5px;
     display: block;
 }
-
-
 
 .slider-value {
     font-size: 14px;
@@ -304,6 +300,7 @@ input.form-control, select.form-select {
         outline: none; /* Usuniêcie domyœlnego niebieskiego obramowania */
         box-shadow: 0 0 5px #8a85ff; /* Subtelna poœwiata */
     }
+
 button.btn-primary {
     background-color: #4e4e9c; /* Fioletowy przycisk */
     color: #ffffff; /* Bia³y tekst */
@@ -338,3 +335,89 @@ option {
     background-color: #252539; /* T³o opcji w rozwijanej liœcie */
     color: #e6e6e6; /* Kolor tekstu opcji */
 }
+
+#diceContainer {
+    display: flex;
+    flex-wrap: wrap; /* Allows the dice to wrap to the next line if they exceed the container's width */
+    justify-content: center;
+}
+
+
+
+/* Wrapper that will add shadow */
+.die-wrapper {
+    position: relative;
+    display: inline-block;
+    box-shadow: 0 0 15px 4px rgba(102, 51, 204, 0.5); /* Shadow for all dice */
+    margin: 10px; /* Margins to separate dice visually */
+}
+
+/* Actual die styles */
+.die {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    display: flex; /* Keep this to center content inside the die */
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    font-size: 1.5em;
+    text-align: center;
+    margin:10px;
+}
+
+    /* Styles for specific dice shapes */
+
+    /* d4: equilateral triangle */
+    .die.d4 {
+        width: 60px;
+        height: 52px;
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        background-color: #660066;
+    }
+        .die.d4 .die-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, calc(-50% + 7px)); /* Adjust to move the text 7px down */
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+
+    /* d6: square */
+    .die.d6 {
+        background-color: #9933CC;
+        border-radius: 5px;
+    }
+
+    /* d8: octagon */
+    .die.d8 {
+        clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
+        background-color: #CC33FF;
+    }
+
+    /* d10: decagon */
+    .die.d10 {
+        clip-path: polygon(50% 0%, 85% 10%, 100% 35%, 100% 65%, 85% 90%, 50% 100%, 15% 90%, 0% 65%, 0% 35%, 15% 10%);
+        background-color: #7B3F8F;
+    }
+
+    /* d12: dodecagon */
+    .die.d12 {
+        clip-path: polygon(30% 0%, 70% 0%, 100% 25%, 100% 75%, 70% 100%, 30% 100%, 0% 75%, 0% 25%);
+        background-color: #6A0DAD;
+    }
+
+    /* d20: irregular hexagon */
+    .die.d20 {
+        clip-path: polygon(50% 0%, 90% 20%, 100% 60%, 75% 100%, 25% 100%, 0% 60%, 10% 20%);
+        background-color: #6A0DAD;
+    }
+
+    /* d100: circle */
+    .die.d100 {
+        border-radius: 50%;
+        background-color: #BB86FC;
+    }
