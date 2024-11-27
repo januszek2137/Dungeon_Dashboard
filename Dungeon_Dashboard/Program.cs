@@ -1,10 +1,15 @@
 using Dungeon_Dashboard.Areas.Identity.Pages.Account.EmailSender;
 using Dungeon_Dashboard.Models;
+using Dungeon_Dashboard.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton<IDataService, DataService>();
+
+builder.Services.AddSingleton<ICharacterGeneratorService, CharacterGeneratorService>();
 
 builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
