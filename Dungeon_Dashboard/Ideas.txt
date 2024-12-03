@@ -1,3 +1,5 @@
+!!!!!!!!KOLEJNOSC TUR, WPISANIE KAZDEGO UCZESTNIKA I KLIKANIE NEXT !!!!!!!!!
+
 !!otwarty dashboard przechodzi miedzy sesjami!!
 !!w widoku CharacterModels/Details przy braku skilli/inv/eq nie wyœwietlaæ pól!!
 

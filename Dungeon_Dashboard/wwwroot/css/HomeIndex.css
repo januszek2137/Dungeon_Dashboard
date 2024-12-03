@@ -29,3 +29,29 @@ p {
     color: #ba9ffb;
     margin-top: 20px;
 }
+
+.quote {
+    background-color: #3a3548;
+    padding: 20px;
+    border-left: 5px solid #ba9ffb;
+    margin: 20px auto;
+    width: 60%;
+    font-style: italic;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+.quote-author {
+    margin-top: 10px;
+    text-align: right;
+    font-weight: bold;
+    color: #ba9ffb;
+}
+
+.decorative img {
+    width: 15%;
+    height: auto;
+    margin-top: 20px;
+    filter: drop-shadow(0 0 0.5rem #ba9ffb);
+}
+

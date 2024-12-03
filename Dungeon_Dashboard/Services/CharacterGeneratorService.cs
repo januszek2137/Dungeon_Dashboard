@@ -107,8 +107,8 @@ namespace Dungeon_Dashboard.Services {
                 Difficulty = GetRandomItem(difficulties),
                 Reward = GetRandomItem(rewards),
                 Notes = GetRandomItem(notes),
-                InvolvedNPCs = new List<NPC> { GenerateRandomNPC() },
-                InvolvedMonsters = new List<Monster> { GenerateRandomMonster() }
+                InvolvedNPCs = new List<NPC> { GenerateRandomNPC(), GenerateRandomNPC() },
+                InvolvedMonsters = new List<Monster> { GenerateRandomMonster(), GenerateRandomMonster() }
             };
 
             return encounter;

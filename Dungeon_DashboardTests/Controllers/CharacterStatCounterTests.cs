@@ -6,12 +6,18 @@
 
         [TestMethod()]
         public void CharacterStatCounterTest() {
-            Assert.Fail();
+            var statCounter = new CharacterStatCounter();
+            Assert.IsNotNull(statCounter);
         }
 
         [TestMethod()]
-        public void CalculateProficiencyBonusTest() {
-            Assert.Fail();
+        public void CalculateProficiencyBonus_Level1_Returns2() {
+            int level = 1;
+            int expectedBonus = 2;
+
+            int actualBonus = __statCalculator.CalculateProficiencyBonus(level);
+
+            Assert.AreEqual(expectedBonus, actualBonus);
         }
 
         [TestMethod()]

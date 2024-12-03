@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpClient();
+
 builder.Services.AddSingleton<IDataService, DataService>();
 
 builder.Services.AddSingleton<ICharacterGeneratorService, CharacterGeneratorService>();
