@@ -1,0 +1,72 @@
+﻿#initiativeTable {
+    width: 100%;
+    border-collapse: collapse;
+    color: #ba9ffb;
+}
+
+    #initiativeTable th,
+    #initiativeTable td {
+        border: 1px solid #6a6abf;
+        padding: 10px;
+        text-align: center;
+    }
+
+    #initiativeTable tr {
+        background-color: #2f2b3a; /* Tło dla wszystkich wierszy */
+        color: #ba9ffb; /* Kolor tekstu */
+    }
+
+        #initiativeTable tr.highlight {
+            background-color: #3f3a4a; /* Kolor podświetlenia */
+        }
+
+        #initiativeTable tr:hover {
+            background-color: rgba(186, 159, 251, 0.2);
+            cursor: pointer;
+        }
+
+button {
+    color: #fff;
+    background-color: #6a6abf;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.editable-hp {
+    cursor: pointer;
+    color: #ba9ffb;
+    text-decoration: underline;
+}
+
+    .editable-hp:hover {
+        color: #8a85ff;
+        font-weight: bold;
+    }
+
+.modal-header {
+    background-color: #2f2b3a;
+    color: #ba9ffb;
+    border-bottom: 1px solid #6a6abf;
+}
+
+.modal-content {
+    background-color: #2f2b3a;
+    color: #ba9ffb;
+    border-radius: 10px;
+    border: 1px solid #6a6abf;
+}
+
+.modal .btn-close {
+    background-color: transparent;
+    border: none;
+    color: #ba9ffb;
+}
+
+    .modal .btn-close:hover {
+        color: #8a85ff;
+    }
+
+.modal-body {
+    background-color: #2f2b3a;
+    color: #ffffff;
+}
