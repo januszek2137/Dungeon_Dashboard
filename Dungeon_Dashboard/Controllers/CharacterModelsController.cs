@@ -60,7 +60,7 @@ namespace Dungeon_Dashboard.Controllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Class,Level,Speed,ArmorClass,HitPoints,Strength,Dexterity,Constitution,Intelligence,Wisdom,Charisma,Skills,Equipment,Inventory,Copper,Silver,Electrum,Gold,Platinum")] CharacterModel characterModel) {
+        public async Task<IActionResult> Create([Bind("Id,Name,Class,Race,Level,Speed,ArmorClass,HitPoints,Strength,Dexterity,Constitution,Intelligence,Wisdom,Charisma,Skills,Equipment,Inventory,Copper,Silver,Electrum,Gold,Platinum")] CharacterModel characterModel) {
             ViewBag.ClassList = Enum.GetValues(typeof(Classes))
                             .Cast<Classes>()
                             .Select(c => new SelectListItem {
@@ -100,6 +100,20 @@ namespace Dungeon_Dashboard.Controllers {
 
         // GET: CharacterModels/Edit/5
         public async Task<IActionResult> Edit(int? id) {
+            ViewBag.ClassList = Enum.GetValues(typeof(Classes))
+                           .Cast<Classes>()
+                           .Select(c => new SelectListItem {
+                               Text = c.ToString(),
+                               Value = ((int)c).ToString()
+                           }).ToList();
+
+            ViewBag.RaceList = Enum.GetValues(typeof(Races))
+                                   .Cast<Races>()
+                                   .Select(r => new SelectListItem {
+                                       Text = r.ToString(),
+                                       Value = ((int)r).ToString()
+                                   }).ToList();
+
             if(id == null) {
                 return NotFound();
             }
@@ -116,7 +130,26 @@ namespace Dungeon_Dashboard.Controllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Class,Level,Speed,ArmorClass,HitPoints,Strength,Dexterity,Constitution,Intelligence,Wisdom,Charisma,Skills,Equipment,Inventory,Copper,Silver,Electrum,Gold,Platinum")] CharacterModel characterModel) {
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Class,Race,Level,Speed,ArmorClass,HitPoints,Strength,Dexterity,Constitution,Intelligence,Wisdom,Charisma,Skills,Equipment,Inventory,Copper,Silver,Electrum,Gold,Platinum")] CharacterModel characterModel) {
+            var username = User.Identity.Name.Split('@')[0];
+            if(username != null) {
+                characterModel.CreatedBy = username;
+            }
+
+            ViewBag.ClassList = Enum.GetValues(typeof(Classes))
+                           .Cast<Classes>()
+                           .Select(c => new SelectListItem {
+                               Text = c.ToString(),
+                               Value = ((int)c).ToString()
+                           }).ToList();
+
+            ViewBag.RaceList = Enum.GetValues(typeof(Races))
+                                   .Cast<Races>()
+                                   .Select(r => new SelectListItem {
+                                       Text = r.ToString(),
+                                       Value = ((int)r).ToString()
+                                   }).ToList();
+
             if(id != characterModel.Id) {
                 return NotFound();
             }

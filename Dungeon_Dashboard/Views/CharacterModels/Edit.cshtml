@@ -3,124 +3,214 @@
 @{
     ViewData["Title"] = "Edit";
 }
+<link rel="stylesheet" href="~/css/CreateCharacter.css" />
 
-<h1>Edit</h1>
+<script>
+    function addInput(containerId, name) {
+        const container = document.getElementById(containerId);
+        const input = document.createElement("input");
+        input.type = "text";
+        input.name = name;
+        input.className = "form-control";
+        input.placeholder = "Enter another item";
+        container.appendChild(input);
+    }
+</script>
 
-<h4>CharacterModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    <div class="container" id="main">
+        <h1>Edit Character</h1>
+        <hr />
+        <div class="card mb-4">
+            <div class="card-header">Basic Informationℹ️</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label">✨Name:</label>
+                            <input asp-for="Name" class="form-control" placeholder="Name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Level" class="control-label">📈Level:</label>
+                            <input asp-for="Level" class="form-control" placeholder="Level" />
+                            <span asp-validation-for="Level" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Class" class="control-label">⚔️Class:</label>
+                            <select asp-for="Class" asp-items="ViewBag.ClassList" class="form-control">
+                                <option value="" disabled selected>Class</option>
+                            </select>
+                            <span asp-validation-for="Class" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Race" class="control-label">🌍Race:</label>
+                            <select asp-for="Race" asp-items="ViewBag.RaceList" class="form-control">
+                                <option value="" disabled selected>Race</option>
+                            </select>
+                            <span asp-validation-for="Race" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Speed" class="control-label">🏃‍♂️Speed:</label>
+                            <input asp-for="Speed" class="form-control" placeholder="Speed" />
+                            <span asp-validation-for="Speed" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="HitPoints" class="control-label">❤️Hit Points:</label>
+                            <input asp-for="HitPoints" class="form-control" placeholder="Hit Points" />
+                            <span asp-validation-for="HitPoints" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ArmorClass" class="control-label">🛡️Armor Class:</label>
+                            <input asp-for="ArmorClass" class="form-control" placeholder="Armor Class" />
+                            <span asp-validation-for="ArmorClass" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Class" class="control-label"></label>
-                <select asp-for="Class" class="form-control"></select>
-                <span asp-validation-for="Class" class="text-danger"></span>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">Attributes📋</div>
+            <div class="card-body row">
+                <div class="col-md-4 form-group slider-container">
+                    <label asp-for="Strength">💪Strength: <span id="sliderValueStrength">@Model.Strength</span></label>
+                    <input type="range" id="sliderStrength" min="3" max="20" value="@Model.Strength" asp-for="Strength" class="form-control form-range"
+                           oninput="document.getElementById('sliderValueStrength').innerText = this.value" />
+                    <span asp-validation-for="Strength" class="text-danger"></span>
+                </div>
+                <div class="col-md-4 form-group slider-container">
+                    <label asp-for="Dexterity">🤸‍♂️Dexterity: <span id="sliderValueDexterity">@Model.Dexterity</span></label>
+                    <input type="range" id="sliderDexterity" min="3" max="20" value="@Model.Dexterity" asp-for="Dexterity" class="form-control form-range"
+                           oninput="document.getElementById('sliderValueDexterity').innerText = this.value" />
+                    <span asp-validation-for="Dexterity" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4 form-group slider-container">
+                    <label asp-for="Constitution">🏋️‍♀️Constitution: <span id="sliderValueConstitution">@Model.Constitution</span></label>
+                    <input type="range" id="sliderConstitution" min="3" max="20" value="@Model.Constitution" asp-for="Constitution" class="form-control form-range"
+                           oninput="document.getElementById('sliderValueConstitution').innerText = this.value" />
+                    <span asp-validation-for="Constitution" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4 form-group slider-container">
+                    <label asp-for="Intelligence">🧠Intelligence: <span id="sliderValueIntelligence">@Model.Intelligence</span></label>
+                    <input type="range" id="sliderIntelligence" min="3" max="20" value="@Model.Intelligence" asp-for="Intelligence" class="form-control form-range"
+                           oninput="document.getElementById('sliderValueIntelligence').innerText = this.value" />
+                    <span asp-validation-for="Intelligence" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4 form-group slider-container">
+                    <label asp-for="Wisdom">🦉Wisdom: <span id="sliderValueWisdom">@Model.Wisdom</span></label>
+                    <input type="range" id="sliderWisdom" min="3" max="20" value="@Model.Wisdom" asp-for="Wisdom" class="form-control form-range"
+                           oninput="document.getElementById('sliderValueWisdom').innerText = this.value" />
+                    <span asp-validation-for="Wisdom" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4 form-group slider-container">
+                    <label asp-for="Charisma">😎Charisma: <span id="sliderValueCharisma">@Model.Charisma</span></label>
+                    <input type="range" id="sliderCharisma" min="3" max="20" value="@Model.Charisma" asp-for="Charisma" class="form-control form-range"
+                           oninput="document.getElementById('sliderValueCharisma').innerText = this.value" />
+                    <span asp-validation-for="Charisma" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Level" class="control-label"></label>
-                <input asp-for="Level" class="form-control" />
-                <span asp-validation-for="Level" class="text-danger"></span>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">Currencies💲</div>
+            <div class="card-body row d-flex justify-content-between">
+                <div class="col-md-2 form-group">
+                    <label asp-for="Copper">🪙Copper:</label>
+                    <input asp-for="Copper" class="form-control" value="@Model.Copper" />
+                    <span asp-validation-for="Copper" class="text-danger"></span>
+                </div>
+                <div class="col-md-2 form-group">
+                    <label asp-for="Silver">🪙Silver:</label>
+                    <input asp-for="Silver" class="form-control" value="@Model.Silver" />
+                    <span asp-validation-for="Silver" class="text-danger"></span>
+                </div>
+                <div class="col-md-2 form-group">
+                    <label asp-for="Electrum">⚡Electrum:</label>
+                    <input asp-for="Electrum" class="form-control" value="@Model.Electrum" />
+                    <span asp-validation-for="Electrum" class="text-danger"></span>
+                </div>
+                <div class="col-md-2 form-group">
+                    <label asp-for="Gold">🏆Gold:</label>
+                    <input asp-for="Gold" class="form-control" value="@Model.Gold" />
+                    <span asp-validation-for="Gold" class="text-danger"></span>
+                </div>
+                <div class="col-md-2 form-group">
+                    <label asp-for="Platinum">💎Platinum:</label>
+                    <input asp-for="Platinum" class="form-control" value="@Model.Platinum" />
+                    <span asp-validation-for="Platinum" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Speed" class="control-label"></label>
-                <input asp-for="Speed" class="form-control" />
-                <span asp-validation-for="Speed" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ArmorClass" class="control-label"></label>
-                <input asp-for="ArmorClass" class="form-control" />
-                <span asp-validation-for="ArmorClass" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HitPoints" class="control-label"></label>
-                <input asp-for="HitPoints" class="form-control" />
-                <span asp-validation-for="HitPoints" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Strength" class="control-label"></label>
-                <input asp-for="Strength" class="form-control" />
-                <span asp-validation-for="Strength" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Dexterity" class="control-label"></label>
-                <input asp-for="Dexterity" class="form-control" />
-                <span asp-validation-for="Dexterity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Constitution" class="control-label"></label>
-                <input asp-for="Constitution" class="form-control" />
-                <span asp-validation-for="Constitution" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Intelligence" class="control-label"></label>
-                <input asp-for="Intelligence" class="form-control" />
-                <span asp-validation-for="Intelligence" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Wisdom" class="control-label"></label>
-                <input asp-for="Wisdom" class="form-control" />
-                <span asp-validation-for="Wisdom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Charisma" class="control-label"></label>
-                <input asp-for="Charisma" class="form-control" />
-                <span asp-validation-for="Charisma" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Skills" class="control-label"></label>
-                <input asp-for="Skills" class="form-control" />
-                <span asp-validation-for="Skills" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Equipment" class="control-label"></label>
-                <input asp-for="Equipment" class="form-control" />
-                <span asp-validation-for="Equipment" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Inventory" class="control-label"></label>
-                <input asp-for="Inventory" class="form-control" />
-                <span asp-validation-for="Inventory" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Copper" class="control-label"></label>
-                <input asp-for="Copper" class="form-control" />
-                <span asp-validation-for="Copper" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Silver" class="control-label"></label>
-                <input asp-for="Silver" class="form-control" />
-                <span asp-validation-for="Silver" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Electrum" class="control-label"></label>
-                <input asp-for="Electrum" class="form-control" />
-                <span asp-validation-for="Electrum" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Gold" class="control-label"></label>
-                <input asp-for="Gold" class="form-control" />
-                <span asp-validation-for="Gold" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Platinum" class="control-label"></label>
-                <input asp-for="Platinum" class="form-control" />
-                <span asp-validation-for="Platinum" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">Character Resources🔗</div>
+            <form asp-action="Edit" method="post">
+                <div class="card-body">
+                    @foreach(var resource in new[] { "Skills", "Equipment", "Inventory" }) {
+                        var resourceItems = (string[])Model.GetType().GetProperty(resource)?.GetValue(Model) ?? new string[0];
+
+                        <div class="form-group">
+                            <label>
+                                @if(resource == "Skills") {
+                                    <span>🎯Skills:</span>
+                                } else if(resource == "Equipment") {
+                                    <span>🛡️Equipment:</span>
+                                } else if(resource == "Inventory") {
+                                    <span>🎒Inventory:</span>
+                                }
+                            </label>
+                            <div id="@resource.ToLower()-container">
+                                @for(int i = 0; i < resourceItems.Length; i++) {
+                                    <input type="text"
+                                           name="@($"{resource}[{i}]")"
+                                           class="form-control mt-1"
+                                           value="@resourceItems[i]"
+                                           placeholder="Enter @resource item" />
+                                }
+                                <span asp-validation-for="@resource" class="text-danger"></span>
+                            </div>
+                            <button type="button" class="btn btn-primary mt-2"
+                                    onclick="addInput('@resource.ToLower()-container', '@resource')">
+                                Add @resource Item
+                            </button>
+                        </div>
+                    }
+                </div>
+            </form>
+        </div>
+
+
+        <script>
+            function addInput(containerId, resourceName) {
+                const container = document.getElementById(containerId);
+                const inputs = container.querySelectorAll('input');
+                const newIndex = inputs.length;
+
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.name = `${resourceName}[${newIndex}]`;
+                input.className = 'form-control mt-1';
+                input.placeholder = `Enter ${resourceName} item`;
+
+                container.appendChild(input);
+            }
+        </script>
+
+        <div class="text-center mt-4">
+            <input type="submit" value="Update Character" class="btn btn-primary btn-lg" />
+        </div>
     </div>
+</form>
+<div class="mt-3 text-center">
+    <a asp-action="Index" class="btn btn-secondary btn-lg">Back to List</a>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
