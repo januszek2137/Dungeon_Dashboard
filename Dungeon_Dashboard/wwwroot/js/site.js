@@ -38,19 +38,23 @@ function rollDice() {
     const diceContainer = document.getElementById("diceContainer");
     const resultElement = document.getElementById("diceResult");
 
-    // Clear previous dice and result
     diceContainer.innerHTML = '';
     resultElement.innerText = '';
+
+    if (diceCount > 50) {
+        errorMessage.innerText = "You cannot roll more than 50 dice at once";
+        return;
+    }
 
     const results = [];
     let diceFinished = 0;
 
-    for (let i = 0; i < diceCount; i++) {
-        // Create die element
-        const die = document.createElement('div');
-        die.className = 'die'; // Base class for common styles
+    errorMessage.innerText = "";
 
-        // Add specific class based on dice type for color and shape
+    for (let i = 0; i < diceCount; i++) {
+        const die = document.createElement('div');
+        die.className = 'die';
+
         switch (diceType) {
             case 4:
                 die.classList.add('d4');
@@ -77,37 +81,31 @@ function rollDice() {
                 break;
         }
 
-        // Use a span to hold the die value
-        die.innerHTML = '<span class="die-value"></span>'; // Initially empty
+        die.innerHTML = '<span class="die-value"></span>';
 
-        // Append die to dice container
         diceContainer.appendChild(die);
 
-        // Animate die
-        let animationDuration = 1000 + Math.random() * 1000; // Randomize duration between 1-2 seconds
+        let animationDuration = 1000 + Math.random() * 1000; 
         let startTime = Date.now();
 
         const interval = setInterval(function () {
             let elapsed = Date.now() - startTime;
 
-            // Generate random die face
             let randomFace = Math.floor(Math.random() * diceType) + 1;
             die.querySelector('.die-value').innerText = randomFace;
 
             if (elapsed >= animationDuration) {
-                // Animation finished, set final value
                 const finalValue = Math.floor(Math.random() * diceType) + 1;
                 die.querySelector('.die-value').innerText = finalValue;
                 results.push(finalValue);
                 diceFinished++;
                 clearInterval(interval);
 
-                // If all dice have finished rolling, show total
                 if (diceFinished === diceCount) {
                     const total = results.reduce((a, b) => a + b, 0);
                     resultElement.innerText = `Total: ${total}`;
                 }
             }
-        }, 50); // Update every 50ms
+        }, 50);
     }
 }

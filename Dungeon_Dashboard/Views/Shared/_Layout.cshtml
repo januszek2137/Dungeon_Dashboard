@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Onest:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/cannon-es/dist/cannon-es.js"></script>
-
+    <link rel="icon" type="image/x-icon" href="~/icons/favicon.ico" />
 
 </head>
 <body style="font-family: 'Onest', sans-serif;">
@@ -80,10 +80,7 @@
                     <a asp-controller="CharacterModels" asp-action="Index">
                         <li>👤Character👤</li>
                     </a>
-                    <a asp-controller="Sidebar" asp-action="Journal">
-                        <li>📓Journal📓</li>
-                    </a>
-                        <a asp-controller="CharacterGenerator" asp-action="Index">
+                    <a asp-controller="CharacterGenerator" asp-action="Index">
                         <li>💡Generator💡</li>
                      </a>
                      <a asp-controller="TurnKeeperView" asp-action="Index">
@@ -149,6 +146,7 @@
                             Roll
                         </button>
                     </form>
+                    <div id="errorMessage" style="color: red; margin-top: 10px;"></div>
                      <div class="mt-3" id="diceContainer"></div>
                     <div class="mt-3" id="diceResult"></div>
                 </div>

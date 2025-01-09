@@ -174,43 +174,41 @@ h1 {
     }
 
 form label {
-    color: #a688fa; /* G³ówny kolor, jasny fiolet */
+    color: #a688fa;
 }
 
 .btn-primary {
-    background-color: #9e7fed; /* Nieco ciemniejszy fiolet ni¿ g³ówny kolor */
+    background-color: #9e7fed; 
     border-color: #9e7fed;
 }
 
     .btn-primary:hover,
     .btn-primary:focus,
     .btn-primary:active {
-        background-color: #8e6fe2; /* Jeszcze ciemniejszy fiolet na hover */
+        background-color: #8e6fe2;
         border-color: #8e6fe2;
     }
 
 .btn-outline-primary {
-    color: #ba9ffb; /* G³ówny kolor dla tekstu w przycisku obrysu */
-    border-color: #ba9ffb; /* G³ówny kolor dla obrysu */
+    color: #ba9ffb; 
+    border-color: #ba9ffb;
 }
 
     .btn-outline-primary:hover,
     .btn-outline-primary:focus,
     .btn-outline-primary:active {
-        color: #fff; /* Bia³y tekst na aktywnym/hover przycisku */
-        background-color: #9e7fed; /* T³o zmienia siê na ciemniejszy fiolet */
-        border-color: #9e7fed; /* Obramowanie te¿ na ciemniejszy fiolet */
+        color: #fff;
+        background-color: #9e7fed;
+        border-color: #9e7fed;
     }
 
-/* Uk³ad przycisków jeden pod drugim */
 .btn-stack {
     display: flex;
     flex-direction: column;
-    width: 100%; /* Pe³na szerokoœæ dla ka¿dego przycisku */
+    width: 100%;
 }
-
     .btn-stack .btn {
-        margin-bottom: 10px; /* Odstêp miêdzy przyciskami */
+        margin-bottom: 10px; 
     }
 
 .slider-container {
@@ -244,12 +242,12 @@ label {
 }
 
 input[type="range"] {
-    -webkit-appearance: none; /* Wy³¹cz domyœlny styl */
+    -webkit-appearance: none; 
     width: 100%;
-    height: 8px; /* Wysokoœæ toru */
-    background: #2f2b3a; /* Tor slidera */
-    border-radius: 5px; /* Zaokr¹glenie toru */
-    outline: none; /* Usuniêcie obramowania */
+    height: 8px;
+    background: #2f2b3a;
+    border-radius: 5px;
+    outline: none;
     transition: background-color 0.3s;
     border-color: none;
 }
@@ -268,7 +266,6 @@ input[type="range"] {
         transition: transform 0.3s, background-color 0.3s;
     }
 
-        /* Kropka hover */
         input[type="range"]::-webkit-slider-thumb:hover {
             transform: scale(1.1); /* Powiêkszenie */
             border-color: none;
@@ -287,77 +284,82 @@ input[type="range"] {
     color: #a688fa;
 }
 
+input:disabled,
+textarea {
+    background-color: #252539 !important;
+    color: #e6e6e6 !important;
+    border: 1px solid #6a6abf !important;
+}
+
 input.form-control, select.form-select {
-    background-color: #252539; /* T³o inputów */
-    color: #e6e6e6; /* Tekst inputów */
-    border: 1px solid #6a6abf; /* Jasnofioletowe obramowanie */
+    background-color: #252539; 
+    color: #e6e6e6; 
+    border: 1px solid #6a6abf;
 }
 
     input.form-control:focus, select.form-select:focus {
-        background-color: #252539; /* T³o nie zmienia siê */
-        color: #e6e6e6; /* Tekst pozostaje jasny */
-        border-color: #8a85ff; /* Obramowanie zmienia kolor przy focus */
-        outline: none; /* Usuniêcie domyœlnego niebieskiego obramowania */
-        box-shadow: 0 0 5px #8a85ff; /* Subtelna poœwiata */
+        background-color: #252539;
+        color: #e6e6e6;
+        border-color: #8a85ff;
+        outline: none;
+        box-shadow: 0 0 5px #8a85ff;
     }
 
 button.btn-primary {
-    background-color: #4e4e9c; /* Fioletowy przycisk */
-    color: #ffffff; /* Bia³y tekst */
-    border: 1px solid #6a6abf; /* Obramowanie dopasowane do inputów */
+    background-color: #4e4e9c; 
+    color: #ffffff;
+    border: 1px solid #6a6abf;
 }
 
     button.btn-primary:hover {
-        background-color: #6a6abf; /* Jaœniejszy fiolet przy najechaniu */
+        background-color: #6a6abf; 
         border-color: #8a85ff;
     }
 
     button.btn-primary:active {
-        background-color: #8a85ff; /* Jeszcze jaœniejszy efekt po klikniêciu */
+        background-color: #8a85ff; 
         border-color: #b0b0ff;
     }
 
 select.form-control {
-    background-color: #252539; /* T³o dla rozwijanych list */
-    color: #e6e6e6; /* Kolor tekstu */
-    border: 1px solid #6a6abf; /* Obramowanie */
+    background-color: #252539; 
+    color: #e6e6e6; 
+    border: 1px solid #6a6abf; 
 }
 
     select.form-control:focus {
-        background-color: #252539; /* T³o nie zmienia siê przy focus */
-        color: #e6e6e6; /* Tekst pozostaje jasny */
-        border-color: #8a85ff; /* Jasnofioletowe obramowanie przy focus */
-        outline: none; /* Usuñ domyœlny efekt focus */
-        box-shadow: 0 0 5px #8a85ff; /* Subtelna poœwiata */
+        background-color: #252539;
+        color: #e6e6e6; 
+        border-color: #8a85ff; 
+        outline: none; 
+        box-shadow: 0 0 5px #8a85ff; 
     }
 
 option {
-    background-color: #252539; /* T³o opcji w rozwijanej liœcie */
-    color: #e6e6e6; /* Kolor tekstu opcji */
+    background-color: #252539; 
+    color: #e6e6e6; 
 }
 
 #diceContainer {
     display: flex;
-    flex-wrap: wrap; /* Allows the dice to wrap to the next line if they exceed the container's width */
+    flex-wrap: wrap;
     justify-content: center;
 }
 
 
 
-/* Wrapper that will add shadow */
 .die-wrapper {
     position: relative;
     display: inline-block;
-    box-shadow: 0 0 15px 4px rgba(102, 51, 204, 0.5); /* Shadow for all dice */
-    margin: 10px; /* Margins to separate dice visually */
+    box-shadow: 0 0 15px 4px rgba(102, 51, 204, 0.5); 
+    margin: 10px; 
 }
 
-/* Actual die styles */
 .die {
     width: 60px;
     height: 60px;
     position: relative;
-    display: flex; /* Keep this to center content inside the die */
+    display: flex; 
     align-items: center;
     justify-content: center;
     font-weight: bold;
@@ -367,9 +369,6 @@ option {
     margin:10px;
 }
 
-    /* Styles for specific dice shapes */
-
-    /* d4: equilateral triangle */
     .die.d4 {
         width: 60px;
         height: 52px;
@@ -380,43 +379,37 @@ option {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, calc(-50% + 7px)); /* Adjust to move the text 7px down */
+            transform: translate(-50%, calc(-50% + 7px)); 
             color: white;
             font-weight: bold;
             text-align: center;
         }
 
-    /* d6: square */
     .die.d6 {
         background-color: #9933CC;
         border-radius: 5px;
     }
 
-    /* d8: octagon */
     .die.d8 {
         clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
         background-color: #CC33FF;
     }
 
-    /* d10: decagon */
     .die.d10 {
         clip-path: polygon(50% 0%, 85% 10%, 100% 35%, 100% 65%, 85% 90%, 50% 100%, 15% 90%, 0% 65%, 0% 35%, 15% 10%);
         background-color: #7B3F8F;
     }
 
-    /* d12: dodecagon */
     .die.d12 {
         clip-path: polygon(30% 0%, 70% 0%, 100% 25%, 100% 75%, 70% 100%, 30% 100%, 0% 75%, 0% 25%);
         background-color: #6A0DAD;
     }
 
-    /* d20: irregular hexagon */
     .die.d20 {
         clip-path: polygon(50% 0%, 90% 20%, 100% 60%, 75% 100%, 25% 100%, 0% 60%, 10% 20%);
         background-color: #6A0DAD;
     }
 
-    /* d100: circle */
     .die.d100 {
         border-radius: 50%;
         background-color: #BB86FC;

@@ -24,27 +24,25 @@
             }
         ],
         eventClick: function (info) {
-            // Fill details modal with event data
             $('#title').val(info.event.title);
             $('#description').val(info.event.extendedProps.description);
             $('#date').val(info.event.start.toISOString().substring(0, 10));
             $('#time').val(info.event.start.toISOString().substring(11, 16));
             $('#location').val(info.event.extendedProps.location);
-            // Open details modal
             $('#detailsModal').modal('show');
         }
     });
     calendar.render();
 
     $("#openModalButton").on('click', function () {
-        clearModalForm(); // Clear form before opening new event modal
+        clearModalForm();
         $("#newEventModal").modal('show');
     });
 
     $('.close').on('click', function () {
         $('#detailsModal').modal('hide');
         $('#newEventModal').modal('hide');
-        clearModalForm(); // Clear form when closing any modal
+        clearModalForm();
     });
 
     $("#newEventForm").on('submit', function (e) {
@@ -68,7 +66,7 @@
             contentType: 'application/json',
             success: function (data) {
                 console.log("Success response received");
-                
+
                 calendar.getEventSources().forEach((source) => {
                     source.refetch();
                 });
@@ -79,12 +77,8 @@
                 console.error("Error saving event", xhr, status, error);
             }
         });
-
-
-        
     });
 });
 
 $(document).ready(function () {
-
 });

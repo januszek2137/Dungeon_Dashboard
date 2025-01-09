@@ -13,6 +13,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 
 namespace Dungeon_Dashboard.Areas.Identity.Pages.Account {
+
     public class RegisterModel : PageModel {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
@@ -59,6 +60,7 @@ namespace Dungeon_Dashboard.Areas.Identity.Pages.Account {
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         public class InputModel {
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -87,7 +89,6 @@ namespace Dungeon_Dashboard.Areas.Identity.Pages.Account {
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
         }
-
 
         public async Task OnGetAsync(string returnUrl = null) {
             ReturnUrl = returnUrl;
@@ -121,33 +122,66 @@ namespace Dungeon_Dashboard.Areas.Identity.Pages.Account {
                     await _emailSender.SendEmailAsync(Input.Email, "Dungeon Dashboard e-mail confirmation",
                             $@"
     <html>
-        <head>
-            <style>
-                body {{
-                    background-color: #333; /* ciemnoszary tło */
-                    color: #fff; /* biały tekst */
-                    font-family: 'Arial', sans-serif; /* czcionka Arial */
-                    text-align: center; /* wyśrodkowany tekst */
-                    padding: 20px; /* padding dla całego ciała */
-                }}
-                a {{
-                    color: #4CAF50; /* zielony kolor linku */
-                    text-decoration: none; /* brak podkreślenia */
-                    font-size: 18px; /* rozmiar fontu linku */
-                }}
-                img {{
-                    padding: 10px; /* odstęp wokół obrazka */
-                    width: 150px; /* szerokość obrazka */
-                }}
-            </style>
-        </head>
-        <body>
-            <img src='https://media.discordapp.net/attachments/391734524922560512/1229556817919479868/logo.png?ex=66301d05&is=661da805&hm=059a594a42cd8d7c8ff04236f63a5ad3248f9da8e7baa5602e4d01a1c42510d1&=&format=webp&quality=lossless&width=671&height=671' alt='Logo'> <!-- Obrazek logo -->
-            <h1>Welcome traveler!</h1>
-            <p>To activate Your account please <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>click here</a>.</p>
-            <p>Thank You, and good luck for Your journey!</p>
-        </body>
-    </html>
+    <head>
+        <style>
+            body {{
+                background-color: #333;
+                color: #fff;
+                font-family: 'Arial', sans-serif;
+                text-align: center;
+                padding: 20px;
+            }}
+            .container {{
+                background-color: #444;
+                border-radius: 10px;
+                padding: 30px;
+                max-width: 500px;
+                margin: 50px auto;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            }}
+            a {{
+                color: #fff;
+                text-decoration: underline;
+                font-size: 18px;
+                font-weight: bold;
+            }}
+            img.logo {{
+                padding: 10px;
+                width: 150px;
+            }}
+            img.icon {{
+                margin-top: 20px;
+                width: 32px;
+                height: 32px;
+            }}
+            h1 {{
+                color: #BA9FFB;
+                font-size: 28px;
+                margin-bottom: 20px;
+            }}
+            p {{
+                font-size: 16px;
+                line-height: 1.5;
+                margin-bottom: 15px;
+                color: #fff;
+            }}
+        </style>
+    </head>
+    <body>
+        <div class=""container"">
+            <h1>Welcome, traveler!</h1>
+
+            <p>Your journey is just beginning. To activate your account and unlock your full potential, simply click the link below:</p>
+
+            <p>
+                <a href=""{HtmlEncoder.Default.Encode(callbackUrl)}"">Activate your account</a>
+            </p>
+
+            <p>Embark on this exciting adventure, and may your path be filled with success and joy!</p>
+        </div>
+    </body>
+</html>
+
     ");
 
                     if(_userManager.Options.SignIn.RequireConfirmedAccount) {
