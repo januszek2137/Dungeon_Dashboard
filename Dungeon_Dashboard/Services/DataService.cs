@@ -42,7 +42,7 @@ namespace Dungeon_Dashboard.Services {
         //loads all data pools from json files in the data folder
         public DataService(IHostEnvironment environment, ILogger<DataService> logger) {
             _logger = logger;
-            _dataFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "data");
+            _dataFolderPath = Path.Combine(environment.ContentRootPath, "wwwroot", "data");
             _dataPools = new Dictionary<string, List<string>>();
             LoadAllDataPools().Wait();
         }

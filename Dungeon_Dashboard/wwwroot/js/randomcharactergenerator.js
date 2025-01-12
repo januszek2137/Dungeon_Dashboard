@@ -3,7 +3,7 @@
     $('#btnLoadNPC').click(function () {
         $('#resultContainer').html('<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>');
         $.ajax({
-            url: '/CharacterGenerator/GetRandomNPC',
+            url: '/api/randomcharacters/npc',
             type: 'GET',
             success: function (data) {
                 $('#resultContainer').html(`
@@ -49,7 +49,7 @@
     $('#btnLoadMonster').click(function () {
         $('#resultContainer').html('<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>');
         $.ajax({
-            url: '/CharacterGenerator/GetRandomMonster',
+            url: '/api/randomcharacters/monster',
             type: 'GET',
             success: function (data) {
                 $('#resultContainer').html(`
@@ -83,7 +83,7 @@
     $('#btnLoadEncounter').click(function () {
         $('#resultContainer').html('<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>');
         $.ajax({
-            url: '/CharacterGenerator/GetRandomEncounter',
+            url: '/api/randomcharacters/encounter',
             type: 'GET',
             success: function (data) {
                 $('#resultContainer').html(`
@@ -189,7 +189,7 @@
     // Load Multiple NPCs
     $('#btnLoadNPCs').click(function () {
         $.ajax({
-            url: '/CharacterGenerator/GetNPCs',
+            url: '/api/randomcharacters/npcs',
             type: 'GET',
             data: { count: 5 },
             success: function (data) {
@@ -223,14 +223,11 @@
         });
     });
 
-
-
-
     $('#btnLoadMonsters').click(function () {
         $.ajax({
-            url: '/CharacterGenerator/GetMonsters',
+            url: '/api/randomcharacters/monsters',
             type: 'GET',
-            data: { count: 10 }, // Możesz zmienić liczbę Monsterów do załadowania
+            data: { count: 10 },
             success: function (data) {
                 $('#multipleResultsContainer').empty();
                 data.forEach(monster => {
@@ -257,5 +254,4 @@
             }
         });
     });
-
 });

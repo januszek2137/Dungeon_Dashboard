@@ -41,6 +41,11 @@ if(!app.Environment.IsDevelopment()) {
     app.UseHsts();
 }
 
+using(var scope = app.Services.CreateScope()) {
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDBContext>();
+    dbContext.Database.Migrate();
+}
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

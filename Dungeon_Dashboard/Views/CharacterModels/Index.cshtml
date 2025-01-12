@@ -12,6 +12,13 @@
 </p>
 <div id="main">
 <div class="character-grid">
+        @{
+            var userNameFull = User.Identity.Name;
+            var userName = "";
+            if(!string.IsNullOrEmpty(userNameFull)) {
+                userName = userNameFull.Split('@')[0];
+            }
+        }
         @foreach(var item in Model) {
             string emoji = "";
 
@@ -42,7 +49,7 @@
             } else {
                 emoji = "❓";
             }
-
+            if(userName == item.CreatedBy){
             <div class="character-card">
                 <h2 style="color: #8a6de6">@item.Name</h2>
                 <p><strong>@($"{emoji}Class: ")</strong>@item.Class</p>
@@ -54,6 +61,7 @@
                     <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-primary btn-lg">Delete</a>
                 </div>
             </div>
+            }
         }
 </div>
 </div>

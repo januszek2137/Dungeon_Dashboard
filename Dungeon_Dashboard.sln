@@ -5,14 +5,12 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dungeon_Dashboard", "Dungeon_Dashboard\Dungeon_Dashboard.csproj", "{3D5D2454-958E-492B-A21D-1A0360F9C9A8}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DnD_Database", "DnD_Database\DnD_Database.sqlproj", "{B5BED47A-2325-4AEC-A72F-D024904AFF36}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{622FF429-F54B-439D-9274-5691FB3B1BE9}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dungeon_DashboardTests", "Dungeon_DashboardTests\Dungeon_DashboardTests.csproj", "{26692CAC-7C4F-4625-9A15-20435678FDF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dungeon_DashboardTests", "Dungeon_DashboardTests\Dungeon_DashboardTests.csproj", "{26692CAC-7C4F-4625-9A15-20435678FDF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,12 +22,6 @@ Global
 		{3D5D2454-958E-492B-A21D-1A0360F9C9A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D5D2454-958E-492B-A21D-1A0360F9C9A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D5D2454-958E-492B-A21D-1A0360F9C9A8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B5BED47A-2325-4AEC-A72F-D024904AFF36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B5BED47A-2325-4AEC-A72F-D024904AFF36}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B5BED47A-2325-4AEC-A72F-D024904AFF36}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{B5BED47A-2325-4AEC-A72F-D024904AFF36}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B5BED47A-2325-4AEC-A72F-D024904AFF36}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B5BED47A-2325-4AEC-A72F-D024904AFF36}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{26692CAC-7C4F-4625-9A15-20435678FDF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{26692CAC-7C4F-4625-9A15-20435678FDF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26692CAC-7C4F-4625-9A15-20435678FDF0}.Release|Any CPU.ActiveCfg = Release|Any CPU

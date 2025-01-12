@@ -1,0 +1,21 @@
+services:
+  webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on:
+      - mssql
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=host.docker.internal,1433;Database=DungeonDashboard;User Id=sa;Password=SiemanoSiemano123!;Trust Server Certificate=True;
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: SiemanoSiemano123!
+      ACCEPT_EULA: "Y"
