@@ -1,5 +1,4 @@
-﻿/* Kontener siatki */
-.character-grid {
+﻿.character-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -7,9 +6,8 @@
     justify-content: center;
 }
 
-/* Kwadratowy kafelek */
 .character-card {
-    position: relative; /* Ustawiamy kontekst dla pseudo-elementu */
+    position: relative;
     border: 1px solid #ba9ffb;
     border-radius: 8px;
     width: 200px;

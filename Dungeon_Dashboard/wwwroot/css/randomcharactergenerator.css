@@ -31,7 +31,6 @@
     padding: 15px;
     margin-bottom: 15px;
     color: #ffffff;
-    
 }
 
     .card h3, .card h4, .card h5, .card h6 {
@@ -81,7 +80,6 @@
 
 .container {
     max-width: 1200px;
-
 }
 
 .row {
@@ -107,15 +105,15 @@
 }
 
 .encounter-header {
-    background-color: rgba(255, 169, 77, 0.2); /* Light orange background */
+    background-color: rgba(255, 169, 77, 0.2);
 }
 
 .encounter-npcs {
-    background-color: rgba(224, 170, 255, 0.2); /* Light purple background */
+    background-color: rgba(224, 170, 255, 0.2);
 }
 
 .encounter-monsters {
-    background-color: rgba(255, 107, 107, 0.2); /* Light red background */
+    background-color: rgba(255, 107, 107, 0.2);
 }
 
     .encounter-header h3, .encounter-npcs h4, .encounter-monsters h4 {

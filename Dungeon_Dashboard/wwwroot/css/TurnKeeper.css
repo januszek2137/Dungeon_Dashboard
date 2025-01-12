@@ -12,12 +12,12 @@
     }
 
     #initiativeTable tr {
-        background-color: #2f2b3a; /* Tło dla wszystkich wierszy */
-        color: #ba9ffb; /* Kolor tekstu */
+        background-color: #2f2b3a;
+        color: #ba9ffb;
     }
 
         #initiativeTable tr.highlight {
-            background-color: #3f3a4a; /* Kolor podświetlenia */
+            background-color: #3f3a4a;
         }
 
         #initiativeTable tr:hover {
@@ -32,6 +32,7 @@ button {
     padding: 5px 10px;
     border-radius: 5px;
 }
+
 .editable-hp {
     cursor: pointer;
     color: #ba9ffb;

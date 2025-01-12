@@ -178,7 +178,7 @@ form label {
 }
 
 .btn-primary {
-    background-color: #9e7fed; 
+    background-color: #9e7fed;
     border-color: #9e7fed;
 }
 
@@ -190,7 +190,7 @@ form label {
     }
 
 .btn-outline-primary {
-    color: #ba9ffb; 
+    color: #ba9ffb;
     border-color: #ba9ffb;
 }
 
@@ -207,8 +207,9 @@ form label {
     flex-direction: column;
     width: 100%;
 }
+
     .btn-stack .btn {
-        margin-bottom: 10px; 
+        margin-bottom: 10px;
     }
 
 .slider-container {
@@ -242,7 +243,7 @@ label {
 }
 
 input[type="range"] {
-    -webkit-appearance: none; 
+    -webkit-appearance: none;
     width: 100%;
     height: 8px;
     background: #2f2b3a;
@@ -252,22 +253,21 @@ input[type="range"] {
     border-color: none;
 }
 
-    /* Kropka na sliderze */
     input[type="range"]::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
-        width: 20px; /* Rozmiar kropki */
+        width: 20px;
         height: 20px;
-        background: #fff; /* Bia³y kolor kropki */
-        border: 2px solid #2f2b3a; /* Obramowanie kropki */
-        border-radius: 50%; /* Kropka jako idealne ko³o */
-        cursor: pointer; /* Kursor jako rêka */
-        margin-top: -6px; /* Wyrównanie kropki wzglêdem toru */
+        background: #fff;
+        border: 2px solid #2f2b3a;
+        border-radius: 50%;
+        cursor: pointer;
+        margin-top: -6px;
         transition: transform 0.3s, background-color 0.3s;
     }
 
         input[type="range"]::-webkit-slider-thumb:hover {
-            transform: scale(1.1); /* Powiêkszenie */
+            transform: scale(1.1);
             border-color: none;
         }
 
@@ -292,8 +292,8 @@ textarea {
 }
 
 input.form-control, select.form-select {
-    background-color: #252539; 
-    color: #e6e6e6; 
+    background-color: #252539;
+    color: #e6e6e6;
     border: 1px solid #6a6abf;
 }
 
@@ -306,38 +306,38 @@ input.form-control, select.form-select {
     }
 
 button.btn-primary {
-    background-color: #4e4e9c; 
+    background-color: #4e4e9c;
     color: #ffffff;
     border: 1px solid #6a6abf;
 }
 
     button.btn-primary:hover {
-        background-color: #6a6abf; 
+        background-color: #6a6abf;
         border-color: #8a85ff;
     }
 
     button.btn-primary:active {
-        background-color: #8a85ff; 
+        background-color: #8a85ff;
         border-color: #b0b0ff;
     }
 
 select.form-control {
-    background-color: #252539; 
-    color: #e6e6e6; 
-    border: 1px solid #6a6abf; 
+    background-color: #252539;
+    color: #e6e6e6;
+    border: 1px solid #6a6abf;
 }
 
     select.form-control:focus {
         background-color: #252539;
-        color: #e6e6e6; 
-        border-color: #8a85ff; 
-        outline: none; 
-        box-shadow: 0 0 5px #8a85ff; 
+        color: #e6e6e6;
+        border-color: #8a85ff;
+        outline: none;
+        box-shadow: 0 0 5px #8a85ff;
     }
 
 option {
-    background-color: #252539; 
-    color: #e6e6e6; 
+    background-color: #252539;
+    color: #e6e6e6;
 }
 
 #diceContainer {
@@ -346,27 +346,25 @@ option {
     justify-content: center;
 }
 
-
-
 .die-wrapper {
     position: relative;
     display: inline-block;
-    box-shadow: 0 0 15px 4px rgba(102, 51, 204, 0.5); 
-    margin: 10px; 
+    box-shadow: 0 0 15px 4px rgba(102, 51, 204, 0.5);
+    margin: 10px;
 }
 
 .die {
     width: 60px;
     height: 60px;
     position: relative;
-    display: flex; 
+    display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
     color: white;
     font-size: 1.5em;
     text-align: center;
-    margin:10px;
+    margin: 10px;
 }
 
     .die.d4 {
@@ -375,11 +373,12 @@ option {
         clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
         background-color: #660066;
     }
+
         .die.d4 .die-value {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, calc(-50% + 7px)); 
+            transform: translate(-50%, calc(-50% + 7px));
             color: white;
             font-weight: bold;
             text-align: center;
