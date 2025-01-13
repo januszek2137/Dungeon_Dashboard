@@ -18,7 +18,16 @@
             if(!string.IsNullOrEmpty(userNameFull)) {
                 userName = userNameFull.Split('@')[0];
             }
+
+            var userCharacters = Model.Where(item => item.CreatedBy == userName);
         }
+        @if(!userCharacters.Any()) {
+            <div class="character-card placeholder-card">
+                <h2>No characters found</h2>
+                <p>You have not created any characters yet. Click "Create New" to get started!</p>
+            </div>
+        }else{
+
         @foreach(var item in Model) {
             string emoji = "";
 
@@ -62,6 +71,7 @@
                 </div>
             </div>
             }
+        }
         }
 </div>
 </div>

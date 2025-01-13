@@ -62,3 +62,14 @@
         font-size: 0.75em;
         padding: 5px 10px;
     }
+
+.placeholder-card {
+    background-color: #ffeedd; 
+    text-align: center;
+}
+
+.character-card h2 {
+    margin: 0 0 10px;
+    font-size: 1.5em;
+    color: #8a6de6;
+}
