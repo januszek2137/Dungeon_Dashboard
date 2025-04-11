@@ -413,3 +413,78 @@ option {
         border-radius: 50%;
         background-color: #BB86FC;
     }
+
+#create-room .form-group {
+    margin-bottom: 15px;
+}
+
+#create-room .form-control {
+    padding: 10px;
+    font-size: 1rem;
+}
+
+#create-room .btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+#rooms-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+#rooms-list li {
+    background-color: #3a3548;
+    color: #ffffff;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.custom-toast {
+    background-color: #2f2b3a;
+    color: #ba9ffb;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+    .custom-toast .toast-body {
+        color: #ba9ffb;
+    }
+
+    .custom-toast .btn-close {
+        filter: invert(1);
+    }
+
+/* Przyciski Akceptuj i Odrzuæ w Toastach */
+.btn-accept {
+    background-color: #4caf50; /* Zielony */
+    color: #ffffff;
+}
+
+    .btn-accept:hover {
+        background-color: #45a049;
+    }
+
+.btn-reject {
+    background-color: #f44336; /* Czerwony */
+    color: #ffffff;
+}
+
+    .btn-reject:hover {
+        background-color: #d32f2f;
+    }
+
+/* Przyciski w Modalu Zapraszania */
+.btn-custom-primary {
+    background-color: #4e4e9c;
+    color: #ffffff;
+    border: 1px solid #6a6abf;
+}
+
+    .btn-custom-primary:hover {
+        background-color: #6a6abf;
+        border-color: #4e4e9c;
+    }

@@ -12,110 +12,143 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Onest:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/cannon-es/dist/cannon-es.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.0/signalr.min.js"></script>
     <link rel="icon" type="image/x-icon" href="~/icons/favicon.ico" />
-
 </head>
 <body style="font-family: 'Onest', sans-serif;">
     <div id="content-wrapper">
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Dungeon Dashboard</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <ul class="navbar-nav ms-auto">
-                        @if(User.Identity.IsAuthenticated){
-                                <li class="nav-item">
-                                    <a class="nav-link text-white">
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3">
+                <div class="container-fluid">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Dungeon Dashboard</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                            <ul class="navbar-nav ms-auto">
+                                @if(User.Identity.IsAuthenticated) {
+                                    <li class="nav-item">
+                                        <a class="nav-link">
                                             @{
                                                 var userNameFull = User.Identity.Name;
                                                 var userName = "";
-                                                if (!string.IsNullOrEmpty(userNameFull))
-                                                {
+                                                if(!string.IsNullOrEmpty(userNameFull)) {
                                                     userName = userNameFull.Split('@')[0];
                                                 }
                                             }
-                                        @userName
-                                    </a>
-                                </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Logout">Logout</a>
-                                </li>
-                            }else {
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Login">Login</a>
-                                </li>
-                            }
+                                            @userName
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="Identity" asp-page="/Account/Logout">Logout</a>
+                                    </li>
+                                } else {
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                                    </li>
+                                }
                             </ul>
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </header>
+            </nav>
+        </header>
 
-    <button class="btn-toolbar" id="toggle-dashboard">
+        <button class="btn-toolbar" id="toggle-dashboard" aria-label="Toggle Dashboard">
             <svg class="toolbar-collapse" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-    </button>
+        </button>
 
-    <div class="sidebar" id="sidebar">
-        @if(User.Identity.IsAuthenticated) {
-            <h3>D&D</h3>
-            <div class="sidebar-options">
-                <ul>
-                    <a asp-controller="Sidebar" asp-action="Planner" class="full-width-link">
+        <div class="sidebar" id="sidebar">
+            @if(User.Identity.IsAuthenticated) {
+                <h3>D&D</h3>
+                <div class="sidebar-options">
+                    <ul>
+                        <a asp-controller="Sidebar" asp-action="Planner" class="full-width-link">
                         <li>📅Session Planner📅</li>
-                    </a>
-                    <a asp-controller="CharacterModels" asp-action="Index">
+                        </a>
+                        <a asp-controller="CharacterModels" asp-action="Index">
                         <li>👤Character👤</li>
-                    </a>
-                    <a asp-controller="CharacterGenerator" asp-action="Index">
+                        </a>
+                        <a asp-controller="CharacterGenerator" asp-action="Index">
                         <li>💡Generator💡</li>
-                     </a>
-                     <a asp-controller="TurnKeeperView" asp-action="Index">
+                        </a>
+                        <a asp-controller="TurnKeeperView" asp-action="Index">
                         <li>🔄Turn Keeper🔄</li>
-                     </a>
-                     <a href="#" class="full-width-link" data-bs-toggle="modal" data-bs-target="#diceRollerModal">
+                        </a>
+                        <a asp-controller="RoomsView" asp-action="Index">
+                        <li>🏠Rooms🏠</li>
+                        </a>
+                        <a href="#" class="full-width-link" data-bs-toggle="modal" data-bs-target="#diceRollerModal">
                         <li>🎲Dice Roller🎲</li>
-                     </a>
-                </ul>
-            </div>
-        } else {
-            <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-                <h3 style="text-align: center;">Log in to access the dashboard</h3>
-            </div>
-        }
-    </div>
-
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; @DateTime.Now.Year - Dungeon Dashboard
+                        </a>
+                    </ul>
+                </div>
+            } else {
+                <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+                    <h3 style="text-align: center;">Log in to access the dashboard</h3>
+                </div>
+            }
         </div>
-    </footer>
+
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+
+        <!-- Invite Modal -->
+        <div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="inviteModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="inviteModalLabel">Zaproś użytkownika</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="invite-roomId" />
+                        <div class="form-group mb-3">
+                            <label for="invite-username" class="form-label">Nazwa użytkownika:</label>
+                            <input type="text" id="invite-username" class="form-control" placeholder="Wprowadź nazwę użytkownika" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+                        <button type="button" id="invite-submit" class="btn btn-custom-primary">Zaproś</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 p-3" style="z-index: 1050;">
+            <div id="toast-container">
+            </div>
+        </div>
+
+
+        <!-- Footer -->
+        <footer class="footer border-top text-muted">
+            <div class="container">
+                &copy; @DateTime.Now.Year - Dungeon Dashboard
+            </div>
+        </footer>
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/toast.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
-    <!--DICEROLLER-->
+    <!-- DICEROLLER Modal -->
     <div class="modal fade" id="diceRollerModal" tabindex="-1" aria-labelledby="diceRollerLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -141,18 +174,16 @@
                             <label for="diceCount" class="form-label">Number of dice</label>
                             <input type="number" class="form-control" id="diceCount" min="1" value="1" required>
                         </div>
-                        <button type="button" class="btn btn-primary btn-lg btn-group-lg" onclick="rollDice()"
-                                style="background-color: #4e4e9c;color: #ffffff;border: 1px solid #6a6abf; width:100%;">
+                        <button type="button" class="btn btn-custom-primary btn-lg btn-group-lg w-100" onclick="rollDice()">
                             Roll
                         </button>
                     </form>
-                    <div id="errorMessage" style="color: red; margin-top: 10px;"></div>
-                     <div class="mt-3" id="diceContainer"></div>
+                    <div id="errorMessage" class="mt-2 text-danger"></div>
+                    <div class="mt-3" id="diceContainer"></div>
                     <div class="mt-3" id="diceResult"></div>
                 </div>
             </div>
         </div>
     </div>
-
 </body>
 </html>

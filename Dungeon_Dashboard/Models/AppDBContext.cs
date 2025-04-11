@@ -19,5 +19,7 @@ namespace Dungeon_Dashboard.Models {
 
         public DbSet<Dungeon_Dashboard.Models.EventModel> EventModel { get; set; } = default!;
         public DbSet<Dungeon_Dashboard.Models.CharacterModel> CharacterModel { get; set; } = default!;
+        public DbSet<Dungeon_Dashboard.Models.InvitationModel> InvitationModel { get; set; } = default!;
+        public DbSet<Dungeon_Dashboard.Models.RoomModel> RoomModel { get; set; } = default!;
     }
 }

@@ -1,7 +1,5 @@
-!!!!!!!!KOLEJNOSC TUR, WPISANIE KAZDEGO UCZESTNIKA I KLIKANIE NEXT !!!!!!!!!
-
-!!otwarty dashboard przechodzi miedzy sesjami!!
-!!w widoku CharacterModels/Details przy braku skilli/inv/eq nie wyœwietlaæ pól!!
+!!CYTAT NA GLOWNEJ STRONIE GENEROWANY MODELEM AI!!
+!!dodawanie eventow w planerze nie dziala!! js calendar.js - format dat
 
 
 1. Dashboard Sesji
