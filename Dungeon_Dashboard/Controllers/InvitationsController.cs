@@ -1,5 +1,6 @@
 ﻿using Dungeon_Dashboard.Models;
 using Dungeon_Dashboard.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ namespace Dungeon_Dashboard.Controllers {
 
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class InvitationsController : ControllerBase {
         private readonly AppDBContext _context;
         private readonly IHubContext<NotificationHub> _hubContext;

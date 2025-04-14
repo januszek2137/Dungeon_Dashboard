@@ -1,9 +1,11 @@
 ﻿using Dungeon_Dashboard.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace Dungeon_Dashboard.Controllers {
 
+    [Authorize]
     [Route("CharacterGenerator")]
     public class CharacterGeneratorController : Controller {
         private readonly HttpClient _client;

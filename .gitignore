@@ -6,6 +6,10 @@
 # Ignore appsettings.json
 Dungeon_Dashboard/appsettings.json
 
+# Config files
+Dungeon_Dashboard/appsettings.Development.json
+Dungeon_Dashboard/appsettings.Production.json
+
 # User-specific files
 *.rsuser
 *.suo

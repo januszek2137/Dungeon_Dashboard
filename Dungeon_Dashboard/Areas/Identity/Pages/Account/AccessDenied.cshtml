@@ -4,7 +4,18 @@
     ViewData["Title"] = "Access denied";
 }
 
-<header>
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">You do not have access to this resource.</p>
-</header>
+<div id="main" class="container text-center">
+    <header>
+        <h1>@ViewData["Title"]</h1>
+        <p>You don't have permissions to view this resource.</p>
+    </header>
+
+    <div style="margin-top: 40px;">
+        <h2 style="color: #ba9ffb;">What can You do?</h2>
+
+        <div class="btn-stack" style="max-width: 300px; margin: 0 auto;">
+            <a class="btn btn-outline-primary" asp-controller="Home" asp-action="Index">Return to homepage</a>
+            <a href="mailto:mr.janolex@gmail.com" class="btn btn-primary">Contact the administrator</a>
+        </div>
+    </div>
+</div>

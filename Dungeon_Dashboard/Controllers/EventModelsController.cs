@@ -1,4 +1,5 @@
 ﻿using Dungeon_Dashboard.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,6 +7,7 @@ namespace Dungeon_Dashboard.Controllers {
 
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class EventModelsController : ControllerBase {
         private readonly AppDBContext _context;
 

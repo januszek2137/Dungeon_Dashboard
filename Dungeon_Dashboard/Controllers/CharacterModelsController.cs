@@ -10,6 +10,7 @@ using System.Globalization;
 
 namespace Dungeon_Dashboard.Controllers {
 
+    [Authorize]
     public class CharacterModelsController : Controller {
         private readonly AppDBContext _context;
 
@@ -18,13 +19,11 @@ namespace Dungeon_Dashboard.Controllers {
         }
 
         // GET: CharacterModels
-        [Authorize]
         public async Task<IActionResult> Index() {
             return View(await _context.CharacterModel.ToListAsync());
         }
 
         // GET: CharacterModels/Details/5
-        [Authorize]
         public async Task<IActionResult> Details(int? id) {
             if(id == null) {
                 return NotFound();
@@ -32,15 +31,19 @@ namespace Dungeon_Dashboard.Controllers {
 
             var characterModel = await _context.CharacterModel
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if(characterModel == null) {
                 return NotFound();
+            }
+
+            if(characterModel.CreatedBy != User.Identity.Name.Split("@")[0]) {
+                return Forbid();
             }
 
             return View(characterModel);
         }
 
         // GET: CharacterModels/Create
-        [Authorize]
         public IActionResult Create() {
             ViewBag.ClassList = Enum.GetValues(typeof(Classes))
                            .Cast<Classes>()
@@ -64,7 +67,6 @@ namespace Dungeon_Dashboard.Controllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
         public async Task<IActionResult> Create([Bind("Id,Name,Class,Race,Level,Speed,ArmorClass,HitPoints,Strength,Dexterity,Constitution,Intelligence,Wisdom,Charisma,Skills,Equipment,Inventory,Copper,Silver,Electrum,Gold,Platinum")] CharacterModel characterModel) {
             ViewBag.ClassList = Enum.GetValues(typeof(Classes))
                             .Cast<Classes>()
@@ -104,7 +106,6 @@ namespace Dungeon_Dashboard.Controllers {
         }
 
         // GET: CharacterModels/Edit/5
-        [Authorize]
         public async Task<IActionResult> Edit(int? id) {
             ViewBag.ClassList = Enum.GetValues(typeof(Classes))
                            .Cast<Classes>()
@@ -128,6 +129,11 @@ namespace Dungeon_Dashboard.Controllers {
             if(characterModel == null) {
                 return NotFound();
             }
+
+            if(characterModel.CreatedBy != User.Identity.Name.Split("@")[0]) {
+                return Forbid();
+            }
+
             return View(characterModel);
         }
 
@@ -136,7 +142,6 @@ namespace Dungeon_Dashboard.Controllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Class,Race,Level,Speed,ArmorClass,HitPoints,Strength,Dexterity,Constitution,Intelligence,Wisdom,Charisma,Skills,Equipment,Inventory,Copper,Silver,Electrum,Gold,Platinum")] CharacterModel characterModel) {
             var username = User.Identity.Name.Split('@')[0];
             if(username != null) {
@@ -178,7 +183,6 @@ namespace Dungeon_Dashboard.Controllers {
         }
 
         // GET: CharacterModels/Delete/5
-        [Authorize]
         public async Task<IActionResult> Delete(int? id) {
             if(id == null) {
                 return NotFound();
@@ -188,6 +192,10 @@ namespace Dungeon_Dashboard.Controllers {
                 .FirstOrDefaultAsync(m => m.Id == id);
             if(characterModel == null) {
                 return NotFound();
+            }
+
+            if(characterModel.CreatedBy != User.Identity.Name.Split("@")[0]) {
+                return Forbid();
             }
 
             return View(characterModel);
