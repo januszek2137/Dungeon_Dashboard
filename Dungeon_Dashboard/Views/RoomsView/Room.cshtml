@@ -4,5 +4,88 @@
     ViewBag.Title = "Room - " + Model.Name;
 }
 
-<h1>@Model.Name</h1>
-<p>@Model.CreatedBy</p>
+<link rel="stylesheet" href="~/css/RoomId.css" />
+
+<div class="container-fluid">
+    <div class="row">
+        <main class="col-12 col-md-9">
+            <h1 class="mb-3">@Model.Name</h1>
+            <p class="text-muted">@Model.Description</p>
+            <p class="text-muted">Created by: <strong>@Model.CreatedBy</strong></p>
+        </main>
+
+        <aside class="col-12 col-md-3">
+            <div class="card sticky-top" style="top:20px">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Participants</h5>
+                </div>
+                <ul class="list-group list-group-flush" id="participantsList">
+                    <!-- JS -->
+                </ul>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+<script>
+    const allUsers = @Html.Raw(
+        System.Text.Json.JsonSerializer.Serialize(Model.Participants)
+        );
+    const roomId = @Model.Id;
+    const userName = @Html.Raw(
+        System.Text.Json.JsonSerializer.Serialize(User.Identity.Name)
+        );
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const listEl = document.getElementById("participantsList");
+
+        function renderList(onlineUsers) {
+            listEl.innerHTML = "";
+            const onlineSet = new Set(onlineUsers.map(u => u.toLowerCase()));
+
+            allUsers.forEach(u => {
+                const li = document.createElement("li");
+                li.className = "list-group-item";
+
+                const dot = document.createElement("span");
+                dot.className = "status-dot " + (onlineSet.has(u.toLowerCase()) ? "online" : "offline");
+
+                const details = document.createElement("div");
+                details.className = "user-details";
+
+                const nameDiv = document.createElement("div");
+                nameDiv.className = "user-name";
+                nameDiv.textContent = u;
+
+                const statusDiv = document.createElement("div");
+                const isOnline = onlineSet.has(u.toLowerCase());
+                statusDiv.className = "user-status " + (isOnline ? "online" : "offline");
+                statusDiv.textContent = isOnline ? "Online" : "Offline";
+
+                details.appendChild(nameDiv);
+                details.appendChild(statusDiv);
+                li.appendChild(dot);
+                li.appendChild(details);
+                listEl.appendChild(li);
+            });
+        }
+
+        renderList([]);
+
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/participantsHub")
+            .configureLogging(signalR.LogLevel.Warning)
+            .withAutomaticReconnect()
+            .build();
+
+        connection.on("UpdateParticipants", onlineUsers => {
+            renderList(onlineUsers);
+        });
+
+        connection.start()
+            .then(() => connection.invoke("JoinRoom", roomId, userName))
+            .catch(err => console.error("SignalR error:", err));
+    });
+</script>
+

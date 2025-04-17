@@ -1,0 +1,92 @@
+﻿aside .card {
+    background-color: #2f2b3a;
+    border: 1px solid #3f3a4a;
+}
+
+aside .card-header {
+    background-color: #393549;
+    border-bottom: 1px solid #3f3a4a;
+    color: #ba9ffb;
+}
+
+#participantsList {
+    padding: 0;
+    margin: 0;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #6a6abf #2f2b3a;
+}
+
+    #participantsList::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    #participantsList::-webkit-scrollbar-thumb {
+        background-color: #6a6abf;
+        border-radius: 3px;
+    }
+
+    #participantsList::-webkit-scrollbar-track {
+        background-color: #2f2b3a;
+    }
+
+    #participantsList .list-group-item {
+        display: flex;
+        align-items: center; /* przywracamy wyśrodkowanie kropki */
+        padding: 0.5rem 1rem;
+        background-color: #2f2b3a;
+        color: #ba9ffb;
+        border: none;
+        border-bottom: 1px solid #3f3a4a;
+        transition: background-color 0.2s, color 0.2s;
+    }
+
+        #participantsList .list-group-item:last-child {
+            border-bottom: none;
+        }
+
+        #participantsList .list-group-item:hover {
+            background-color: #3f3a4a;
+            color: #a688fa;
+            cursor: pointer;
+        }
+
+.status-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+    .status-dot.offline {
+        background-color: #dc3545;
+    }
+
+    .status-dot.online {
+        background-color: #28a745;
+    }
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-weight: 500;
+    color: #ba9ffb;
+}
+
+.user-status {
+    font-size: 0.7rem;
+    margin-top: 2px;
+}
+
+    .user-status.online {
+        color: #28a745;
+    }
+
+    .user-status.offline {
+        color: #dc3545;
+    }
