@@ -1,41 +1,45 @@
 ﻿@model Dungeon_Dashboard.Models.RoomModel
-
 @{
     ViewBag.Title = "Room - " + Model.Name;
 }
-
 <link rel="stylesheet" href="~/css/RoomId.css" />
+<script src="https://cdn.jsdelivr.net/npm/diff-match-patch@1.0.5/index.min.js"></script>
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
 
 <div class="container-fluid">
     <div class="row">
-        <main class="col-12 col-md-9">
-            <h1 class="mb-3">@Model.Name</h1>
+        <main class="col-12 col-md-9 order-1">
+            <h1>@Model.Name</h1>
             <p class="text-muted">@Model.Description</p>
             <p class="text-muted">Created by: <strong>@Model.CreatedBy</strong></p>
+
+            <div class="card mt-4">
+                <div class="card-header"><h5>Notatki</h5></div>
+                <div class="card-body">
+                    <div id="notesContainer"></div>
+                    <textarea id="newNoteContent" class="form-control" placeholder="Nowa notatka..."></textarea>
+                    <button id="addNoteBtn" class="btn btn-primary mt-2">Dodaj notatkę</button>
+                </div>
+            </div>
         </main>
 
-        <aside class="col-12 col-md-3">
-            <div class="card sticky-top" style="top:20px">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Participants</h5>
+        <aside class="col-12 col-md-3 order-2 ms-auto">
+            <div class="card sticky-top" style="top:20px;">
+                <div class="card-header"><h5>Participants</h5></div>
+                <div class="card-body p-0">
+                    <ul id="participantsList" class="list-group list-group-flush"></ul>
                 </div>
-                <ul class="list-group list-group-flush" id="participantsList">
-                    <!-- JS -->
-                </ul>
             </div>
         </aside>
     </div>
 </div>
 
-<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/diff-match-patch@1.0.5/index.min.js"></script>
+
 <script>
-    const allUsers = @Html.Raw(
-        System.Text.Json.JsonSerializer.Serialize(Model.Participants)
-        );
     const roomId = @Model.Id;
-    const userName = @Html.Raw(
-        System.Text.Json.JsonSerializer.Serialize(User.Identity.Name)
-        );
+    const userName = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(User.Identity.Name));
+    const allUsers = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Participants));
 
     document.addEventListener("DOMContentLoaded", () => {
         const listEl = document.getElementById("participantsList");
@@ -86,6 +90,115 @@
         connection.start()
             .then(() => connection.invoke("JoinRoom", roomId, userName))
             .catch(err => console.error("SignalR error:", err));
+
+        const pConn = new signalR.HubConnectionBuilder()
+            .withUrl("/participantsHub")
+            .withAutomaticReconnect()
+            .build();
+        pConn.on("UpdateParticipants", online => {
+            const list = document.getElementById("participantsList");
+            list.innerHTML = "";
+            const set = new Set(online.map(u => u.toLowerCase()));
+            allUsers.forEach(u => {
+                const li = document.createElement("li");
+                li.className = "list-group-item";
+                const dot = document.createElement("span");
+                dot.className = "status-dot " + (set.has(u.toLowerCase()) ? "online" : "offline");
+                const details = document.createElement("div");
+                details.className = "user-details";
+                details.innerHTML = `<div class="user-name">${u}</div>
+                                     <div class="user-status ${set.has(u.toLowerCase()) ? "online" : "offline"}">
+                                       ${set.has(u.toLowerCase()) ? "Online" : "Offline"}
+                                     </div>`;
+                li.append(dot, details);
+                list.append(li);
+            });
+        });
+        pConn.start().then(() => pConn.invoke("JoinRoom", roomId, userName));
+
+        const dmp = new diff_match_patch();
+        const noteStates = {};
+        const nConn = new signalR.HubConnectionBuilder()
+            .withUrl("/notesHub")
+            .withAutomaticReconnect()
+            .build();
+
+        nConn.on("ReceiveNotes", notes => {
+            const c = document.getElementById("notesContainer");
+            c.innerHTML = "";
+            notes.forEach(n => {
+                noteStates[n.id] = n.content;
+                renderNote(n.id, n.content);
+            });
+        });
+
+        nConn.on("ReceiveNotePatch", (id, patchText) => {
+            const el = document.querySelector(`[data-note-id='${id}']`);
+            if (!el) return;
+            const patches = dmp.patch_fromText(patchText);
+            const [newText] = dmp.patch_apply(patches, el.textContent);
+            noteStates[id] = newText;
+            el.textContent = newText;
+        });
+
+        nConn.start().then(() => nConn.invoke("JoinRoom", roomId));
+
+        document.getElementById("addNoteBtn").addEventListener("click", () => {
+            const txt = document.getElementById("newNoteContent");
+            const content = txt.value.trim();
+            if (!content) return;
+            nConn.invoke("AddNote", roomId, content, userName)
+                .then(() => txt.value = "")
+                .catch(console.error);
+        });
+
+        function renderNote(id, content) {
+            const c = document.getElementById("notesContainer");
+            const d = document.createElement("div");
+            d.className = "note-item position-relative border p-2 mb-2";
+            d.setAttribute("data-note-id", id);
+            d.contentEditable = true;
+            d.textContent = content;
+
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "position-absolute top-0 end-0 m-1 border-0 bg-transparent text-light";
+            btn.innerHTML = "&times;";
+            btn.style.fontSize = "1rem";
+            btn.style.cursor = "pointer";
+            btn.setAttribute("aria-label", "Usuń");
+            btn.addEventListener("click", e => {
+                e.stopPropagation();
+                nConn.invoke("DeleteNote", roomId, id).catch(console.error);
+            });
+            d.appendChild(btn);
+
+            d.addEventListener("input", debounce(() => {
+                const old = noteStates[id];
+                const curr = d.textContent;
+                const patches = dmp.patch_make(old, curr);
+                const patchText = dmp.patch_toText(patches);
+                noteStates[id] = curr;
+                nConn.invoke("EditNotePatch", roomId, id, patchText)
+                    .catch(console.error);
+            }, 300));
+
+            c.appendChild(d);
+        }
+
+        function debounce(fn, delay) {
+            let t;
+            return (...args) => {
+                clearTimeout(t);
+                t = setTimeout(() => fn(...args), delay);
+            };
+        }
+
+        nConn.on("NoteDeleted", id => {
+            const el = document.querySelector(`[data-note-id='${id}']`);
+            if (el) el.remove();
+        });
+
+        
     });
 </script>
-
