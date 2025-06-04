@@ -1,4 +1,5 @@
 using Dungeon_Dashboard.Areas.Identity.Pages.Account.EmailSender;
+using Dungeon_Dashboard.Hubs;
 using Dungeon_Dashboard.Models;
 using Dungeon_Dashboard.Services;
 using Microsoft.AspNetCore.Identity;
@@ -66,6 +67,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapHub<NotificationHub>("/notificationhub");
-app.MapHub<ParticipantsHub>("/participantshub");
+app.MapHub<ParticipantsHub>("/participantsHub");
+app.MapHub<NotesHub>("/notesHub");
 
 app.Run();

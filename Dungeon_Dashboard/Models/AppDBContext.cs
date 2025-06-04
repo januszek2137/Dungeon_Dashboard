@@ -21,5 +21,16 @@ namespace Dungeon_Dashboard.Models {
         public DbSet<Dungeon_Dashboard.Models.CharacterModel> CharacterModel { get; set; } = default!;
         public DbSet<Dungeon_Dashboard.Models.InvitationModel> InvitationModel { get; set; } = default!;
         public DbSet<Dungeon_Dashboard.Models.RoomModel> RoomModel { get; set; } = default!;
+        public DbSet<Dungeon_Dashboard.Models.NoteModel> NoteModel { get; set; } = default!;
+
+        protected override void OnModelCreating(ModelBuilder builder) {
+            base.OnModelCreating(builder);
+
+            builder.Entity<RoomModel>()
+                .HasMany(r => r.Notes)
+                .WithOne(n => n.Room)
+                .HasForeignKey(n => n.RoomId)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
     }
 }
