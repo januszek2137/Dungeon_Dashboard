@@ -40,6 +40,8 @@ namespace Dungeon_Dashboard.Hubs {
         }
 
         public async Task EditNotePatch(int roomId, int noteId, string patchText) {
+            patchText = Uri.UnescapeDataString(patchText);
+
             var note = await _db.NoteModel.FindAsync(noteId);
             if(note == null || note.RoomId != roomId)
                 return;
@@ -50,7 +52,7 @@ namespace Dungeon_Dashboard.Hubs {
             note.Timestamp = DateTime.UtcNow;
             await _db.SaveChangesAsync();
 
-            await Clients.Group(roomId.ToString())
+            await Clients.OthersInGroup(roomId.ToString())
                          .SendAsync("ReceiveNotePatch", noteId, patchText);
         }
 
