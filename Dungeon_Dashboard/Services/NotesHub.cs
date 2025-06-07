@@ -50,7 +50,7 @@ namespace Dungeon_Dashboard.Hubs {
             note.Timestamp = DateTime.UtcNow;
             await _db.SaveChangesAsync();
 
-            await Clients.Group(roomId.ToString())
+            await Clients.OthersInGroup(roomId.ToString())
                          .SendAsync("ReceiveNotePatch", noteId, patchText);
         }
 

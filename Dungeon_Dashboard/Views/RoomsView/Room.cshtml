@@ -133,7 +133,7 @@
         });
 
         nConn.on("ReceiveNotePatch", (id, patchText) => {
-            const el = document.querySelector(`[data-note-id='${id}']`);
+            const el = document.querySelector(`span.note-text[data-note-id='${id}']`);
             if (!el) return;
             const patches = dmp.patch_fromText(patchText);
             const [newText] = dmp.patch_apply(patches, el.textContent);
@@ -154,28 +154,32 @@
 
         function renderNote(id, content) {
             const c = document.getElementById("notesContainer");
-            const d = document.createElement("div");
-            d.className = "note-item position-relative border p-2 mb-2";
-            d.setAttribute("data-note-id", id);
-            d.contentEditable = true;
-            d.textContent = content;
+
+            const container = document.createElement("div");
+            container.className = "note-item position-relative border p-2 mb-2";
+            container.setAttribute("data-note-id", id);
+
+            const textSpan = document.createElement("span");
+            textSpan.className = "note-text";
+            textSpan.setAttribute("data-note-id", id);
+            textSpan.setAttribute("contentEditable", "true");
+            textSpan.textContent = content;
 
             const btn = document.createElement("button");
             btn.type = "button";
             btn.className = "position-absolute top-0 end-0 m-1 border-0 bg-transparent text-light";
             btn.innerHTML = "&times;";
-            btn.style.fontSize = "1rem";
             btn.style.cursor = "pointer";
             btn.setAttribute("aria-label", "Usuń");
+            btn.setAttribute("contentEditable", "false");
             btn.addEventListener("click", e => {
                 e.stopPropagation();
                 nConn.invoke("DeleteNote", roomId, id).catch(console.error);
             });
-            d.appendChild(btn);
 
-            d.addEventListener("input", debounce(() => {
+            textSpan.addEventListener("input", debounce(() => {
                 const old = noteStates[id];
-                const curr = d.textContent;
+                const curr = textSpan.textContent;
                 const patches = dmp.patch_make(old, curr);
                 const patchText = dmp.patch_toText(patches);
                 noteStates[id] = curr;
@@ -183,7 +187,9 @@
                     .catch(console.error);
             }, 300));
 
-            c.appendChild(d);
+            container.appendChild(textSpan);
+            container.appendChild(btn);
+            c.appendChild(container);
         }
 
         function debounce(fn, delay) {
@@ -195,8 +201,8 @@
         }
 
         nConn.on("NoteDeleted", id => {
-            const el = document.querySelector(`[data-note-id='${id}']`);
-            if (el) el.remove();
+            const item = document.querySelector(`.note-item[data-note-id='${id}']`);
+            if (item) item.remove();
         });
 
         
