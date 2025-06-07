@@ -40,8 +40,6 @@ namespace Dungeon_Dashboard.Hubs {
         }
 
         public async Task EditNotePatch(int roomId, int noteId, string patchText) {
-            patchText = Uri.UnescapeDataString(patchText);
-
             var note = await _db.NoteModel.FindAsync(noteId);
             if(note == null || note.RoomId != roomId)
                 return;
