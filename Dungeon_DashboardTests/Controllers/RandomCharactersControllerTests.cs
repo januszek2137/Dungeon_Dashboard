@@ -1,5 +1,4 @@
-﻿using Dungeon_Dashboard.Models;
-using Dungeon_Dashboard.Services;
+﻿using Dungeon_Dashboard.CharactersEncounterGeneration;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
@@ -8,12 +7,12 @@ namespace Dungeon_Dashboard.Controllers.Tests {
     [TestClass]
     public class RandomCharactersControllerTests {
         private Mock<ICharacterGeneratorService> _mockGeneratorService;
-        private RandomCharactersController _controller;
+        private ContentGenerationApiController _controller;
 
         [TestInitialize]
         public void Setup() {
             _mockGeneratorService = new Mock<ICharacterGeneratorService>();
-            _controller = new RandomCharactersController(_mockGeneratorService.Object);
+            _controller = new ContentGenerationApiController(_mockGeneratorService.Object);
         }
 
         [TestMethod]

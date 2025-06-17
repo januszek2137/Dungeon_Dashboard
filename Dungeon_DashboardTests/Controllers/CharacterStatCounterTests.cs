@@ -1,4 +1,6 @@
-﻿namespace Dungeon_Dashboard.Controllers.Tests {
+﻿using Dungeon_Dashboard.PlayerCharacters;
+
+namespace Dungeon_Dashboard.Controllers.Tests {
 
     [TestClass()]
     public class CharacterStatCounterTests {
