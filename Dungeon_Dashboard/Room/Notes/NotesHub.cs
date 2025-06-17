@@ -13,7 +13,7 @@ namespace Dungeon_Dashboard.Group.Notes {
             _db = db;
         }
 
-        public async Task JoinRoom(int roomId) {
+        public async Task FetchNotes(int roomId) {
             await Groups.AddToGroupAsync(Context.ConnectionId, roomId.ToString());
             var notes = await _db.NoteModel
                                  .Where(n => n.RoomId == roomId)

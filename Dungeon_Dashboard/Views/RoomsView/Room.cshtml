@@ -142,7 +142,7 @@
             el.textContent = newText;
         });
 
-        nConn.start().then(() => nConn.invoke("JoinRoom", roomId));
+        nConn.start().then(() => nConn.invoke("FetchNotes", roomId));
 
         document.getElementById("addNoteBtn").addEventListener("click", () => {
             const txt = document.getElementById("newNoteContent");
