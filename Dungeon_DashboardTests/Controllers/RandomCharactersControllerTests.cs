@@ -1,4 +1,6 @@
-﻿using Dungeon_Dashboard.CharactersEncounterGeneration;
+﻿using Dungeon_Dashboard.ContentGeneration.Controllers;
+using Dungeon_Dashboard.ContentGeneration.Models;
+using Dungeon_Dashboard.ContentGeneration.Services;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
