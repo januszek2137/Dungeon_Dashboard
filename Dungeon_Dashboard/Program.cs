@@ -1,7 +1,11 @@
 using Dungeon_Dashboard.Areas.Identity.Pages.Account.EmailSender;
-using Dungeon_Dashboard.Hubs;
-using Dungeon_Dashboard.Models;
-using Dungeon_Dashboard.Services;
+using Dungeon_Dashboard.ContentGeneration.Services;
+using Dungeon_Dashboard.Event.Services;
+using Dungeon_Dashboard.Home;
+using Dungeon_Dashboard.Home.Data;
+using Dungeon_Dashboard.Invitations.Hubs;
+using Dungeon_Dashboard.Room.Hubs;
+using Dungeon_Dashboard.Room.Notes.Hubs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.SignalR;
@@ -13,11 +17,14 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddSingleton<IDataService, DataService>();
 
-builder.Services.AddSingleton<ICharacterGeneratorService, CharacterGeneratorService>();
+builder.Services.AddSingleton<ICharacterGeneratorService, ContentGenerationService>();
 
 builder.Services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
 
 builder.Services.AddSignalR();
+
+builder.Services.AddScoped<IEventService, EventService>();
+
 
 builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))

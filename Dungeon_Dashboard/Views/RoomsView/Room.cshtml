@@ -1,4 +1,6 @@
-﻿@model Dungeon_Dashboard.Models.RoomModel
+﻿@using Dungeon_Dashboard.Room
+@using Dungeon_Dashboard.Room.Models
+@model RoomModel
 @{
     ViewBag.Title = "Room - " + Model.Name;
 }
@@ -141,7 +143,7 @@
             el.textContent = newText;
         });
 
-        nConn.start().then(() => nConn.invoke("JoinRoom", roomId));
+        nConn.start().then(() => nConn.invoke("FetchNotes", roomId));
 
         document.getElementById("addNoteBtn").addEventListener("click", () => {
             const txt = document.getElementById("newNoteContent");
