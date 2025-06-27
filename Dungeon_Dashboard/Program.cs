@@ -1,5 +1,6 @@
 using Dungeon_Dashboard.Areas.Identity.Pages.Account.EmailSender;
 using Dungeon_Dashboard.ContentGeneration.Services;
+using Dungeon_Dashboard.Event.Services;
 using Dungeon_Dashboard.Home;
 using Dungeon_Dashboard.Home.Data;
 using Dungeon_Dashboard.Invitations.Hubs;
@@ -21,6 +22,9 @@ builder.Services.AddSingleton<ICharacterGeneratorService, ContentGenerationServi
 builder.Services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
 
 builder.Services.AddSignalR();
+
+builder.Services.AddScoped<IEventService, EventService>();
+
 
 builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))

@@ -1,8 +1,8 @@
 ﻿using Dungeon_Dashboard.Event.Models;
+using Dungeon_Dashboard.Event.Services;
 using Dungeon_Dashboard.Home.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Dungeon_Dashboard.Event.Controllers {
 
@@ -10,49 +10,34 @@ namespace Dungeon_Dashboard.Event.Controllers {
     [ApiController]
     [Authorize]
     public class EventModelsController : ControllerBase {
-        private readonly AppDBContext _context;
+        private readonly IEventService _eventService;
 
-        public EventModelsController(AppDBContext context) {
-            _context = context;
+        public EventModelsController(AppDBContext context, IEventService eventService) {
+            _eventService = eventService;
         }
 
         // GET: api/EventModels
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EventModel>>> GetEventModel() {
-            return await _context.EventModel.ToListAsync();
+            var events = await _eventService.GetAllEventsAsync();
+            return Ok(events);
         }
 
         // GET: api/EventModels/5
         [HttpGet("{id}")]
         public async Task<ActionResult<EventModel>> GetEventModel(int id) {
-            var eventModel = await _context.EventModel.FindAsync(id);
+            var eventModel = await _eventService.GetEventByIdAsync(id);
+            if (eventModel == null) return NotFound();
 
-            if(eventModel == null) {
-                return NotFound();
-            }
-
-            return eventModel;
+            return Ok(eventModel);
         }
 
         // PUT: api/EventModels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEventModel(int id, EventModel eventModel) {
-            if(id != eventModel.Id) {
-                return BadRequest();
-            }
-
-            _context.Entry(eventModel).State = EntityState.Modified;
-
-            try {
-                await _context.SaveChangesAsync();
-            } catch(DbUpdateConcurrencyException) {
-                if(!EventModelExists(id)) {
-                    return NotFound();
-                } else {
-                    throw;
-                }
-            }
+            var result = await _eventService.UpdateEventAsync(id, eventModel);
+            if (!result) return NotFound();
 
             return NoContent();
         }
@@ -61,28 +46,17 @@ namespace Dungeon_Dashboard.Event.Controllers {
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<EventModel>> PostEventModel(EventModel eventModel) {
-            _context.EventModel.Add(eventModel);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetEventModel", new { id = eventModel.Id }, eventModel);
+            var created = await _eventService.CreateEventAsync(eventModel);
+            return CreatedAtAction(nameof(GetEventModel), new { id = created.Id }, created);
         }
 
         // DELETE: api/EventModels/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEventModel(int id) {
-            var eventModel = await _context.EventModel.FindAsync(id);
-            if(eventModel == null) {
-                return NotFound();
-            }
-
-            _context.EventModel.Remove(eventModel);
-            await _context.SaveChangesAsync();
+            var deleted = await _eventService.DeleteEventAsync(id);
+            if (!deleted) return NotFound();
 
             return NoContent();
-        }
-
-        private bool EventModelExists(int id) {
-            return _context.EventModel.Any(e => e.Id == id);
         }
     }
 }
