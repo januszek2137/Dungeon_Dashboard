@@ -4,6 +4,7 @@ using Dungeon_Dashboard.Event.Services;
 using Dungeon_Dashboard.Home;
 using Dungeon_Dashboard.Home.Data;
 using Dungeon_Dashboard.Invitations.Hubs;
+using Dungeon_Dashboard.Invitations.Services;
 using Dungeon_Dashboard.Room.Hubs;
 using Dungeon_Dashboard.Room.Notes.Hubs;
 using Microsoft.AspNetCore.Identity;
@@ -17,9 +18,11 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddSingleton<IDataService, DataService>();
 
-builder.Services.AddSingleton<ICharacterGeneratorService, ContentGenerationService>();
+builder.Services.AddSingleton<IContentGenerationService, ContentGenerationService>();
 
 builder.Services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
+
+builder.Services.AddScoped<IInvitationService, InvitationService>();
 
 builder.Services.AddSignalR();
 

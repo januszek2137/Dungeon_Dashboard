@@ -1,121 +1,90 @@
-﻿using Dungeon_Dashboard.Home.Data;
-using Dungeon_Dashboard.Invitations.Hubs;
-using Dungeon_Dashboard.Invitations.Models;
+﻿using Dungeon_Dashboard.Invitations.Models;
+using Dungeon_Dashboard.Invitations.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore;
 
-namespace Dungeon_Dashboard.Invitations.Controllers {
+namespace Dungeon_Dashboard.Invitations.Controllers
+{
 
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class InvitationsController : ControllerBase {
-        private readonly AppDBContext _context;
-        private readonly IHubContext<NotificationHub> _hubContext;
-        private readonly ILogger<NotificationHub> _logger;
+    public class InvitationsController : ControllerBase
+    {
+        private readonly IInvitationService _invitationService;
 
-        public InvitationsController(AppDBContext context, IHubContext<NotificationHub> hubContext, ILogger<NotificationHub> logger) {
-            _context = context;
-            _hubContext = hubContext;
-            _logger = logger;
-        }
-
-        public async Task<List<string>> GetParticipantsForRoomAsync(int roomId) {
-            var room = await _context.RoomModel
-                .FirstOrDefaultAsync(r => r.Id == roomId);
-
-            return room?.Participants.ToList() ?? new List<string>();
+        public InvitationsController(IInvitationService invitationService)
+        {
+            _invitationService = invitationService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateInvitation([FromBody] InvitationModel invitation) {
-            if(invitation == null || string.IsNullOrWhiteSpace(invitation.Invitee)) {
+        public async Task<IActionResult> CreateInvitation([FromBody] InvitationModel invitation)
+        {
+            if (invitation == null || string.IsNullOrWhiteSpace(invitation.Invitee))
+            {
                 return BadRequest("Invalid invitation data");
             }
 
-            List<string> participants = await GetParticipantsForRoomAsync(invitation.RoomId);
+            var inviter = User.Identity?.Name ?? "Anonymous";
+            var created = await _invitationService.CreateInvitationAsync(invitation, inviter);
 
-            if(participants.Any(u => u.Equals(invitation.Invitee, StringComparison.OrdinalIgnoreCase))) {
+            if (created == null)
+            {
                 return Conflict("This user has already accepted their invitation");
             }
 
-            invitation.Inviter = User.Identity.Name ?? "Annonymous";
-            _context.InvitationModel.Add(invitation);
-            await _context.SaveChangesAsync();
-
-            _logger.LogInformation($"CreateInvitation - Inviter={invitation.Inviter}, Invitee={invitation.Invitee}",
-            User.Identity?.Name,
-            invitation.Invitee);
-
-            await _hubContext.Clients.User(invitation.Invitee).SendAsync("ReceiveNotification", invitation);
-            //await _hubContext.Clients.All.SendAsync("ReceiveNotification", invitation);
-            return Ok(invitation);
+            return Ok(created);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUserInvitations() {
-            var user = User.Identity?.Name;
-            var invitations = await _context.InvitationModel.Where(i => i.Invitee == user).ToListAsync();
+        public async Task<IActionResult> GetUserInvitations()
+        {
+            var username = User.Identity?.Name;
+            if (string.IsNullOrWhiteSpace(username))
+                return Unauthorized();
+
+            var invitations = await _invitationService.GetUserInvitationsAsync(username);
             return Ok(invitations);
         }
 
         [HttpPost("{id}/accept")]
-        public async Task<IActionResult> AcceptInvitation(int id) {
-            var invitation = await _context.InvitationModel.FindAsync(id);
-            if(invitation == null || invitation.Invitee != User.Identity.Name) {
-                return NotFound("Invitation not found");
-            }
+        public async Task<IActionResult> AcceptInvitation(int id)
+        {
+            var username = User.Identity?.Name;
+            if (string.IsNullOrWhiteSpace(username))
+                return Unauthorized();
 
-            invitation.IsAccepted = true;
-            var room = await _context.RoomModel.FindAsync(invitation.RoomId);
-            if(room == null) {
-                return NotFound("Room not found");
-            }
+            var result = await _invitationService.AcceptInvitationAsync(id, username);
 
-            room.Participants.Add(invitation.Invitee);
-            await _context.SaveChangesAsync();
+            if (result == null)
+                return NotFound("Invitation or room not found");
 
-            //await _hubContext.Clients.User(invitation.Inviter).SendAsync("ReceiveNotification", $"{invitation.Invitee} has accepted your invitation");
-
-            await _hubContext.Clients.User(invitation.Inviter).SendAsync("InvitationAcceptedDeclined", new {
-                message = $"{invitation.Invitee} has accepted your invitation",
-                hasActions = false,
-            });
-
-            return Ok(room);
+            return Ok(result);
         }
 
         [HttpPost("{id}/decline")]
-        public async Task<IActionResult> DeclineInvitation(int id) {
-            var invitation = await _context.InvitationModel.FindAsync(id);
-            if(invitation == null || invitation.Invitee != User.Identity.Name) {
-                return NotFound("Invitation not found");
-            }
+        public async Task<IActionResult> DeclineInvitation(int id)
+        {
+            var username = User.Identity?.Name;
+            if (string.IsNullOrWhiteSpace(username))
+                return Unauthorized();
 
-            _context.InvitationModel.Remove(invitation);
-            await _context.SaveChangesAsync();
+            var success = await _invitationService.DeclineInvitationAsync(id, username);
 
-            await _hubContext.Clients.User(invitation.Inviter).SendAsync("InvitationAcceptedDeclined", new {
-                message = $"{invitation.Invitee} has declined your invitation",
-                hasActions = false
-            });
-
-            return NoContent();
+            return success ? NoContent() : NotFound("Invitation not found");
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteInvitation(int id) {
-            var invitation = await _context.InvitationModel.FindAsync(id);
-            if(invitation == null || invitation.Inviter != User.Identity.Name) {
-                return NotFound("Invitation not found");
-            }
+        public async Task<IActionResult> DeleteInvitation(int id)
+        {
+            var username = User.Identity?.Name;
+            if (string.IsNullOrWhiteSpace(username))
+                return Unauthorized();
 
-            _context.InvitationModel.Remove(invitation);
-            await _context.SaveChangesAsync();
+            var success = await _invitationService.DeleteInvitationAsync(id, username);
 
-            return NoContent();
+            return success ? NoContent() : NotFound("Invitation not found");
         }
     }
 }

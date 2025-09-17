@@ -2,7 +2,7 @@
 
 namespace Dungeon_Dashboard.ContentGeneration.Services {
 
-    public interface ICharacterGeneratorService {
+    public interface IContentGenerationService {
 
         NPC GenerateRandomNPC();
 
@@ -15,7 +15,7 @@ namespace Dungeon_Dashboard.ContentGeneration.Services {
         List<Monster> GenerateRandomMonsters(int count);
     }
 
-    public class ContentGenerationService : ICharacterGeneratorService {
+    public class ContentGenerationService : IContentGenerationService {
         private readonly IDataService _dataService;
         private readonly ILogger<ContentGenerationService> _logger;
         private readonly Random _random;

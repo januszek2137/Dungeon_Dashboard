@@ -7,9 +7,9 @@ namespace Dungeon_Dashboard.ContentGeneration.Controllers {
     [Route("api/[controller]")]
     [ApiController]
     public class ContentGenerationApiController : ControllerBase {
-        private readonly ICharacterGeneratorService _generatorService;
+        private readonly IContentGenerationService _generatorService;
 
-        public ContentGenerationApiController(ICharacterGeneratorService generatorService) {
+        public ContentGenerationApiController(IContentGenerationService generatorService) {
             _generatorService = generatorService;
         }
 

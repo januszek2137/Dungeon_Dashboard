@@ -3,7 +3,7 @@
     $('#btnLoadNPC').click(function () {
         $('#resultContainer').html('<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>');
         $.ajax({
-            url: '/api/randomcharacters/npc',
+            url: '/api/ContentGenerationApi/npc',
             type: 'GET',
             success: function (data) {
                 $('#resultContainer').html(`
@@ -49,7 +49,7 @@
     $('#btnLoadMonster').click(function () {
         $('#resultContainer').html('<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>');
         $.ajax({
-            url: '/api/randomcharacters/monster',
+            url: '/api/ContentGenerationApi/monster',
             type: 'GET',
             success: function (data) {
                 $('#resultContainer').html(`
@@ -83,7 +83,7 @@
     $('#btnLoadEncounter').click(function () {
         $('#resultContainer').html('<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>');
         $.ajax({
-            url: '/api/randomcharacters/encounter',
+            url: '/api/ContentGenerationApi/encounter',
             type: 'GET',
             success: function (data) {
                 $('#resultContainer').html(`
@@ -189,7 +189,7 @@
     // Load Multiple NPCs
     $('#btnLoadNPCs').click(function () {
         $.ajax({
-            url: '/api/randomcharacters/npcs',
+            url: '/api/ContentGenerationApi/npcs',
             type: 'GET',
             data: { count: 5 },
             success: function (data) {
@@ -225,7 +225,7 @@
 
     $('#btnLoadMonsters').click(function () {
         $.ajax({
-            url: '/api/randomcharacters/monsters',
+            url: '/api/ContentGenerationApi/monsters',
             type: 'GET',
             data: { count: 10 },
             success: function (data) {
