@@ -1,6 +1,7 @@
 ﻿using Dungeon_Dashboard.Home.Data;
 using Dungeon_Dashboard.Invitations.Hubs;
 using Dungeon_Dashboard.Invitations.Models;
+using Dungeon_Dashboard.Room.Models;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,7 +11,7 @@ namespace Dungeon_Dashboard.Invitations.Services
     {
         Task<InvitationModel?> CreateInvitationAsync(InvitationModel invitation, string inviter);
         Task<List<InvitationModel>> GetUserInvitationsAsync(string username);
-        Task<object?> AcceptInvitationAsync(int id, string username);
+        Task<RoomModel?> AcceptInvitationAsync(int id, string username);
         Task<bool> DeclineInvitationAsync(int id, string username);
         Task<bool> DeleteInvitationAsync(int id, string username);
     }
@@ -59,7 +60,7 @@ namespace Dungeon_Dashboard.Invitations.Services
             return await _context.InvitationModel.Where(i => i.Invitee == username).ToListAsync();
         }
 
-        public async Task<object?> AcceptInvitationAsync(int id, string username)
+        public async Task<RoomModel?> AcceptInvitationAsync(int id, string username)
         {
             var invitation = await _context.InvitationModel.FindAsync(id);
             if (invitation == null || invitation.Invitee != username)
