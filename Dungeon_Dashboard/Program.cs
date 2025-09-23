@@ -28,6 +28,8 @@ builder.Services.AddSignalR();
 
 builder.Services.AddScoped<IEventService, EventService>();
 
+builder.Services.AddScoped<IUserLookupService, UserLookupService<IdentityUser>>();
+
 
 builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
