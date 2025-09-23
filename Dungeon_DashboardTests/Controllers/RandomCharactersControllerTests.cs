@@ -8,12 +8,12 @@ namespace Dungeon_Dashboard.Controllers.Tests {
 
     [TestClass]
     public class RandomCharactersControllerTests {
-        private Mock<ICharacterGeneratorService> _mockGeneratorService;
+        private Mock<IContentGenerationService> _mockGeneratorService;
         private ContentGenerationApiController _controller;
 
         [TestInitialize]
         public void Setup() {
-            _mockGeneratorService = new Mock<ICharacterGeneratorService>();
+            _mockGeneratorService = new Mock<IContentGenerationService>();
             _controller = new ContentGenerationApiController(_mockGeneratorService.Object);
         }
 
