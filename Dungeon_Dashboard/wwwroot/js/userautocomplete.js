@@ -1,7 +1,7 @@
 $(function() {
     $("#invite-username").autocomplete({
         source: function(request, response) {
-            $.getJSON("/Users/Lookup", { term: request.term }, response);
+            $.getJSON("api/Users/Lookup", { term: request.term }, response);
         },
         minLength: 2,
         delay: 200,

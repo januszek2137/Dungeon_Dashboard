@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client.AppConfig;
 
+[ApiController]
+[Route("api/[controller]")]
 [Authorize]
 public class UsersController : Controller {
     private readonly IUserLookupService           _lookup;
@@ -15,9 +17,10 @@ public class UsersController : Controller {
     }
 
     [HttpGet]
+    [Route("Lookup")]
     public async Task<IActionResult> Lookup(string term, CancellationToken ct) {
         var me    = _userManager.GetUserId(User);
         var items = await _lookup.SearchByEmailPrefixAsync(term, me, 10, ct);
-        return Json(items);
+        return Ok(items);
     }
 }
