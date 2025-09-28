@@ -2,6 +2,7 @@
 using Dungeon_Dashboard.Room.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dungeon_Dashboard.Room.Controllers {
 
@@ -41,7 +42,11 @@ namespace Dungeon_Dashboard.Room.Controllers {
         }
 
         public async Task<IActionResult> Room(int id) {
-            var room = await _context.RoomModel.FindAsync(id);
+            //var room = await _context.RoomModel.FindAsync(id);
+            var room = await _context.RoomModel
+                .Include(r=>r.Notes)
+                .Include(r=>r.Markers)
+                .FirstOrDefaultAsync(r => r.Id == id);
 
             if(room == null) {
                 return NotFound($"Can't find a room with id = {id}");
