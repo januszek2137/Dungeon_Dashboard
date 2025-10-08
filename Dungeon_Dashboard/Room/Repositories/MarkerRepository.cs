@@ -4,17 +4,18 @@ using Microsoft.EntityFrameworkCore;
 namespace Dungeon_Dashboard.Room;
 using Dungeon_Dashboard.Room.Models;
 
-public interface IMarkerRepository
-{
-    Task UpsertAsync(MarkerModel marker, CancellationToken ct = default);
-    Task<List<MarkerModel>> GetByRoomAsync(int roomId, CancellationToken ct = default);
+public interface IMarkerRepository {
+    Task                    UpsertAsync(MarkerModel marker, CancellationToken ct = default);
+    Task<List<MarkerModel>> GetByRoomAsync(int      roomId, CancellationToken ct = default);
 }
 
 public class MarkerRepository : IMarkerRepository {
     private readonly AppDBContext _context;
     
-    public MarkerRepository(AppDBContext context) => _context = context;
-
+    public MarkerRepository(AppDBContext context, IWebHostEnvironment environment) { 
+        _context = context;
+    }
+    
     public async Task UpsertAsync(MarkerModel marker, CancellationToken ct = default) {
         var existing = await _context.MarkerModel
             .FirstOrDefaultAsync(m=> m.RoomId == marker.RoomId && m.UserId == marker.UserId, ct);

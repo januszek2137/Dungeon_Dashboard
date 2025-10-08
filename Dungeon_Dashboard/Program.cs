@@ -33,6 +33,10 @@ builder.Services.AddScoped<IUserLookupService, UserLookupService<IdentityUser>>(
 
 builder.Services.AddScoped<IMapService, MapService>();
 
+builder.Services.AddScoped<IRoomService, RoomService>();
+
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+
 builder.Services.AddScoped<IMarkerRepository, MarkerRepository>();
 
 

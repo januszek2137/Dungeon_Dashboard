@@ -2,7 +2,7 @@
 @using Dungeon_Dashboard.Room.Models
 @model RoomModel
 @{
-ViewBag.Title = "Room - " + Model.Name;
+ViewBag.Title = "Room 🏰 - " + Model.Name;
 }
 <link rel="stylesheet" href="~/css/RoomId.css" />
 <script src="https://cdn.jsdelivr.net/npm/diff-match-patch@1.0.5/index.min.js"></script>
@@ -11,46 +11,49 @@ ViewBag.Title = "Room - " + Model.Name;
 <div class="container-fluid">
     <div class="row">
         <main class="col-12 col-md-9 order-1">
-            <h1>@Model.Name</h1>
-            <p class="text-muted">@Model.Description</p>
-            <p class="text-muted">Created by: <strong>@Model.CreatedBy</strong></p>
-
-            <!-- Notatki -->
+            
             <div class="card mt-4">
-                <div class="card-header"><h5>Notatki</h5></div>
+                <div class="card-header">
+                    <h5 class="mb-0">Room - @Model.Name 🏰</h5>
+                </div>
                 <div class="card-body">
-                    <div id="notesContainer"></div>
-                    <textarea id="newNoteContent" class="form-control" placeholder="Nowa notatka..."></textarea>
-                    <button id="addNoteBtn" class="btn btn-primary mt-2">Dodaj notatkę</button>
+                    <p><h7 class="mb-1">📝 Description: @Model.Description</h7></p>
+                    <h7 class="mb-0">👤 Created by: @Model.CreatedBy</h7>
                 </div>
             </div>
 
-            <!-- Mapa -->
             <div class="card mt-4">
-                <div class="card-header"><h5>Mapa</h5></div>
+                <div class="card-header"><h5>Notes 🗒️</h5></div>
+                <div class="card-body">
+                    <div id="notesContainer"></div>
+                    <textarea id="newNoteContent" class="form-control" placeholder="New note..."></textarea>
+                    <button id="addNoteBtn" class="btn btn-primary mt-2">Add a note</button>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header"><h5>Map 🗺️</h5></div>
                 <div class="card-body">
                     <div id="wrap" style="position: relative; display:inline-block;">
-                        <img id="map" class="img-fluid" />
+                        <img id="map" class="img-fluid"/>
                         <canvas id="grid"></canvas>
                         <div id="markers"></div>
                     </div>
 
-                    <!-- Upload mapy -->
                     @if (User.Identity.Name == Model.CreatedBy) {
                         <form id="mapUploadForm" enctype="multipart/form-data" class="mt-3">
                             <input type="file" name="file" accept="image/*" class="form-control mb-2"/>
-                            <button type="submit" class="btn btn-sm btn-primary">Prześlij mapę</button>
+                            <button type="submit" class="btn btn-sm btn-primary">Upload map</button>
                         </form>
                     }
                 </div>
             </div>
-            
+
         </main>
 
-        <!-- Uczestnicy -->
         <aside class="col-12 col-md-3 order-2 ms-auto">
             <div class="card sticky-top" style="top:20px;">
-                <div class="card-header"><h5>Participants</h5></div>
+                <div class="card-header"><h5>Participants 🧑‍💻</h5></div>
                 <div class="card-body p-0">
                     <ul id="participantsList" class="list-group list-group-flush"></ul>
                 </div>
@@ -66,7 +69,6 @@ ViewBag.Title = "Room - " + Model.Name;
     const allUsers = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Participants));
 
     document.addEventListener("DOMContentLoaded", () => {
-        // ---------- PARTICIPANTS ----------
         const listEl = document.getElementById("participantsList");
 
         function renderList(onlineUsers) {
@@ -98,7 +100,6 @@ ViewBag.Title = "Room - " + Model.Name;
             .then(() => participantsConn.invoke("JoinRoom", roomId, userName))
             .catch(err => console.error("ParticipantsHub error:", err));
 
-        // ---------- NOTES ----------
         const dmp = new diff_match_patch();
         const noteStates = {};
         const notesConn = new signalR.HubConnectionBuilder()
@@ -187,7 +188,6 @@ ViewBag.Title = "Room - " + Model.Name;
             };
         }
 
-        // ---------- MAPA & MARKERY ----------
         const mapEl = document.getElementById("map");
         const gridCanvas = document.getElementById("grid");
         const markersLayer = document.getElementById("markers");
@@ -196,7 +196,6 @@ ViewBag.Title = "Room - " + Model.Name;
         let positions = new Map();
         let gridSize = 50;
 
-        // pobierz mapę z API
         fetch(`/api/map/${roomId}`)
             .then(r=>r.json())
             .then(data=>{
@@ -232,7 +231,7 @@ ViewBag.Title = "Room - " + Model.Name;
 
         function drawGrid(){
             ctx.clearRect(0,0,gridCanvas.width,gridCanvas.height);
-            ctx.strokeStyle="rgba(0,0,0,0.3)";
+            ctx.strokeStyle="rgba(0,0,0,1)";
             for(let x=0;x<gridCanvas.width;x+=gridSize){
                 ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,gridCanvas.height);ctx.stroke();
             }
@@ -265,16 +264,14 @@ ViewBag.Title = "Room - " + Model.Name;
                 el.style.transform="translate(-50%,-50%)";
                 el.textContent = uid.substring(0,2).toUpperCase();
 
-                // 🔥 kolor dla zalogowanego użytkownika
                 if(uid === userName){
-                    el.style.backgroundColor = "#28a745"; // zielony
+                    el.style.backgroundColor = "#28a745";
                 } else {
-                    el.style.backgroundColor = "#343a40"; // ciemny
+                    el.style.backgroundColor = "#343a40";
                 }
 
                 markersLayer.appendChild(el);
 
-                // 🔥 kto może przesuwać?
                 if(uid === userName || userName === @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.CreatedBy))){
                     enableDrag(el, uid);
                 }
@@ -295,7 +292,6 @@ ViewBag.Title = "Room - " + Model.Name;
                 el.setPointerCapture(e.pointerId);
                 el.style.cursor = "grabbing";
 
-                // zapamiętaj starą pozycję
                 let oldPos = positions.get(uid);
 
                 el.onpointermove = ev => {
@@ -305,7 +301,6 @@ ViewBag.Title = "Room - " + Model.Name;
 
                     let snapped = snap(x, y);
 
-                    // sprawdź czy kratka zajęta
                     let conflict = false;
                     positions.forEach((pos, otherUid) => {
                         if (otherUid !== uid && pos.x === snapped.x && pos.y === snapped.y) {
@@ -313,7 +308,6 @@ ViewBag.Title = "Room - " + Model.Name;
                         }
                     });
 
-                    // narysuj grid z ewentualnym podświetleniem
                     drawGrid();
                     if (conflict) {
                         ctx.fillStyle = "rgba(255,0,0,0.3)";
@@ -336,7 +330,6 @@ ViewBag.Title = "Room - " + Model.Name;
 
                     let snapped = snap(x, y);
 
-                    // sprawdź kolizję
                     let conflict = false;
                     positions.forEach((pos, otherUid) => {
                         if (otherUid !== uid && pos.x === snapped.x && pos.y === snapped.y) {
@@ -345,22 +338,19 @@ ViewBag.Title = "Room - " + Model.Name;
                     });
 
                     if (conflict) {
-                        // wróć na starą pozycję
                         el.style.left = oldPos.x + "px";
                         el.style.top = oldPos.y + "px";
                     } else {
-                        // zapisz nową
                         await mapConn.invoke("MoveMarker", roomId, uid, snapped.x, snapped.y);
                         positions.set(uid, snapped);
                     }
 
-                    drawGrid(); // przywróć normalną siatkę
+                    drawGrid();
                     el.onpointermove = null;
                     el.style.cursor = "grab";
                 };
             };
         }
-        // SignalR dla mapy
         mapConn = new signalR.HubConnectionBuilder()
             .withUrl(`/mapHub?roomId=${roomId}`)
             .withAutomaticReconnect()
@@ -375,7 +365,6 @@ ViewBag.Title = "Room - " + Model.Name;
 
         mapConn.on("MapUpdated", newUrl => {
             setTimeout(() => {
-                // używaj newUrl z serwera, a nie data
                 const img = new Image();
                 img.onload = () => {
                     mapEl.src = img.src;
@@ -385,7 +374,6 @@ ViewBag.Title = "Room - " + Model.Name;
         });
 
 
-        // ---------- UPLOAD MAPY ----------
         document.getElementById("mapUploadForm").addEventListener("submit", async e => {
             e.preventDefault();
             const formData = new FormData(e.target);
@@ -395,9 +383,9 @@ ViewBag.Title = "Room - " + Model.Name;
             });
             if (res.ok) {
                 const data = await res.json();
-                mapEl.src = data.mapUrl + "?v=" + Date.now(); // cache bust
+                mapEl.src = data.mapUrl + "?v=" + Date.now();
             } else {
-                alert("Błąd przy uploadzie mapy");
+                alert("Error uploading map");
             }
         });
     });
@@ -419,8 +407,8 @@ ViewBag.Title = "Room - " + Model.Name;
         position: absolute;
         top: 0;
         left: 0;
-        z-index: 2; /* kratki na mapie */
-        pointer-events: none; /* canvas nie blokuje interakcji */
+        z-index: 2;
+        pointer-events: none;
     }
 
     #markers {
@@ -430,7 +418,6 @@ ViewBag.Title = "Room - " + Model.Name;
         z-index: 3;
         width: 100%;
         height: 100%;
-        /* 🔥 usuń pointer-events: none */
     }
 
     .marker {
@@ -439,7 +426,7 @@ ViewBag.Title = "Room - " + Model.Name;
         z-index: 4;
         user-select: none;
         -webkit-user-drag: none;
-        transition: left 0.1s linear, top 0.1s linear; /* 🔥 płynne przesunięcie */
+        transition: left 0.1s linear, top 0.1s linear;
     }
     .marker:active {
         cursor: grabbing;
