@@ -14,8 +14,9 @@ namespace Dungeon_Dashboard.Room.Controllers {
             _roomService = roomService;
         }
 
-        public IActionResult Index() {
-            return View();
+        public async Task<IActionResult> Index() {
+            List<RoomModel> model = await _roomService.GetRoomsForUserAsync(User.Identity?.Name ?? "Annonymous");
+            return View(model);
         }
 
         public IActionResult Create() {
