@@ -3,34 +3,27 @@ using Dungeon_Dashboard.Invitations.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Dungeon_Dashboard.Invitations.Controllers
-{
-
+namespace Dungeon_Dashboard.Invitations.Controllers {
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class InvitationsController : ControllerBase
-    {
+    public class InvitationsController : ControllerBase {
         private readonly IInvitationService _invitationService;
 
-        public InvitationsController(IInvitationService invitationService)
-        {
+        public InvitationsController(IInvitationService invitationService) {
             _invitationService = invitationService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateInvitation([FromBody] InvitationModel invitation)
-        {
-            if (invitation == null || string.IsNullOrWhiteSpace(invitation.Invitee))
-            {
+        public async Task<IActionResult> CreateInvitation([FromBody] InvitationModel invitation) {
+            if (invitation == null || string.IsNullOrWhiteSpace(invitation.Invitee)) {
                 return BadRequest("Invalid invitation data");
             }
 
             var inviter = User.Identity?.Name ?? "Anonymous";
             var created = await _invitationService.CreateInvitationAsync(invitation, inviter);
 
-            if (created == null)
-            {
+            if (created == null) {
                 return Conflict("This user has already accepted their invitation");
             }
 
@@ -38,8 +31,7 @@ namespace Dungeon_Dashboard.Invitations.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUserInvitations()
-        {
+        public async Task<IActionResult> GetUserInvitations() {
             var username = User.Identity?.Name;
             if (string.IsNullOrWhiteSpace(username))
                 return Unauthorized();
@@ -49,8 +41,7 @@ namespace Dungeon_Dashboard.Invitations.Controllers
         }
 
         [HttpPost("{id}/accept")]
-        public async Task<IActionResult> AcceptInvitation(int id)
-        {
+        public async Task<IActionResult> AcceptInvitation(int id) {
             var username = User.Identity?.Name;
             if (string.IsNullOrWhiteSpace(username))
                 return Unauthorized();
@@ -64,8 +55,7 @@ namespace Dungeon_Dashboard.Invitations.Controllers
         }
 
         [HttpPost("{id}/decline")]
-        public async Task<IActionResult> DeclineInvitation(int id)
-        {
+        public async Task<IActionResult> DeclineInvitation(int id) {
             var username = User.Identity?.Name;
             if (string.IsNullOrWhiteSpace(username))
                 return Unauthorized();
@@ -76,8 +66,7 @@ namespace Dungeon_Dashboard.Invitations.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteInvitation(int id)
-        {
+        public async Task<IActionResult> DeleteInvitation(int id) {
             var username = User.Identity?.Name;
             if (string.IsNullOrWhiteSpace(username))
                 return Unauthorized();

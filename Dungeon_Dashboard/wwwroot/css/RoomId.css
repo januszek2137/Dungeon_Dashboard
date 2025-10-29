@@ -229,6 +229,8 @@ aside .card-header {
     border-radius: 6px;
 }
 
+
+
     .note-item:focus-within {
         outline: none;
     }
@@ -252,3 +254,4 @@ aside .card-header {
         content-visibility: auto;
         pointer-events: auto;
     }
+    
