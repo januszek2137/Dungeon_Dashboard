@@ -27,6 +27,8 @@ namespace Dungeon_Dashboard.Home.Data {
         public DbSet<InvitationModel> InvitationModel { get; set; } = default!;
         public DbSet<RoomModel> RoomModel { get; set; } = default!;
         public DbSet<NoteModel> NoteModel { get; set; } = default!;
+     
+        public DbSet<MarkerModel> MarkerModel { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder builder) {
             base.OnModelCreating(builder);
@@ -36,6 +38,16 @@ namespace Dungeon_Dashboard.Home.Data {
                 .WithOne(n => n.Room)
                 .HasForeignKey(n => n.RoomId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<RoomModel>()
+                .HasMany(r=> r.Markers)
+                .WithOne(m => m.Room!)
+                .HasForeignKey(m=> m.RoomId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<MarkerModel>(entity => {
+                entity.Property(m => m.UserId).IsRequired();
+            });
         }
     }
 }

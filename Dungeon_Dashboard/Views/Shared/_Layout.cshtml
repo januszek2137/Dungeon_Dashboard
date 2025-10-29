@@ -10,6 +10,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Onest:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/cannon-es/dist/cannon-es.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.0/signalr.min.js"></script>
@@ -106,28 +109,36 @@
             </main>
         </div>
 
+        
+       
+
+        
         <!-- Invite Modal -->
         <div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="inviteModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="inviteModalLabel">Zaproś użytkownika</h5>
+                        <h5 class="modal-title" id="inviteModalLabel">✉️ Invite someone</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" id="invite-roomId" />
                         <div class="form-group mb-3">
-                            <label for="invite-username" class="form-label">Nazwa użytkownika:</label>
-                            <input type="text" id="invite-username" class="form-control" placeholder="Wprowadź nazwę użytkownika" />
+                            <label for="invite-username" class="form-label">🧑‍🧑‍🧒‍🧒 Username</label>
+                            <input type="text" id="invite-username" class="form-control" placeholder="example@domain.com" />
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                        <button type="button" id="invite-submit" class="btn btn-custom-primary">Zaproś</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" id="invite-submit" class="btn btn-custom-primary">Invite</button>
                     </div>
                 </div>
             </div>
         </div>
+        
+      
+
+
 
         <div aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 p-3" style="z-index: 1050;">
             <div id="toast-container">
@@ -142,12 +153,7 @@
             </div>
         </footer>
     </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/toast.js" asp-append-version="true"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-
+    
     <!-- DICEROLLER Modal -->
     <div class="modal fade" id="diceRollerModal" tabindex="-1" aria-labelledby="diceRollerLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -185,5 +191,16 @@
             </div>
         </div>
     </div>
-</body>
+    <script>
+
+</script>
+
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/userautocomplete.js" asp-append-version="true"></script>
+    <script src="~/js/toast.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    </body>
 </html>

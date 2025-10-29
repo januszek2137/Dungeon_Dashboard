@@ -22,7 +22,68 @@ namespace Dungeon_Dashboard.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Dungeon_Dashboard.Models.CharacterModel", b =>
+            modelBuilder.Entity("Dungeon_Dashboard.Event.Models.EventModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Time")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EventModel");
+                });
+
+            modelBuilder.Entity("Dungeon_Dashboard.Invitations.Models.InvitationModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Invitee")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Inviter")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsAccepted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InvitationModel");
+                });
+
+            modelBuilder.Entity("Dungeon_Dashboard.PlayerCharacters.Models.CharacterModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -106,7 +167,7 @@ namespace Dungeon_Dashboard.Migrations
                     b.ToTable("CharacterModel");
                 });
 
-            modelBuilder.Entity("Dungeon_Dashboard.Models.EventModel", b =>
+            modelBuilder.Entity("Dungeon_Dashboard.Room.Models.MarkerModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -114,60 +175,61 @@ namespace Dungeon_Dashboard.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Date")
+                    b.Property<string>("Color")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("X")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Y")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("MarkerModel");
+                });
+
+            modelBuilder.Entity("Dungeon_Dashboard.Room.Models.RoomModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Location")
+                    b.Property<string>("MapUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Time")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
+                    b.Property<string>("Participants")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("EventModel");
+                    b.ToTable("RoomModel");
                 });
 
-            modelBuilder.Entity("Dungeon_Dashboard.Models.InvitationModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Invitee")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Inviter")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("IsAccepted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("RoomId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("InvitationModel");
-                });
-
-            modelBuilder.Entity("Dungeon_Dashboard.Models.NoteModel", b =>
+            modelBuilder.Entity("Dungeon_Dashboard.Room.Notes.Models.NoteModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -194,33 +256,6 @@ namespace Dungeon_Dashboard.Migrations
                     b.HasIndex("RoomId");
 
                     b.ToTable("NoteModel");
-                });
-
-            modelBuilder.Entity("Dungeon_Dashboard.Models.RoomModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Participants")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RoomModel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -425,9 +460,20 @@ namespace Dungeon_Dashboard.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Dungeon_Dashboard.Models.NoteModel", b =>
+            modelBuilder.Entity("Dungeon_Dashboard.Room.Models.MarkerModel", b =>
                 {
-                    b.HasOne("Dungeon_Dashboard.Models.RoomModel", "Room")
+                    b.HasOne("Dungeon_Dashboard.Room.Models.RoomModel", "Room")
+                        .WithMany("Markers")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("Dungeon_Dashboard.Room.Notes.Models.NoteModel", b =>
+                {
+                    b.HasOne("Dungeon_Dashboard.Room.Models.RoomModel", "Room")
                         .WithMany("Notes")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -487,8 +533,10 @@ namespace Dungeon_Dashboard.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Dungeon_Dashboard.Models.RoomModel", b =>
+            modelBuilder.Entity("Dungeon_Dashboard.Room.Models.RoomModel", b =>
                 {
+                    b.Navigation("Markers");
+
                     b.Navigation("Notes");
                 });
 #pragma warning restore 612, 618

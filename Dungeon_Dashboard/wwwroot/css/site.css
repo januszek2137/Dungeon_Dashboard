@@ -458,7 +458,7 @@ option {
         filter: invert(1);
     }
 
-/* Przyciski Akceptuj i Odrzuæ w Toastach */
+/* Przyciski Akceptuj i Odrzuï¿½ w Toastach */
 .btn-accept {
     background-color: #4caf50; /* Zielony */
     color: #ffffff;
@@ -483,7 +483,35 @@ option {
     border: 1px solid #6a6abf;
 }
 
-    .btn-custom-primary:hover {
+.btn-custom-primary:hover {
         background-color: #6a6abf;
         border-color: #4e4e9c;
-    }
+}
+
+.ui-autocomplete {
+    z-index: 2000 !important;
+    background-color: #252539 !important;
+    border: 1px solid #6a6abf !important;
+    border-radius: 6px !important;
+    padding: 0.25rem 0 !important;
+    list-style: none !important;
+    font-family: 'Onest', sans-serif !important;
+    font-size: 0.95rem !important;
+    max-height: 200px !important;
+    overflow-y: auto !important;
+}
+
+.ui-autocomplete li {
+    padding: 0.5rem 0.75rem !important;
+    color: #e6e6e6 !important;
+    cursor: pointer !important;
+    background: none !important;
+}
+
+.ui-autocomplete li:hover,
+.ui-autocomplete .ui-state-active {
+    background-color: #6a6abf !important;
+    color: #ffffff !important;
+}
+
+

@@ -32,7 +32,3 @@ window.openInviteModal = function (roomId) {
     document.getElementById("invite-username").value = "";
     $('#inviteModal').modal('show');
 }
-
-window.goToRoom = function (roomId) {
-    window.location.href = '/RoomsView/Room?id=' + roomId;
-}

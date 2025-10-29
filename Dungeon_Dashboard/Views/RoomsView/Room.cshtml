@@ -2,7 +2,7 @@
 @using Dungeon_Dashboard.Room.Models
 @model RoomModel
 @{
-    ViewBag.Title = "Room - " + Model.Name;
+ViewBag.Title = "Room 🏰 - " + Model.Name;
 }
 <link rel="stylesheet" href="~/css/RoomId.css" />
 <script src="https://cdn.jsdelivr.net/npm/diff-match-patch@1.0.5/index.min.js"></script>
@@ -11,23 +11,49 @@
 <div class="container-fluid">
     <div class="row">
         <main class="col-12 col-md-9 order-1">
-            <h1>@Model.Name</h1>
-            <p class="text-muted">@Model.Description</p>
-            <p class="text-muted">Created by: <strong>@Model.CreatedBy</strong></p>
-
+            
             <div class="card mt-4">
-                <div class="card-header"><h5>Notatki</h5></div>
+                <div class="card-header">
+                    <h5 class="mb-0">Room - @Model.Name 🏰</h5>
+                </div>
                 <div class="card-body">
-                    <div id="notesContainer"></div>
-                    <textarea id="newNoteContent" class="form-control" placeholder="Nowa notatka..."></textarea>
-                    <button id="addNoteBtn" class="btn btn-primary mt-2">Dodaj notatkę</button>
+                    <p><h7 class="mb-1">📝 Description: @Model.Description</h7></p>
+                    <h7 class="mb-0">👤 Created by: @Model.CreatedBy</h7>
                 </div>
             </div>
+
+            <div class="card mt-4">
+                <div class="card-header"><h5>Notes 🗒️</h5></div>
+                <div class="card-body">
+                    <div id="notesContainer"></div>
+                    <textarea id="newNoteContent" class="form-control" placeholder="New note..."></textarea>
+                    <button id="addNoteBtn" class="btn btn-primary mt-2">Add a note</button>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header"><h5>Map 🗺️</h5></div>
+                <div class="card-body">
+                    <div id="wrap" style="position: relative; display:inline-block;">
+                        <img id="map" class="img-fluid"/>
+                        <canvas id="grid"></canvas>
+                        <div id="markers"></div>
+                    </div>
+
+                    @if (User.Identity.Name == Model.CreatedBy) {
+                        <form id="mapUploadForm" enctype="multipart/form-data" class="mt-3">
+                            <input type="file" name="file" accept="image/*" class="form-control mb-2"/>
+                            <button type="submit" class="btn btn-sm btn-primary">Upload map</button>
+                        </form>
+                    }
+                </div>
+            </div>
+
         </main>
 
         <aside class="col-12 col-md-3 order-2 ms-auto">
             <div class="card sticky-top" style="top:20px;">
-                <div class="card-header"><h5>Participants</h5></div>
+                <div class="card-header"><h5>Participants 🧑‍💻</h5></div>
                 <div class="card-body p-0">
                     <ul id="participantsList" class="list-group list-group-flush"></ul>
                 </div>
@@ -36,8 +62,7 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/diff-match-patch@1.0.5/index.min.js"></script>
-
+@section Scripts {
 <script>
     const roomId = @Model.Id;
     const userName = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(User.Identity.Name));
@@ -49,83 +74,40 @@
         function renderList(onlineUsers) {
             listEl.innerHTML = "";
             const onlineSet = new Set(onlineUsers.map(u => u.toLowerCase()));
-
             allUsers.forEach(u => {
                 const li = document.createElement("li");
                 li.className = "list-group-item";
-
                 const dot = document.createElement("span");
                 dot.className = "status-dot " + (onlineSet.has(u.toLowerCase()) ? "online" : "offline");
-
-                const details = document.createElement("div");
-                details.className = "user-details";
-
-                const nameDiv = document.createElement("div");
-                nameDiv.className = "user-name";
-                nameDiv.textContent = u;
-
-                const statusDiv = document.createElement("div");
-                const isOnline = onlineSet.has(u.toLowerCase());
-                statusDiv.className = "user-status " + (isOnline ? "online" : "offline");
-                statusDiv.textContent = isOnline ? "Online" : "Offline";
-
-                details.appendChild(nameDiv);
-                details.appendChild(statusDiv);
-                li.appendChild(dot);
-                li.appendChild(details);
-                listEl.appendChild(li);
-            });
-        }
-
-        renderList([]);
-
-        const connection = new signalR.HubConnectionBuilder()
-            .withUrl("/participantsHub")
-            .configureLogging(signalR.LogLevel.Warning)
-            .withAutomaticReconnect()
-            .build();
-
-        connection.on("UpdateParticipants", onlineUsers => {
-            renderList(onlineUsers);
-        });
-
-        connection.start()
-            .then(() => connection.invoke("JoinRoom", roomId, userName))
-            .catch(err => console.error("SignalR error:", err));
-
-        const pConn = new signalR.HubConnectionBuilder()
-            .withUrl("/participantsHub")
-            .withAutomaticReconnect()
-            .build();
-        pConn.on("UpdateParticipants", online => {
-            const list = document.getElementById("participantsList");
-            list.innerHTML = "";
-            const set = new Set(online.map(u => u.toLowerCase()));
-            allUsers.forEach(u => {
-                const li = document.createElement("li");
-                li.className = "list-group-item";
-                const dot = document.createElement("span");
-                dot.className = "status-dot " + (set.has(u.toLowerCase()) ? "online" : "offline");
                 const details = document.createElement("div");
                 details.className = "user-details";
                 details.innerHTML = `<div class="user-name">${u}</div>
-                                     <div class="user-status ${set.has(u.toLowerCase()) ? "online" : "offline"}">
-                                       ${set.has(u.toLowerCase()) ? "Online" : "Offline"}
+                                     <div class="user-status ${onlineSet.has(u.toLowerCase()) ? "online" : "offline"}">
+                                       ${onlineSet.has(u.toLowerCase()) ? "Online" : "Offline"}
                                      </div>`;
                 li.append(dot, details);
-                list.append(li);
+                listEl.append(li);
             });
-        });
-        pConn.start().then(() => pConn.invoke("JoinRoom", roomId, userName));
+        }
+
+        const participantsConn = new signalR.HubConnectionBuilder()
+            .withUrl("/participantsHub")
+            .withAutomaticReconnect()
+            .build();
+
+        participantsConn.on("UpdateParticipants", renderList);
+        participantsConn.start()
+            .then(() => participantsConn.invoke("JoinRoom", roomId, userName))
+            .catch(err => console.error("ParticipantsHub error:", err));
 
         const dmp = new diff_match_patch();
         const noteStates = {};
-        const nConn = new signalR.HubConnectionBuilder()
+        const notesConn = new signalR.HubConnectionBuilder()
             .withUrl("/notesHub")
             .withAutomaticReconnect()
             .build();
 
-        nConn.on("ReceiveNotes", notes => {
+        notesConn.on("ReceiveNotes", notes => {
             const c = document.getElementById("notesContainer");
             c.innerHTML = "";
             notes.forEach(n => {
@@ -134,7 +116,7 @@
             });
         });
 
-        nConn.on("ReceiveNotePatch", (id, patchText) => {
+        notesConn.on("ReceiveNotePatch", (id, patchText) => {
             const el = document.querySelector(`span.note-text[data-note-id='${id}']`);
             if (!el) return;
             const patches = dmp.patch_fromText(patchText);
@@ -143,20 +125,24 @@
             el.textContent = newText;
         });
 
-        nConn.start().then(() => nConn.invoke("FetchNotes", roomId));
+        notesConn.on("NoteDeleted", id => {
+            const item = document.querySelector(`.note-item[data-note-id='${id}']`);
+            if (item) item.remove();
+        });
+
+        notesConn.start().then(() => notesConn.invoke("FetchNotes", roomId));
 
         document.getElementById("addNoteBtn").addEventListener("click", () => {
             const txt = document.getElementById("newNoteContent");
             const content = txt.value.trim();
             if (!content) return;
-            nConn.invoke("AddNote", roomId, content, userName)
+            notesConn.invoke("AddNote", roomId, content, userName)
                 .then(() => txt.value = "")
                 .catch(console.error);
         });
 
         function renderNote(id, content) {
             const c = document.getElementById("notesContainer");
-
             const container = document.createElement("div");
             container.className = "note-item position-relative border p-2 mb-2";
             container.setAttribute("data-note-id", id);
@@ -176,7 +162,7 @@
             btn.setAttribute("contentEditable", "false");
             btn.addEventListener("click", e => {
                 e.stopPropagation();
-                nConn.invoke("DeleteNote", roomId, id).catch(console.error);
+                notesConn.invoke("DeleteNote", roomId, id).catch(console.error);
             });
 
             textSpan.addEventListener("input", debounce(() => {
@@ -185,7 +171,7 @@
                 const patches = dmp.patch_make(old, curr);
                 const patchText = dmp.patch_toText(patches);
                 noteStates[id] = curr;
-                nConn.invoke("EditNotePatch", roomId, id, patchText)
+                notesConn.invoke("EditNotePatch", roomId, id, patchText)
                     .catch(console.error);
             }, 300));
 
@@ -202,11 +188,258 @@
             };
         }
 
-        nConn.on("NoteDeleted", id => {
-            const item = document.querySelector(`.note-item[data-note-id='${id}']`);
-            if (item) item.remove();
+        const mapEl = document.getElementById("map");
+        const gridCanvas = document.getElementById("grid");
+        const markersLayer = document.getElementById("markers");
+        const ctx = gridCanvas.getContext("2d");
+        let mapConn;
+        let positions = new Map();
+        let gridSize = 50;
+
+        fetch(`/api/map/${roomId}`)
+            .then(r=>r.json())
+            .then(data=>{
+                if(data.mapUrl){
+                    mapEl.src = data.mapUrl;
+                }
+            });
+
+        mapEl.onload = () => {
+            gridCanvas.width = mapEl.width;
+            gridCanvas.height = mapEl.height;
+            markersLayer.style.width = mapEl.width + "px";
+            markersLayer.style.height = mapEl.height + "px";
+            drawGrid();
+
+            positions.forEach((pos, uid) => {
+                let clamped = clampToCanvas(pos.x, pos.y);
+                setMarker(uid, clamped.x, clamped.y);
+
+                if (clamped.x !== pos.x || clamped.y !== pos.y) {
+                    mapConn.invoke("MoveMarker", roomId, uid, clamped.x, clamped.y)
+                        .catch(err => console.error("Error updating clamped marker:", err));
+                }
+            });
+        };
+
+        function clampToCanvas(x, y) {
+            let clampedX = Math.max(gridSize/2, Math.min(x, gridCanvas.width - gridSize/2));
+            let clampedY = Math.max(gridSize/2, Math.min(y, gridCanvas.height - gridSize/2));
+            return { x: clampedX, y: clampedY };
+        }
+
+
+        function drawGrid(){
+            ctx.clearRect(0,0,gridCanvas.width,gridCanvas.height);
+            ctx.strokeStyle="rgba(0,0,0,1)";
+            for(let x=0;x<gridCanvas.width;x+=gridSize){
+                ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,gridCanvas.height);ctx.stroke();
+            }
+            for(let y=0;y<gridCanvas.height;y+=gridSize){
+                ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(gridCanvas.width,y);ctx.stroke();
+            }
+        }
+
+        function snap(x,y){
+            let snappedX = Math.round(x/gridSize)*gridSize + gridSize/2;
+            let snappedY = Math.round(y/gridSize)*gridSize + gridSize/2;
+
+            snappedX = Math.max(gridSize/2, Math.min(snappedX, gridCanvas.width - gridSize/2));
+            snappedY = Math.max(gridSize/2, Math.min(snappedY, gridCanvas.height - gridSize/2));
+
+            return { x: snappedX, y: snappedY };
+        }
+
+
+
+        function ensureMarker(uid){
+            let el = document.getElementById("m-"+uid);
+            if(!el){
+                el = document.createElement("div");
+                el.id = "m-"+uid;
+                el.className = "marker text-white fw-bold rounded-circle d-flex align-items-center justify-content-center";
+                el.style.width="32px";
+                el.style.height="32px";
+                el.style.position="absolute";
+                el.style.transform="translate(-50%,-50%)";
+                el.textContent = uid.substring(0,2).toUpperCase();
+
+                if(uid === userName){
+                    el.style.backgroundColor = "#28a745";
+                } else {
+                    el.style.backgroundColor = "#343a40";
+                }
+
+                markersLayer.appendChild(el);
+
+                if(uid === userName || userName === @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.CreatedBy))){
+                    enableDrag(el, uid);
+                }
+            }
+            return el;
+        }
+
+
+        function setMarker(uid,x,y){
+            let el=ensureMarker(uid);
+            el.style.left=x+"px";
+            el.style.top=y+"px";
+            positions.set(uid,{x,y});
+        }
+
+        function enableDrag(el, uid) {
+            el.onpointerdown = e => {
+                el.setPointerCapture(e.pointerId);
+                el.style.cursor = "grabbing";
+
+                let oldPos = positions.get(uid);
+
+                el.onpointermove = ev => {
+                    let rect = gridCanvas.getBoundingClientRect();
+                    let x = ev.clientX - rect.left;
+                    let y = ev.clientY - rect.top;
+
+                    let snapped = snap(x, y);
+
+                    let conflict = false;
+                    positions.forEach((pos, otherUid) => {
+                        if (otherUid !== uid && pos.x === snapped.x && pos.y === snapped.y) {
+                            conflict = true;
+                        }
+                    });
+
+                    drawGrid();
+                    if (conflict) {
+                        ctx.fillStyle = "rgba(255,0,0,0.3)";
+                        ctx.fillRect(
+                            snapped.x - gridSize / 2,
+                            snapped.y - gridSize / 2,
+                            gridSize,
+                            gridSize
+                        );
+                    }
+
+                    el.style.left = snapped.x + "px";
+                    el.style.top = snapped.y + "px";
+                };
+
+                el.onpointerup = async ev => {
+                    let rect = gridCanvas.getBoundingClientRect();
+                    let x = ev.clientX - rect.left;
+                    let y = ev.clientY - rect.top;
+
+                    let snapped = snap(x, y);
+
+                    let conflict = false;
+                    positions.forEach((pos, otherUid) => {
+                        if (otherUid !== uid && pos.x === snapped.x && pos.y === snapped.y) {
+                            conflict = true;
+                        }
+                    });
+
+                    if (conflict) {
+                        el.style.left = oldPos.x + "px";
+                        el.style.top = oldPos.y + "px";
+                    } else {
+                        await mapConn.invoke("MoveMarker", roomId, uid, snapped.x, snapped.y);
+                        positions.set(uid, snapped);
+                    }
+
+                    drawGrid();
+                    el.onpointermove = null;
+                    el.style.cursor = "grab";
+                };
+            };
+        }
+        mapConn = new signalR.HubConnectionBuilder()
+            .withUrl(`/mapHub?roomId=${roomId}`)
+            .withAutomaticReconnect()
+            .build();
+
+        mapConn.on("MarkersLoaded", markers=>{
+            markers.forEach(m=>setMarker(m.userId,m.x,m.y));
+        });
+        mapConn.on("MarkerMoved", m=>setMarker(m.userId,m.x,m.y));
+
+        mapConn.start().then(()=> mapConn.invoke("LoadMarkers",roomId));
+
+        mapConn.on("MapUpdated", newUrl => {
+            setTimeout(() => {
+                const img = new Image();
+                img.onload = () => {
+                    mapEl.src = img.src;
+                };
+                img.src = newUrl + "?v=" + Date.now();
+            }, 200);
         });
 
-        
+
+        document.getElementById("mapUploadForm").addEventListener("submit", async e => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const res = await fetch(`/api/map/${roomId}/upload`, {
+                method: "POST",
+                body: formData
+            });
+            if (res.ok) {
+                const data = await res.json();
+                mapEl.src = data.mapUrl + "?v=" + Date.now();
+            } else {
+                alert("Error uploading map");
+            }
+        });
     });
 </script>
+}
+
+<style>
+    #wrap {
+        position: relative;
+        display: inline-block;
+    }
+
+    #map {
+        position: relative;
+        z-index: 1;
+    }
+
+    #grid {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    #markers {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 3;
+        width: 100%;
+        height: 100%;
+    }
+
+    .marker {
+        cursor: grab;
+        border: 2px solid #222;
+        z-index: 4;
+        user-select: none;
+        -webkit-user-drag: none;
+        transition: left 0.1s linear, top 0.1s linear;
+    }
+    .marker:active {
+        cursor: grabbing;
+    }
+
+
+    .status-dot {
+        display:inline-block;
+        width:10px;
+        height:10px;
+        border-radius:50%;
+        margin-right:8px;
+    }
+    .status-dot.online { background:green; }
+    .status-dot.offline { background:gray; }
+</style>
