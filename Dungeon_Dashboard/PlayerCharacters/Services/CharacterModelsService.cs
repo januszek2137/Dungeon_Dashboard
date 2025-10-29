@@ -1,55 +1,43 @@
 ﻿using Dungeon_Dashboard.Home.Data;
-using Dungeon_Dashboard.Invitations.Services;
-using Dungeon_Dashboard.Migrations;
 using Dungeon_Dashboard.PlayerCharacters.Models;
 using iText.Forms;
 using iText.IO.Font.Constants;
 using iText.Kernel.Font;
 using iText.Kernel.Pdf;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Routing.Template;
 using Microsoft.EntityFrameworkCore;
-using System.Data;
-using System.Diagnostics.Metrics;
 using System.Globalization;
-using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
-namespace Dungeon_Dashboard.PlayerCharacters.Services
-{
-    public interface ICharacterModelService
-    {
+namespace Dungeon_Dashboard.PlayerCharacters.Services {
+    public interface ICharacterModelService {
         Task<List<CharacterModel>> GetAllCharactersForUserAsync(string username);
-        Task<CharacterModel> GetCharacterByIdIfUserHasAccessAsync(int? id, string username);
-        Task<CharacterModel> AddCharacterAsync(CharacterModel character);
-        Task<CharacterModel> UpdateAsync(int id, CharacterModel character);
-        Task<CharacterModel> DeleteIfUserHasAccessAsync(int id, string username);
-        byte[] GenerateCharacterPdf(CharacterModel characterModel);
-        List<Classes> GetClasses();
-        List<Races> GetRaces();
+        Task<CharacterModel>       GetCharacterByIdIfUserHasAccessAsync(int? id, string username);
+        Task<CharacterModel>       AddCharacterAsync(CharacterModel character);
+        Task<CharacterModel>       UpdateAsync(int id, CharacterModel character);
+        Task<CharacterModel>       DeleteIfUserHasAccessAsync(int id, string username);
+        byte[]                     GenerateCharacterPdf(CharacterModel characterModel);
+        List<Classes>              GetClasses();
+        List<Races>                GetRaces();
     }
 
-    public class CharacterModelService : ICharacterModelService
-    {
-        private readonly AppDBContext _context;
-        private readonly CharacterStatCounter _statCounter;
-        private readonly string _templatePath;
+    public class CharacterModelService : ICharacterModelService {
+        private readonly AppDBContext                   _context;
+        private readonly CharacterStatCounter           _statCounter;
+        private readonly string                         _templatePath;
         private readonly ILogger<CharacterModelService> _logger;
 
-        public CharacterModelService(AppDBContext context, ILogger<CharacterModelService> logger)
-        {
-            _context = context;
+        public CharacterModelService(AppDBContext context, ILogger<CharacterModelService> logger) {
+            _context     = context;
             _statCounter = new CharacterStatCounter();
-            _templatePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "pdfs", "CharacterSheetTemplate.pdf");
+            _templatePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "pdfs",
+                "CharacterSheetTemplate.pdf");
             _logger = logger;
         }
 
-        public async Task<List<CharacterModel>> GetAllCharactersForUserAsync(string username)
-        {
+        public async Task<List<CharacterModel>> GetAllCharactersForUserAsync(string username) {
             return await _context.CharacterModel.Where(c => c.CreatedBy == username).ToListAsync();
         }
 
-        public async Task<CharacterModel> GetCharacterByIdIfUserHasAccessAsync(int? id, string username)
-        {
+        public async Task<CharacterModel> GetCharacterByIdIfUserHasAccessAsync(int? id, string username) {
             if (!id.HasValue)
                 throw new ArgumentException("Character ID must be provided", nameof(id));
 
@@ -62,27 +50,23 @@ namespace Dungeon_Dashboard.PlayerCharacters.Services
             return character;
         }
 
-        public async Task<CharacterModel> AddCharacterAsync(CharacterModel character)
-        {
+        public async Task<CharacterModel> AddCharacterAsync(CharacterModel character) {
             _context.CharacterModel.Add(character);
             await _context.SaveChangesAsync();
             return character;
         }
 
-        public async Task<CharacterModel> UpdateAsync(int id, CharacterModel character)
-        {
+        public async Task<CharacterModel> UpdateAsync(int id, CharacterModel character) {
             if (id != character.Id)
                 throw new ArgumentException("Character ID mismatch");
 
-            //check if i can get rid of this try catch
             _context.Entry(character).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return character;
         }
 
-        public async Task<CharacterModel> DeleteIfUserHasAccessAsync(int id, string username)
-        {
+        public async Task<CharacterModel> DeleteIfUserHasAccessAsync(int id, string username) {
             var character = await GetCharacterByIdIfUserHasAccessAsync(id, username);
 
             if (character == null)
@@ -93,8 +77,7 @@ namespace Dungeon_Dashboard.PlayerCharacters.Services
             return character;
         }
 
-        public byte[] GenerateCharacterPdf(CharacterModel characterModel)
-        {
+        public byte[] GenerateCharacterPdf(CharacterModel characterModel) {
             if (!File.Exists(_templatePath))
                 throw new FileNotFoundException($"Template not found: {_templatePath}");
 
@@ -109,16 +92,14 @@ namespace Dungeon_Dashboard.PlayerCharacters.Services
             }
         }
 
-        private void FillCharacterPdf(Stream output, Dictionary<string, string> stats)
-        {
+        private void FillCharacterPdf(Stream output, Dictionary<string, string> stats) {
             using (var reader = new PdfReader(_templatePath)) {
                 using (var writer = new PdfWriter(output)) {
                     using (var pdf = new PdfDocument(reader, writer)) {
                         var form = PdfAcroForm.GetAcroForm(pdf, true);
                         var font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
 
-                        foreach (var field in stats)
-                        {
+                        foreach (var field in stats) {
                             form.GetField(field.Key)?.SetValue(field.Value).SetFont(font);
                         }
 
@@ -128,15 +109,11 @@ namespace Dungeon_Dashboard.PlayerCharacters.Services
                     }
                 }
             }
-
         }
 
-        private Dictionary<string, string> ToPdfFields(CharacterModel character)
-        {
-
+        private Dictionary<string, string> ToPdfFields(CharacterModel character) {
             var proficiency = _statCounter.CalculateProficiencyBonus(character.Level);
-            var mods = new
-            {
+            var mods = new {
                 STR = _statCounter.CalculateStatModifier(character.Strength),
                 DEX = _statCounter.CalculateStatModifier(character.Dexterity),
                 CON = _statCounter.CalculateStatModifier(character.Constitution),
@@ -145,8 +122,7 @@ namespace Dungeon_Dashboard.PlayerCharacters.Services
                 CHA = _statCounter.CalculateStatModifier(character.Charisma)
             };
 
-            string FormatList(IEnumerable<string>? items)
-            {
+            string FormatList(IEnumerable<string>? items) {
                 if (items == null) return string.Empty;
                 var valid = items.Where(i => !string.IsNullOrWhiteSpace(i));
                 return valid.Any()
@@ -155,19 +131,18 @@ namespace Dungeon_Dashboard.PlayerCharacters.Services
                     : string.Empty;
             }
 
-            string skills = FormatList(character.Skills);
+            string skills    = FormatList(character.Skills);
             string equipment = FormatList(character.Equipment);
             string inventory = FormatList(character.Inventory);
 
             var passiveWisdom = _statCounter.CalculatePassiveWisdom(character.Wisdom);
 
-            return new Dictionary<string, string>
-            {
+            return new Dictionary<string, string> {
                 ["CharacterName"] = character.Name,
-                ["ClassLevel"] = $"{character.Class} {character.Level}",
+                ["ClassLevel"]    = $"{character.Class} {character.Level}",
 
                 ["Race "] = character.Race.ToString(),
-                ["AC"] = character.ArmorClass.ToString(),
+                ["AC"]    = character.ArmorClass.ToString(),
                 ["Speed"] = character.Speed.ToString(),
 
                 ["STR"] = character.Strength.ToString(),
@@ -177,43 +152,43 @@ namespace Dungeon_Dashboard.PlayerCharacters.Services
                 ["WIS"] = character.Wisdom.ToString(),
                 ["CHA"] = character.Charisma.ToString(),
 
-                ["STRmod"] = mods.STR.ToString(),
+                ["STRmod"]  = mods.STR.ToString(),
                 ["DEXmod "] = mods.DEX.ToString(),
-                ["CONmod"] = mods.CON.ToString(),
-                ["INTmod"] = mods.INT.ToString(),
-                ["WISmod"] = mods.WIS.ToString(),
-                ["CHamod"] = mods.CHA.ToString(),
+                ["CONmod"]  = mods.CON.ToString(),
+                ["INTmod"]  = mods.INT.ToString(),
+                ["WISmod"]  = mods.WIS.ToString(),
+                ["CHamod"]  = mods.CHA.ToString(),
 
                 ["ProfBonus"] = proficiency.ToString(),
 
-                ["Passive"] = passiveWisdom.ToString(),
-                ["ST Strength"] = mods.STR.ToString(),
-                ["ST Dexterity"] = mods.DEX.ToString(),
+                ["Passive"]         = passiveWisdom.ToString(),
+                ["ST Strength"]     = mods.STR.ToString(),
+                ["ST Dexterity"]    = mods.DEX.ToString(),
                 ["ST Constitution"] = mods.CON.ToString(),
                 ["ST Intelligence"] = mods.INT.ToString(),
-                ["ST Wisdom"] = mods.WIS.ToString(),
-                ["ST Charisma"] = mods.CHA.ToString(),
-                ["HPMax"] = character.HitPoints.ToString(),
+                ["ST Wisdom"]       = mods.WIS.ToString(),
+                ["ST Charisma"]     = mods.CHA.ToString(),
+                ["HPMax"]           = character.HitPoints.ToString(),
 
-                ["Acrobatics"] = mods.DEX.ToString(),
-                ["Animal"] = mods.WIS.ToString(),
-                ["Athletics"] = mods.STR.ToString(),
-                ["Arcana"] = mods.INT.ToString(),
+                ["Acrobatics"]  = mods.DEX.ToString(),
+                ["Animal"]      = mods.WIS.ToString(),
+                ["Athletics"]   = mods.STR.ToString(),
+                ["Arcana"]      = mods.INT.ToString(),
                 ["Perception "] = mods.WIS.ToString(),
-                ["Deception "] = mods.CHA.ToString(),
-                ["Persuasion"] = mods.CHA.ToString(),
+                ["Deception "]  = mods.CHA.ToString(),
+                ["Persuasion"]  = mods.CHA.ToString(),
 
-                ["History "] = mods.INT.ToString(),
-                ["Insight"] = mods.WIS.ToString(),
-                ["Intimidation"] = mods.CHA.ToString(),
+                ["History "]       = mods.INT.ToString(),
+                ["Insight"]        = mods.WIS.ToString(),
+                ["Intimidation"]   = mods.CHA.ToString(),
                 ["Investigation "] = mods.INT.ToString(),
-                ["Medicine"] = mods.WIS.ToString(),
-                ["Nature"] = mods.INT.ToString(),
-                ["Performance"] = mods.CHA.ToString(),
-                ["Religion"] = mods.INT.ToString(),
-                ["SleightofHand"] = mods.DEX.ToString(),
-                ["Stealth "] = mods.DEX.ToString(),
-                ["Survival"] = mods.WIS.ToString(),
+                ["Medicine"]       = mods.WIS.ToString(),
+                ["Nature"]         = mods.INT.ToString(),
+                ["Performance"]    = mods.CHA.ToString(),
+                ["Religion"]       = mods.INT.ToString(),
+                ["SleightofHand"]  = mods.DEX.ToString(),
+                ["Stealth "]       = mods.DEX.ToString(),
+                ["Survival"]       = mods.WIS.ToString(),
 
                 ["CP"] = character.Copper.ToString(),
                 ["SP"] = character.Silver.ToString(),
@@ -222,25 +197,20 @@ namespace Dungeon_Dashboard.PlayerCharacters.Services
                 ["PP"] = character.Platinum.ToString(),
 
                 ["ProficienciesLang"] = skills,
-                ["Equipment"] = equipment
-                //,
-                //["Inventory"] = inventory
+                ["Equipment"]         = equipment
             };
         }
 
-
-        public List<Classes> GetClasses()
-        {
+        public List<Classes> GetClasses() {
             return Enum.GetValues(typeof(Classes))
-                           .Cast<Classes>()
-                           .ToList();
+                .Cast<Classes>()
+                .ToList();
         }
 
-        public List<Races> GetRaces()
-        {
+        public List<Races> GetRaces() {
             return Enum.GetValues(typeof(Races))
-                           .Cast<Races>()
-                           .ToList();
+                .Cast<Races>()
+                .ToList();
         }
     }
 }
