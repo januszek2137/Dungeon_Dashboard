@@ -5,6 +5,7 @@ using Dungeon_Dashboard.Home;
 using Dungeon_Dashboard.Home.Data;
 using Dungeon_Dashboard.Invitations.Hubs;
 using Dungeon_Dashboard.Invitations.Services;
+using Dungeon_Dashboard.Room;
 using Dungeon_Dashboard.Room.Hubs;
 using Dungeon_Dashboard.Room.Notes.Hubs;
 using Microsoft.AspNetCore.Identity;
@@ -29,6 +30,14 @@ builder.Services.AddSignalR();
 builder.Services.AddScoped<IEventService, EventService>();
 
 builder.Services.AddScoped<IUserLookupService, UserLookupService<IdentityUser>>();
+
+builder.Services.AddScoped<IMapService, MapService>();
+
+builder.Services.AddScoped<IRoomService, RoomService>();
+
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+
+builder.Services.AddScoped<IMarkerRepository, MarkerRepository>();
 
 
 builder.Services.AddDbContext<AppDBContext>(options =>
@@ -81,5 +90,6 @@ app.MapControllerRoute(
 app.MapHub<NotificationHub>("/notificationhub");
 app.MapHub<ParticipantsHub>("/participantsHub");
 app.MapHub<NotesHub>("/notesHub");
+app.MapHub<MapHub>("/mapHub");
 
 app.Run();

@@ -2,19 +2,21 @@
 using Dungeon_Dashboard.Room.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dungeon_Dashboard.Room.Controllers {
 
     [Authorize]
     public class RoomsViewController : Controller {
-        private readonly AppDBContext _context;
+        private readonly IRoomService _roomService;
 
-        public RoomsViewController(AppDBContext context) {
-            _context = context;
+        public RoomsViewController( IRoomService roomService) {
+            _roomService = roomService;
         }
 
-        public IActionResult Index() {
-            return View();
+        public async Task<IActionResult> Index() {
+            List<RoomModel> model = await _roomService.GetRoomsForUserAsync(User.Identity?.Name ?? "Annonymous");
+            return View(model);
         }
 
         public IActionResult Create() {
@@ -27,31 +29,21 @@ namespace Dungeon_Dashboard.Room.Controllers {
                 return View(model);
             }
 
-            var room = new RoomModel {
-                Name = model.Name,
-                Description = model.Description,
-                CreatedBy = User.Identity.Name,
-                Participants = new List<string> { User.Identity.Name }
-            };
+            var createdBy = User.Identity?.Name ?? "Annonymous";
+            var room = await _roomService.CreateRoomAsync(model, createdBy);
 
-            _context.RoomModel.Add(room);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction("Index", "RoomsView");
+            return RedirectToAction("Room", "RoomsView", new { id = room.Id });
         }
 
         public async Task<IActionResult> Room(int id) {
-            var room = await _context.RoomModel.FindAsync(id);
-
-            if(room == null) {
+            try {
+                var room = await _roomService.GetRoomForUserAsync(id, User.Identity?.Name);
+                return View(room);
+            } catch(KeyNotFoundException) {
                 return NotFound($"Can't find a room with id = {id}");
-            }
-
-            if(room.Participants == null || !room.Participants.Contains(User.Identity.Name)) {
+            } catch(UnauthorizedAccessException) {
                 return Forbid();
             }
-
-            return View(room);
         }
     }
 }

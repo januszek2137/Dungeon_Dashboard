@@ -1,5 +1,7 @@
-﻿@{
-    ViewData["Title"] = "Your Rooms";
+﻿@model IEnumerable<Dungeon_Dashboard.Room.Models.RoomModel>
+@{
+	ViewData["Title"] = "Your Rooms";
+
 }
 
 <h2>Your Rooms</h2>
@@ -7,12 +9,46 @@
 <a asp-action="Create" class="btn btn-primary w-100">Create New</a>
 
 <div id="rooms-list" style="background-color: #2f2b3a; color: #ba9ffb; padding: 20px; border-radius: 10px;">
-    <ul id="rooms">
-    </ul>
+	<ul id="rooms" style="list-style: none; padding: 0; margin: 0;">
+		@foreach (var room in Model)
+		{
+			<li style="display: flex; justify-content: space-between; align-items: center;
+	                           margin-bottom: 12px; padding: 10px 15px;
+	                           border-bottom: 1px solid #3c3650; border-radius: 8px;">
+				<div>
+					<strong>@room.Name</strong> - Created by: @room.CreatedBy
+				</div>
+				<div>
+					@if (User.Identity.Name == room.CreatedBy)
+					{
+						<button type="button"
+								style="background-color: #ba9ffb; color: #2f2b3a; border: none;
+		                                               padding: 6px 12px; border-radius: 5px; cursor: pointer;
+		                                               margin-right: 8px;"
+								onclick="openInviteModal(@room.Id)">
+							Invite
+						</button>
+					}
+
+					<form asp-action="Room" asp-route-id="@room.Id" method="get" style="display: inline;">
+						<button type="submit"
+								style="background-color: #ba9ffb; color: #2f2b3a; border: none;
+	                                           padding: 6px 12px; border-radius: 5px; cursor: pointer;">
+							Enter Room
+						</button>
+					</form>
+				</div>
+			</li>
+		}
+	</ul>
 </div>
 
+
 <script>
-    
+	window.openInviteModal = function (roomId) {
+		document.getElementById("invite-roomId").value = roomId;
+		document.getElementById("invite-username").value = "";
+		$('#inviteModal').modal('show');
+	}
 </script>
 
-<script src="~/js/roomsindex.js"></script>
