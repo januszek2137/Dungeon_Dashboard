@@ -5,6 +5,8 @@ using Dungeon_Dashboard.Home;
 using Dungeon_Dashboard.Home.Data;
 using Dungeon_Dashboard.Invitations.Hubs;
 using Dungeon_Dashboard.Invitations.Services;
+using Dungeon_Dashboard.PlayerCharacters;
+using Dungeon_Dashboard.PlayerCharacters.Services;
 using Dungeon_Dashboard.Room;
 using Dungeon_Dashboard.Room.Hubs;
 using Dungeon_Dashboard.Room.Notes.Hubs;
@@ -21,9 +23,13 @@ builder.Services.AddSingleton<IDataService, DataService>();
 
 builder.Services.AddSingleton<IContentGenerationService, ContentGenerationService>();
 
+builder.Services.AddSingleton<CharacterStatCounter>();
+
 builder.Services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
 
 builder.Services.AddScoped<IInvitationService, InvitationService>();
+
+builder.Services.AddScoped<ICharacterModelService, CharacterModelService>();
 
 builder.Services.AddSignalR();
 
@@ -91,5 +97,12 @@ app.MapHub<NotificationHub>("/notificationhub");
 app.MapHub<ParticipantsHub>("/participantsHub");
 app.MapHub<NotesHub>("/notesHub");
 app.MapHub<MapHub>("/mapHub");
+
+AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
+{
+    var ex = e.ExceptionObject as Exception;
+    Console.WriteLine($"[FATAL] {ex}");
+    File.AppendAllText("fatal.log", $"[FATAL] {ex}\n");
+};
 
 app.Run();
