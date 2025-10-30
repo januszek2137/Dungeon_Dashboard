@@ -1,0 +1,101 @@
+﻿@model Dungeon_Dashboard.ContentGeneration.Models.RandomEncounter
+
+<div class="col-md-12">
+    <div class="card encounter">
+        <!-- Encounter Header -->
+        <div class="encounter-header">
+            <h3>⚔️ @Model.Name</h3>
+            <p><em>@Model.Description</em></p>
+            <div class="card-content">
+                <div>
+                    <p><span class="icon">📍</span><strong>Location:</strong> @Model.Location</p>
+                    <p><span class="icon">🌦️</span><strong>Weather:</strong> @Model.Weather</p>
+                </div>
+                <div>
+                    <p><span class="icon">⏰</span><strong>Time:</strong> @Model.TimeOfDay</p>
+                    <p><span class="icon">🌄</span><strong>Terrain:</strong> @Model.Terrain</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Involved NPCs Section -->
+        <div class="encounter-npcs mt-3">
+            <h4>🧑‍🤝‍🧑 Involved NPCs:</h4>
+            <div class="npcs row">
+                @if (Model.InvolvedNPCs.Count > 0)
+                {
+                    foreach (var npc in Model.InvolvedNPCs)
+                    {
+                        <div class="col-md-6">
+                            <div class="card npc mb-3">
+                                <h5>🧙 @npc.Name</h5>
+                                <div class="card-content">
+                                    <div>
+                                        <p><span class="icon">🎭</span><strong>Role:</strong> @npc.Role</p>
+                                        <p><span class="icon">🎚️</span><strong>Level:</strong> @npc.Level</p>
+                                        <p><span class="icon">❤️</span><strong>HP:</strong> @npc.Health</p>
+                                        <p><span class="icon">🛡️</span><strong>AC:</strong> @npc.ArmorClass</p>
+                                    </div>
+                                    <div>
+                                        <table class="attributes-table">
+                                            <tr>
+                                                <td><span class="icon">💪</span><strong>STR:</strong> @npc.Strength</td>
+                                                <td><span class="icon">🤸</span><strong>DEX:</strong> @npc.Dexterity</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="icon">🏋️</span><strong>CON:</strong> @npc.Constitution</td>
+                                                <td><span class="icon">🧠</span><strong>INT:</strong> @npc.Intelligence</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="icon">👁️</span><strong>WIS:</strong> @npc.Wisdom</td>
+                                                <td><span class="icon">🗣️</span><strong>CHA:</strong> @npc.Charisma</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No NPCs involved.</p>
+                }
+            </div>
+        </div>
+
+        <!-- Involved Monsters Section -->
+        <div class="encounter-monsters mt-3">
+            <h4>🦖 Involved Monsters:</h4>
+            <div class="monsters row">
+                @if (Model.InvolvedMonsters.Count > 0)
+                {
+                    foreach (var monster in Model.InvolvedMonsters)
+                    {
+                        <div class="col-md-6">
+                            <div class="card monster mb-3">
+                                <h5>🐲 @monster.Species</h5>
+                                <div class="card-content">
+                                    <div>
+                                        <p><span class="icon">🗺️</span><strong>Type:</strong> @monster.Type</p>
+                                        <p><span class="icon">🎚️</span><strong>Level:</strong> @monster.Level</p>
+                                        <p><span class="icon">❤️</span><strong>HP:</strong> @monster.Health</p>
+                                        <p><span class="icon">🛡️</span><strong>AC:</strong> @monster.ArmorClass</p>
+                                    </div>
+                                    <div>
+                                        <p><span class="icon">⚔️</span><strong>Damage:</strong> @monster.Damage</p>
+                                        <p><span class="icon">✨</span><strong>Abilities:</strong> @monster.Abilities</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No Monsters involved.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

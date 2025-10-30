@@ -40,7 +40,6 @@ public class RoomService : IRoomService {
     }
     
     public async Task<List<RoomModel>> GetRoomsForUserAsync(string user, CancellationToken ct = default) {
-        //throw new Exception("Change this please - temporary fix, roomsindex.js needs change");
         return await _roomRepo.GetForUserAsync(user, ct);
     }
 }

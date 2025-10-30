@@ -2,17 +2,24 @@
 
 namespace Dungeon_Dashboard.ContentGeneration.Services {
 
+    public class GenerationFailedException : Exception
+    {
+        public GenerationFailedException(string message) : base(message) { }
+        public GenerationFailedException(string message, Exception innerException)
+            : base(message, innerException) { }
+    }
+    
     public interface IContentGenerationService {
 
-        NPC GenerateRandomNPC();
+        Task<NPC> GenerateRandomNPC();
 
-        Monster GenerateRandomMonster();
+        Task<Monster> GenerateRandomMonster();
 
-        RandomEncounter GenerateRandomEncounter();
+        Task<RandomEncounter> GenerateRandomEncounter();
 
-        List<NPC> GenerateRandomNPCs(int count);
+        Task<List<NPC>> GenerateRandomNPCs(int count);
 
-        List<Monster> GenerateRandomMonsters(int count);
+        Task<List<Monster>> GenerateRandomMonsters(int count);
     }
 
     public class ContentGenerationService : IContentGenerationService {
@@ -26,20 +33,20 @@ namespace Dungeon_Dashboard.ContentGeneration.Services {
             _random = new Random();
         }
 
-        public NPC GenerateRandomNPC() {
-            var npcNames = _dataService.GetNPCNamesAsync().Result;
-            var npcRoles = _dataService.GetNPCRolesAsync().Result;
-            var descriptions = _dataService.GetDescriptionsAsync().Result;
+        public async Task<NPC> GenerateRandomNPC() {
+            var npcNames = await _dataService.GetNPCNamesAsync();
+            var npcRoles = await _dataService.GetNPCRolesAsync();
+            var descriptions = await _dataService.GetDescriptionsAsync();
 
             if(!npcNames.Any() || !npcRoles.Any() || !descriptions.Any()) {
                 _logger.LogWarning("One of the npc data pools is empty");
-                return null;
+                throw new GenerationFailedException("Insufficient data to generate NPC");
             }
 
             var npc = new NPC {
                 Id = GenerateUniqueId(),
-                Name = GetRandomItem(npcNames),
-                Role = GetRandomItem(npcRoles),
+                Name = await GetRandomItem(npcNames),
+                Role = await GetRandomItem(npcRoles),
                 Level = _random.Next(3, 21),
                 Health = _random.Next(10, 251),
                 ArmorClass = _random.Next(10, 21),
@@ -49,76 +56,76 @@ namespace Dungeon_Dashboard.ContentGeneration.Services {
                 Intelligence = _random.Next(3, 21),
                 Wisdom = _random.Next(3, 21),
                 Charisma = _random.Next(3, 21),
-                Description = GetRandomItem(descriptions)
+                Description = await GetRandomItem(descriptions)
             };
 
             return npc;
         }
 
-        public Monster GenerateRandomMonster() {
-            var monsterSpecies = _dataService.GetMonsterSpeciesAsync().Result;
-            var monsterTypes = _dataService.GetMonsterTypesAsync().Result;
-            var monsterAbilities = _dataService.GetMonsterAbilitiesAsync().Result;
-            var descriptions = _dataService.GetDescriptionsAsync().Result;
+        public async Task<Monster> GenerateRandomMonster() {
+            var monsterSpecies = await _dataService.GetMonsterSpeciesAsync();
+            var monsterTypes = await _dataService.GetMonsterTypesAsync();
+            var monsterAbilities = await _dataService.GetMonsterAbilitiesAsync();
+            var descriptions = await _dataService.GetDescriptionsAsync();
 
             if(!monsterSpecies.Any() || !monsterTypes.Any() || !monsterAbilities.Any() || !descriptions.Any()) {
                 _logger.LogWarning("One of the monster data pools is empty");
-                return null;
+                throw new GenerationFailedException("Insufficient data to generate Monster");
             }
 
             var monster = new Monster {
                 Id = GenerateUniqueId(),
-                Species = GetRandomItem(monsterSpecies),
-                Type = GetRandomItem(monsterTypes),
+                Species = await GetRandomItem(monsterSpecies),
+                Type = await GetRandomItem(monsterTypes),
                 Level = _random.Next(3, 21),
                 Health = _random.Next(10, 501),
                 ArmorClass = _random.Next(10, 21),
                 Damage = _random.Next(1, 51),
-                Abilities = GetRandomItem(monsterAbilities),
-                Description = GetRandomItem(descriptions)
+                Abilities = await GetRandomItem(monsterAbilities),
+                Description = await GetRandomItem(descriptions)
             };
             return monster;
         }
 
-        public RandomEncounter GenerateRandomEncounter() {
-            var encounterNames = _dataService.GetEncounterNamesAsync().Result;
-            var descriptions = _dataService.GetDescriptionsAsync().Result;
-            var locations = _dataService.GetLocationsAsync().Result;
-            var weathers = _dataService.GetWeathersAsync().Result;
-            var timesOfDay = _dataService.GetTimesOfDayAsync().Result;
-            var terrains = _dataService.GetTerrainsAsync().Result;
-            var difficulties = _dataService.GetDifficultiesAsync().Result;
-            var rewards = _dataService.GetRewardsAsync().Result;
-            var notes = _dataService.GetNotesAsync().Result;
-
+        public async Task<RandomEncounter> GenerateRandomEncounter() {
+            var encounterNames = await _dataService.GetEncounterNamesAsync();
+            var descriptions   = await _dataService.GetDescriptionsAsync();
+            var locations      = await _dataService.GetLocationsAsync();
+            var weathers       = await _dataService.GetWeathersAsync();
+            var timesOfDay     = await _dataService.GetTimesOfDayAsync();
+            var terrains       = await _dataService.GetTerrainsAsync();
+            var difficulties   = await _dataService.GetDifficultiesAsync();
+            var rewards        = await _dataService.GetRewardsAsync();
+            var notes          = await _dataService.GetNotesAsync();
+            
             if(!encounterNames.Any() || !descriptions.Any() || !locations.Any() || !weathers.Any() || !timesOfDay.Any() || !terrains.Any() || !difficulties.Any() || !rewards.Any() || !notes.Any()) {
                 _logger.LogWarning("One of the encounter data pools is empty");
-                return null;
+                throw new GenerationFailedException("Insufficient data to generate Encounter");
             }
 
             var encounter = new RandomEncounter {
                 Id = GenerateUniqueId(),
-                Name = GetRandomItem(encounterNames),
-                Description = GetRandomItem(descriptions),
-                Location = GetRandomItem(locations),
-                Weather = GetRandomItem(weathers),
-                TimeOfDay = GetRandomItem(timesOfDay),
-                Terrain = GetRandomItem(terrains),
-                Difficulty = GetRandomItem(difficulties),
-                Reward = GetRandomItem(rewards),
-                Notes = GetRandomItem(notes),
-                InvolvedNPCs = new List<NPC> { GenerateRandomNPC(), GenerateRandomNPC() },
-                InvolvedMonsters = new List<Monster> { GenerateRandomMonster(), GenerateRandomMonster() }
+                Name = await GetRandomItem(encounterNames),
+                Description = await GetRandomItem(descriptions),
+                Location = await GetRandomItem(locations),
+                Weather = await GetRandomItem(weathers),
+                TimeOfDay = await GetRandomItem(timesOfDay),
+                Terrain = await GetRandomItem(terrains),
+                Difficulty = await GetRandomItem(difficulties),
+                Reward = await GetRandomItem(rewards),
+                Notes = await GetRandomItem(notes),
+                InvolvedNPCs = new List<NPC> { await GenerateRandomNPC(), await GenerateRandomNPC() },
+                InvolvedMonsters = new List<Monster> { await GenerateRandomMonster(), await GenerateRandomMonster() }
             };
 
             return encounter;
         }
 
-        public List<NPC> GenerateRandomNPCs(int count) {
+        public async Task<List<NPC>> GenerateRandomNPCs(int count) {
             var npcs = new List<NPC>();
 
             for(int i = 0; i < count; i++) {
-                var npc = GenerateRandomNPC();
+                var npc = await GenerateRandomNPC();
                 if(npc != null) {
                     npcs.Add(npc);
                 }
@@ -126,11 +133,11 @@ namespace Dungeon_Dashboard.ContentGeneration.Services {
             return npcs;
         }
 
-        public List<Monster> GenerateRandomMonsters(int count) {
+        public async Task<List<Monster>> GenerateRandomMonsters(int count) {
             var monsters = new List<Monster>();
 
             for(int i = 0; i < count; i++) {
-                var monster = GenerateRandomMonster();
+                var monster = await GenerateRandomMonster();
                 if(monster != null) {
                     monsters.Add(monster);
                 }
@@ -138,7 +145,7 @@ namespace Dungeon_Dashboard.ContentGeneration.Services {
             return monsters;
         }
 
-        private T GetRandomItem<T>(List<T> list) {
+        private async Task<T> GetRandomItem<T>(List<T> list) {
             if(list == null || list.Count == 0)
                 throw new ArgumentException("The list cannot be empty");
 
