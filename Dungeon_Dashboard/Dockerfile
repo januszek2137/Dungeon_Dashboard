@@ -30,7 +30,8 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 USER root
-RUN chmod -R 777 /app/wwwroot/maps
+RUN mkdir -p /app/wwwroot/maps && \
+    chmod -R 777 /app/wwwroot/maps
 VOLUME ["/app/wwwroot/maps"]
 USER app
 ENTRYPOINT ["dotnet", "Dungeon_Dashboard.dll"]
