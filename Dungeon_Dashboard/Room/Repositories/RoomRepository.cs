@@ -13,16 +13,16 @@ public interface IRoomRepository {
 }
 
 public class RoomRepository : IRoomRepository {
-    private readonly IWebHostEnvironment     _environment;
-    private readonly AppDBContext            _context;
+    private readonly IWebHostEnvironment _environment;
+    private readonly AppDBContext        _context;
     private readonly ILogger<RoomRepository> _logger;
-
+    
     public RoomRepository(IWebHostEnvironment environment, AppDBContext context, ILogger<RoomRepository> logger) {
         _environment = environment;
         _context     = context;
         _logger      = logger;
     }
-
+    
     public async Task AddAsync(RoomModel room, CancellationToken ct = default) {
         _context.RoomModel.Add(room);
         await _context.SaveChangesAsync(ct);
@@ -35,13 +35,13 @@ public class RoomRepository : IRoomRepository {
     }
 
     public Task<RoomModel?> GetByIdAsync(int roomId, CancellationToken ct = default) {
-        return _context.RoomModel.FirstOrDefaultAsync(r => r.Id == roomId, ct);
+        return _context.RoomModel.FirstOrDefaultAsync(r=> r.Id == roomId, ct);
     }
 
     public Task<RoomModel?> GetByIdWithDetailsAsync(int id, CancellationToken ct = default) {
         return _context.RoomModel
-            .Include(r => r.Notes)
-            .Include(r => r.Markers)
+            .Include(r=>r.Notes)
+            .Include(r=>r.Markers)
             .FirstOrDefaultAsync(r => r.Id == id, ct);
     }
 
@@ -50,7 +50,7 @@ public class RoomRepository : IRoomRepository {
         _logger.LogInformation($"maps dir: {_environment.WebRootPath}/maps");
         Directory.CreateDirectory(mapsDir);
         _logger.LogInformation($"created dir MapsDir: {mapsDir}");
-
+        
         if (!string.IsNullOrEmpty(room.MapUrl)) {
             var oldPath = Path.Combine(_environment.WebRootPath, room.MapUrl.TrimStart('/'));
             if (File.Exists(oldPath))
@@ -61,19 +61,12 @@ public class RoomRepository : IRoomRepository {
         var fullPath = Path.Combine(mapsDir, safeName);
         _logger.LogInformation($"created file: {fullPath}");
 
-        try {
-            await using var fs = File.Create(fullPath);
-            await file.CopyToAsync(fs, ct);
-
-            room.MapUrl = $"/maps/{safeName}";
-            await _context.SaveChangesAsync(ct);
-            _logger.LogInformation($"url saved succesfully: {fullPath}");
-            return room.MapUrl;
-        }
-        catch (Exception ex) {
-            _logger.LogError(ex.Message);
-            return null;
-        }
+        await using var fs = File.Create(fullPath);
+        await file.CopyToAsync(fs, ct);
         
+        room.MapUrl = $"/maps/{safeName}";
+        await _context.SaveChangesAsync(ct);
+        _logger.LogInformation($"url saved succesfully: {fullPath}");
+        return room.MapUrl;
     }
 }
