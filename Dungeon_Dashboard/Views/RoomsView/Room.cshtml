@@ -594,15 +594,7 @@ ViewBag.Title = "Room 🏰 - " + Model.Name;
                 const data = await res.json();
                 mapEl.src = data.mapUrl + "?v=" + Date.now();
             } else {
-                let errorMessage = "Error uploading map";
-                try {
-                    const errorData = await res.json();
-                    errorMessage = errorData.message || errorData.error || errorMessage;
-                } catch {
-                    // If response isn't JSON, use status text
-                    errorMessage = `Error uploading map: ${res.status} ${res.statusText}`;
-                }
-                alert(errorMessage);
+                alert("Error uploading map");
             }
         });
     });
