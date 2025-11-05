@@ -24,15 +24,16 @@ namespace Dungeon_Dashboard.Room.Controllers {
         public async Task<IActionResult> Upload(int roomId, IFormFile file, CancellationToken ct = default) {
             if (file == null || file.Length == 0)
                 return BadRequest("No File Uploaded");
-            
-            var room = await _mapService.UploadMapAsync(roomId, file, User.Identity?.Name ?? string.Empty, ct);
-            if (room == null)
-                return NotFound();
-            
-            //if (string.IsNullOrEmpty(mapUrl))
-              //  return Forbid();
-            
-            return Ok(room);
+            try {
+                var room = await _mapService.UploadMapAsync(roomId, file, User.Identity?.Name ?? string.Empty, ct);
+                if (room == null)
+                    return NotFound();
+                
+                return Ok(room);
+            }
+            catch (Exception ex) {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("{roomId:int}")]

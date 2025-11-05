@@ -23,10 +23,10 @@ public class MapService : IMapService {
     public async Task<RoomModel?> UploadMapAsync(int roomId, IFormFile file, string userName, CancellationToken ct = default) {
         var room = await _roomRepo.GetByIdAsync(roomId, ct);
         if (room == null)
-            return null;
+            throw new InvalidOperationException("Room not found");
         
         if(!string.Equals(room.CreatedBy, userName, StringComparison.OrdinalIgnoreCase))
-            return null;
+            throw new UnauthorizedAccessException();
         
         var mapUrl = await _roomRepo.SaveMapAsync(room, file, ct);
         
