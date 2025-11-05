@@ -29,5 +29,8 @@ RUN dotnet publish "./Dungeon_Dashboard.csproj" -c $BUILD_CONFIGURATION -o /app/
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-RUN chmod -R 777 /app/wwwroot
+USER root
+RUN chmod -R 777 /app/wwwroot/maps
+VOLUME ["/app/wwwroot/maps"]
+USER app
 ENTRYPOINT ["dotnet", "Dungeon_Dashboard.dll"]
