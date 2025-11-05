@@ -15,10 +15,12 @@ public interface IRoomRepository {
 public class RoomRepository : IRoomRepository {
     private readonly IWebHostEnvironment _environment;
     private readonly AppDBContext        _context;
+    private readonly ILogger<RoomRepository> _logger;
     
-    public RoomRepository(IWebHostEnvironment environment, AppDBContext context) {
+    public RoomRepository(IWebHostEnvironment environment, AppDBContext context, ILogger<RoomRepository> logger) {
         _environment = environment;
         _context     = context;
+        _logger      = logger;
     }
     
     public async Task AddAsync(RoomModel room, CancellationToken ct = default) {
@@ -45,7 +47,9 @@ public class RoomRepository : IRoomRepository {
 
     public async Task<string> SaveMapAsync(RoomModel room, IFormFile file, CancellationToken ct = default) {
         var mapsDir = Path.Combine(_environment.WebRootPath, "maps");
+        _logger.LogInformation($"maps dir: {_environment.WebRootPath}/maps");
         Directory.CreateDirectory(mapsDir);
+        _logger.LogInformation($"created dir MapsDir: {mapsDir}");
         
         if (!string.IsNullOrEmpty(room.MapUrl)) {
             var oldPath = Path.Combine(_environment.WebRootPath, room.MapUrl.TrimStart('/'));
@@ -55,13 +59,14 @@ public class RoomRepository : IRoomRepository {
 
         var safeName = $"{room.Id}_{Guid.NewGuid():N}{Path.GetExtension(file.FileName)}";
         var fullPath = Path.Combine(mapsDir, safeName);
+        _logger.LogInformation($"created file: {fullPath}");
 
         await using var fs = File.Create(fullPath);
         await file.CopyToAsync(fs, ct);
         
         room.MapUrl = $"/maps/{safeName}";
         await _context.SaveChangesAsync(ct);
-        
+        _logger.LogInformation($"url saved succesfully: {fullPath}");
         return room.MapUrl;
     }
 }
