@@ -1,0 +1,229 @@
+/* ============================
+   ADDITIONAL VARIABLES
+============================ */
+:root {
+    --panel-bg: rgba(40, 30, 20, 0.55);
+    --panel-border: rgba(191, 167, 106, 0.4);
+    --panel-shadow: rgba(191, 167, 106, 0.25);
+}
+
+/* ============================
+   LAYOUT CONTAINERS
+============================ */
+.content-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* ============================
+   SHARED CARD STYLES
+============================ */
+.card {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0 25px var(--panel-shadow);
+    color: var(--text);
+    transition: all 0.3s ease;
+    animation: fadeUp 1s ease forwards;
+}
+
+.card:hover {
+    box-shadow: 0 0 35px var(--panel-shadow);
+    transform: translateY(-2px);
+}
+
+/* Card variants */
+.card-encounter {
+    padding: 2rem;
+}
+
+.card-npc,
+.card-monster {
+    height: 100%;
+}
+
+/* ============================
+   TYPOGRAPHY
+============================ */
+.card h3,
+.card h4,
+.card h5 {
+    font-family: 'MedievalSharp', serif;
+    color: var(--glow);
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.card h3 {
+    font-size: 1.6rem;
+}
+
+.card h4 {
+    font-size: 1.4rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.card h5 {
+    font-size: 1.2rem;
+}
+
+.card p {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.entity-description {
+    color: rgba(224, 214, 177, 0.85);
+    display: block;
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.empty-state {
+    color: rgba(224, 214, 177, 0.6);
+    font-style: italic;
+    margin: 1rem 0;
+}
+
+/* ============================
+   CONTENT LAYOUT
+============================ */
+.card-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.card-content > div {
+    flex: 1 1 200px;
+}
+
+/* Stats sections */
+.stats-primary,
+.stats-secondary,
+.stats-attributes,
+.stats-environment {
+    min-width: 250px;
+}
+
+/* ============================
+   ICONS
+============================ */
+.icon {
+    margin-right: 0.25rem;
+    display: inline-block;
+}
+
+/* ============================
+   ATTRIBUTES TABLE
+============================ */
+.attributes-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.5rem;
+}
+
+.attributes-table td {
+    padding: 0.3rem 0.5rem;
+    vertical-align: top;
+    font-size: 0.95rem;
+}
+
+/* ============================
+   ENCOUNTER SPECIFIC
+============================ */
+.encounter-header {
+    margin-bottom: 1.5rem;
+}
+
+.encounter-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(191, 167, 106, 0.2);
+}
+
+.encounter-section:first-of-type {
+    margin-top: 1.5rem;
+}
+
+/* ============================
+   ENTITY GRID
+============================ */
+.entity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.entity-item {
+    display: flex;
+}
+
+.entity-item .card {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+/* ============================
+   RESPONSIVE DESIGN
+============================ */
+@media (max-width: 768px) {
+    .content-container {
+        padding: 0.5rem;
+    }
+
+    .card-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .entity-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .card-encounter {
+        padding: 1.5rem;
+    }
+
+    .encounter-section {
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        padding: 1rem;
+        border-radius: 0.75rem;
+    }
+
+    .card h3 {
+        font-size: 1.4rem;
+    }
+
+    .card h4 {
+        font-size: 1.2rem;
+    }
+
+    .card h5 {
+        font-size: 1.1rem;
+    }
+
+    .attributes-table td {
+        font-size: 0.9rem;
+        padding: 0.25rem 0.4rem;
+    }
+
+    .card-content {
+        gap: 0.75rem;
+    }
+}

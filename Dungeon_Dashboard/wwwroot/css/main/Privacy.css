@@ -1,45 +1,68 @@
-﻿body, html {
+﻿/* ============================
+   ROOT OVERRIDES
+============================ */
+body, html {
     overflow-y: auto !important;
     height: auto !important;
     min-height: 100vh;
 }
 
-html:before {
+html::before {
     position: fixed !important;
 }
 
+/* ============================
+   CONTAINER
+============================ */
 .privacy-container {
     max-width: 900px;
     margin: 0 auto;
-    padding: 4rem 2rem 6rem 2rem;
+    padding: 4rem 2rem 6rem;
     min-height: 100vh;
+    z-index: 3;
 }
 
+/* ============================
+   TITLE
+============================ */
 .privacy-title {
     padding-top: 2rem;
-    font-family: 'Cinzel', serif;
+
+    font-family: "MedievalSharp", serif;
     font-size: 2.5rem;
     color: var(--glow);
     text-align: center;
-    text-shadow: 0 0 10px rgba(0,0,0,0.6), 0 0 12px var(--glow);
+
+    text-shadow:
+            0 0 10px rgba(0,0,0,0.6),
+            0 0 12px var(--glow);
+
     margin-bottom: 3rem;
     animation: fadeIn 1s ease-out forwards;
 }
 
+/* ============================
+   SECTIONS LAYOUT
+============================ */
 .privacy-sections {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
+/* ============================
+   SECTION CARD
+============================ */
 .privacy-section {
     background: rgba(40, 30, 20, 0.55);
-    border: 1px solid rgba(191, 167, 106, 0.4);
+    border: 1px solid var(--accent-border);
     border-radius: 1rem;
+
     padding: 2rem;
-    box-shadow: 0 0 25px rgba(191, 167, 106, 0.25);
+    box-shadow: 0 0 25px var(--accent-shadow);
+
     animation: fadeUp 1.2s ease-out forwards;
-    transition: all 0.3s ease;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .privacy-section:hover {
@@ -47,54 +70,60 @@ html:before {
     transform: translateY(-2px);
 }
 
+/* ============================
+   SECTION TITLE
+============================ */
 .privacy-section-title {
-    font-family: 'Cinzel Decorative', cursive;
+    font-family: "MedievalSharp", serif;
     font-size: 1.5rem;
     color: var(--glow);
-    margin: 0 0 1rem 0;
-    text-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+
+    margin: 0 0 1rem;
+    text-shadow: 0 0 6px rgba(0,0,0,0.5);
 }
 
+/* ============================
+   SECTION TEXT
+============================ */
 .privacy-section-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
-    color: #e0d6b1;
+    font-size: 1.3rem;
+    color: var(--text-light);
     line-height: 1.8;
+
     margin: 0;
-    text-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0 4px rgba(0,0,0,0.3);
 }
 
+/* ============================
+   FOOTER
+============================ */
 .privacy-footer {
-    font-family: 'Cormorant Garamond', serif;
-    color: rgba(191, 167, 106, 0.7);
     font-size: 0.9rem;
-    text-align: right;
-    margin-top: 2rem;
+
+    color: rgba(191,167,106,0.7);
     font-style: italic;
+    text-align: right;
+
+    margin-top: 2rem;
+    padding-bottom: 3rem;
 }
 
+/* ============================
+   ANIMATIONS
+============================ */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ============================
+   RESPONSIVE (Mobile)
+============================ */
 @media (max-width: 768px) {
     .privacy-container {
         padding: 2rem 1rem;

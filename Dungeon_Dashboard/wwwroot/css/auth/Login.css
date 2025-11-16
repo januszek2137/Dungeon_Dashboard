@@ -13,7 +13,6 @@
 }
 
 .checkbox-label {
-    font-family: 'Cormorant Garamond', serif;
     font-size: 1rem;
     color: #e0d6b1;
     cursor: pointer;
@@ -33,7 +32,6 @@
 }
 
 .link {
-    font-family: 'Cormorant Garamond', serif;
     font-size: 1rem;
     color: var(--glow);
     text-decoration: none;

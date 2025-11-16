@@ -1,42 +1,42 @@
 ﻿@model Dungeon_Dashboard.ContentGeneration.Models.RandomEncounter
 
-<div class="col-md-12">
-    <div class="card encounter">
-        <!-- Encounter Header -->
+<link rel="stylesheet" href="~/css/randomCharacterGenerator/contentPartials.css" />
+<link rel="stylesheet" href="~/css/newSite.css" />
+<div class="content-container">
+    <div class="card card-encounter">
         <div class="encounter-header">
             <h3>⚔️ @Model.Name</h3>
-            <p><em>@Model.Description</em></p>
+            <p class="entity-description"><em>@Model.Description</em></p>
             <div class="card-content">
-                <div>
+                <div class="stats-environment">
                     <p><span class="icon">📍</span><strong>Location:</strong> @Model.Location</p>
                     <p><span class="icon">🌦️</span><strong>Weather:</strong> @Model.Weather</p>
                 </div>
-                <div>
+                <div class="stats-environment">
                     <p><span class="icon">⏰</span><strong>Time:</strong> @Model.TimeOfDay</p>
                     <p><span class="icon">🌄</span><strong>Terrain:</strong> @Model.Terrain</p>
                 </div>
             </div>
         </div>
 
-        <!-- Involved NPCs Section -->
-        <div class="encounter-npcs mt-3">
+        <div class="encounter-section encounter-npcs">
             <h4>🧑‍🤝‍🧑 Involved NPCs:</h4>
-            <div class="npcs row">
-                @if (Model.InvolvedNPCs.Count > 0)
-                {
-                    foreach (var npc in Model.InvolvedNPCs)
+            @if (Model.InvolvedNPCs.Count > 0)
+            {
+                <div class="entity-grid">
+                    @foreach (var npc in Model.InvolvedNPCs)
                     {
-                        <div class="col-md-6">
-                            <div class="card npc mb-3">
+                        <div class="entity-item">
+                            <div class="card card-npc">
                                 <h5>🧙 @npc.Name</h5>
                                 <div class="card-content">
-                                    <div>
+                                    <div class="stats-primary">
                                         <p><span class="icon">🎭</span><strong>Role:</strong> @npc.Role</p>
                                         <p><span class="icon">🎚️</span><strong>Level:</strong> @npc.Level</p>
                                         <p><span class="icon">❤️</span><strong>HP:</strong> @npc.Health</p>
                                         <p><span class="icon">🛡️</span><strong>AC:</strong> @npc.ArmorClass</p>
                                     </div>
-                                    <div>
+                                    <div class="stats-attributes">
                                         <table class="attributes-table">
                                             <tr>
                                                 <td><span class="icon">💪</span><strong>STR:</strong> @npc.Strength</td>
@@ -56,33 +56,32 @@
                             </div>
                         </div>
                     }
-                }
-                else
-                {
-                    <p>No NPCs involved.</p>
-                }
-            </div>
+                </div>
+            }
+            else
+            {
+                <p class="empty-state">No NPCs involved.</p>
+            }
         </div>
 
-        <!-- Involved Monsters Section -->
-        <div class="encounter-monsters mt-3">
+        <div class="encounter-section encounter-monsters">
             <h4>🦖 Involved Monsters:</h4>
-            <div class="monsters row">
-                @if (Model.InvolvedMonsters.Count > 0)
-                {
-                    foreach (var monster in Model.InvolvedMonsters)
+            @if (Model.InvolvedMonsters.Count > 0)
+            {
+                <div class="entity-grid">
+                    @foreach (var monster in Model.InvolvedMonsters)
                     {
-                        <div class="col-md-6">
-                            <div class="card monster mb-3">
+                        <div class="entity-item">
+                            <div class="card card-monster">
                                 <h5>🐲 @monster.Species</h5>
                                 <div class="card-content">
-                                    <div>
+                                    <div class="stats-primary">
                                         <p><span class="icon">🗺️</span><strong>Type:</strong> @monster.Type</p>
                                         <p><span class="icon">🎚️</span><strong>Level:</strong> @monster.Level</p>
                                         <p><span class="icon">❤️</span><strong>HP:</strong> @monster.Health</p>
                                         <p><span class="icon">🛡️</span><strong>AC:</strong> @monster.ArmorClass</p>
                                     </div>
-                                    <div>
+                                    <div class="stats-secondary">
                                         <p><span class="icon">⚔️</span><strong>Damage:</strong> @monster.Damage</p>
                                         <p><span class="icon">✨</span><strong>Abilities:</strong> @monster.Abilities</p>
                                     </div>
@@ -90,12 +89,12 @@
                             </div>
                         </div>
                     }
-                }
-                else
-                {
-                    <p>No Monsters involved.</p>
-                }
-            </div>
+                </div>
+            }
+            else
+            {
+                <p class="empty-state">No Monsters involved.</p>
+            }
         </div>
     </div>
 </div>

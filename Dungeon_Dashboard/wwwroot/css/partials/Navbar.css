@@ -1,39 +1,45 @@
-﻿/* Navbar Container */
+﻿/* ============================
+   NAVBAR CONTAINER
+============================ */
 nav {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 10;
+
     background: rgba(20, 15, 10, 0.85);
-    border-bottom: 2px solid rgba(191, 167, 106, 0.5);
+    border-bottom: 2px solid var(--accent-border);
     backdrop-filter: blur(10px);
     padding: 0.75rem 2rem;
+
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
-/* Navbar List */
+/* ============================
+   NAV STRUCTURE
+============================ */
 nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
+
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 2rem;
+    justify-content: space-between;
     flex-wrap: wrap;
+    gap: 2rem;
 }
 
 nav li {
     position: relative;
 }
 
-/* Navigation Groups */
 .nav-left,
 .nav-right {
     display: flex;
-    gap: 1.5rem;
     align-items: center;
+    gap: 1.5rem;
     flex-wrap: wrap;
 }
 
@@ -45,17 +51,27 @@ nav li {
     margin-left: auto;
 }
 
-/* Links */
+/* ============================
+   LINK STYLES
+============================ */
+nav a,
+.btn-logout {
+    font-family: "MedievalSharp", serif;
+    font-size: 1.3rem;
+}
+
 nav a {
     color: var(--text);
+    
     text-decoration: none;
-    font-family: 'Cinzel Decorative', cursive;
-    font-size: 0.95rem;
-    padding: 0.5rem 1rem;
+
+    padding: 0.3rem 1rem;
+    border-radius: 0.25rem;
+
     display: block;
     transition: all 0.3s ease;
-    text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
-    border-radius: 0.25rem;
+
+    text-shadow: 0 0 4px rgba(0,0,0,0.8);
 }
 
 nav a:hover {
@@ -71,32 +87,40 @@ nav a.active {
     border-bottom: 2px solid var(--glow);
 }
 
-/* Login Text Link */
-nav .login-text {
+/* ============================
+   LOGIN TEXT LINK
+============================ */
+.login-text {
+    font-family: "MedievalSharp", serif;
     color: var(--text);
-    font-family: 'Cinzel Decorative', cursive;
     font-size: 0.95rem;
 }
 
-nav .login-text a {
+.login-text a {
     color: var(--glow);
     padding: 0;
     background: none;
     font-weight: 600;
+    text-shadow: none;
 }
 
-nav .login-text a:hover {
-    text-shadow: 0 0 10px var(--glow);
+.login-text a:hover {
+    text-shadow:
+            0 0 10px rgba(0, 0, 0, 0.6),
+            0 0 12px var(--glow);
     background: none;
     transform: none;
 }
 
-/* User Greeting */
+/* ============================
+   USER GREETING
+============================ */
 .user-greeting {
-    font-family: 'Cormorant Garamond', serif;
-    color: #e0d6b1;
+    font-family: "Spectral", serif;
+    color: var(--text-light);
     font-size: 1rem;
-    text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+
+    text-shadow: 0 0 4px rgba(0,0,0,0.8);
     white-space: nowrap;
 }
 
@@ -105,30 +129,35 @@ nav .login-text a:hover {
     font-weight: 600;
 }
 
-/* Logout Button */
+/* ============================
+   LOGOUT BUTTON
+============================ */
 .logout-form {
     margin: 0;
     padding: 0;
 }
 
 .btn-logout {
-    font-family: 'Cinzel Decorative', cursive;
-    font-size: 0.95rem;
     padding: 0.5rem 1.25rem;
+
     color: var(--glow);
     background: rgba(191, 167, 106, 0.2);
     border: 2px solid var(--glow);
     border-radius: 0.25rem;
+
     cursor: pointer;
     transition: all 0.3s ease;
-    text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+
+    text-shadow: 0 0 4px rgba(0,0,0,0.8);
 }
 
 .btn-logout:hover {
     color: var(--text);
     background: rgba(191, 167, 106, 0.4);
-    box-shadow: 0 0 15px rgba(191, 167, 106, 0.4);
+
+    box-shadow: 0 0 15px var(--accent-shadow);
     transform: translateY(-2px);
+
     text-shadow: 0 0 8px var(--glow);
 }
 
@@ -136,7 +165,9 @@ nav .login-text a:hover {
     transform: translateY(0);
 }
 
-/* Responsive */
+/* ============================
+   RESPONSIVE BEHAVIOR
+============================ */
 @media (max-width: 1024px) {
     nav ul {
         justify-content: center;

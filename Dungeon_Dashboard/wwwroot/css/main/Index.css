@@ -1,19 +1,92 @@
-﻿.home-container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 4rem 2rem 6rem 2rem;
-    min-height: 100vh;
+﻿:root {
+    --text-light: #e0d6b1;
+    --shadow-dark: rgba(0,0,0,0.5);
+    --accent-border: rgba(191, 167, 106, 0.4);
+    --accent-shadow: rgba(191, 167, 106, 0.25);
 }
 
+.index-container {
+    z-index: 3;
+}
+
+/* Logo Section */
 .logo-wrapper {
     padding-top: 2rem;
+    padding-bottom: 0.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    animation: fadeIn 2s ease forwards;
+    animation: fade-in 2s ease forwards;
 }
 
-.welcome { 
-    padding-top: 0.5rem;
+.logo-wrapper h1 {
+    font-family: "MedievalSharp", serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    color: var(--glow);
+    text-shadow:
+            0 0 10px rgba(0, 0, 0, 0.6),
+            0 0 12px var(--glow);
+    margin: 0;
+}
+
+.logo-wrapper img {
+    width: 8rem;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 15px rgba(255, 255, 200, 0.3);
+    animation: bounceSlow 3s infinite ease-in-out;
+}
+
+/* Welcome Text */
+.welcome {
+    font-size: 1.25rem;
+    max-width: 700px;
+    color: var(--text-light);
+    text-shadow: 0 0 6px var(--shadow-dark);
+    animation: fade-up 2s ease forwards;
+}
+
+.welcome span {
+    color: var(--glow);
+    font-weight: 600;
+}
+
+/* Quote Box */
+.quote {
+    background: rgba(40, 30, 20, 0.55);
+    border: 1px solid var(--accent-border);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 0 25px var(--accent-shadow);
+    animation: fade-up 2.5s ease forwards;
+}
+
+.quote blockquote,
+.quote p {
+    margin: 0;
+}
+
+.quote blockquote {
+    color: var(--text-light);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 6px var(--shadow-dark);
+}
+
+.quote p {
+    color: var(--glow);
+    font-size: 1rem;
+    text-align: right;
+    font-weight: 600;
+}
+
+@keyframes bounceSlow {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }

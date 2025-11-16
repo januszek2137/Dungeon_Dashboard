@@ -7,9 +7,9 @@
     <title>@ViewData["Title"] - Dungeon Dashboard</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Spectral:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+
     <link href="css/newSite.css" rel="stylesheet" asp-append-version="true">
 
     <!-- Vue.js 3 -->
@@ -26,9 +26,10 @@
 
 <div class="page-wrapper relative">
     <!-- Canvas behind the content -->
-    <canvas id="fireflies"></canvas>
+
 
     <div class="background">
+        <canvas id="fireflies"></canvas>
         @RenderBody()
         @* <partial name="_DiceRollerModal" /> *@
     </div>

@@ -1,0 +1,100 @@
+/* ============================
+   VARIABLES
+============================ */
+:root {
+    --panel-bg: rgba(40, 30, 20, 0.55);
+    --panel-border: rgba(191, 167, 106, 0.4);
+    --panel-shadow: rgba(191, 167, 106, 0.25);
+}
+
+/* ============================
+   CONTAINER
+============================ */
+.rcg-container {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem 2rem;
+    gap: 2rem;
+    z-index: 2;
+}
+
+/* ============================
+   TITLE
+============================ */
+.rcg-title {
+    font-family: 'MedievalSharp', serif;
+    font-size: 3rem;
+    color: var(--glow);
+    text-align: center;
+    text-shadow: 0 0 10px rgba(0,0,0,0.6), 0 0 12px var(--glow);
+}
+
+/* ============================
+   BUTTONS
+============================ */
+.rcg-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.rcg-btn {
+    font-family: "Spectral", serif;
+    font-size: 1.2rem;
+    color: var(--glow);
+    background: var(--panel-bg);
+    border: 2px solid var(--glow);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 4px rgba(0,0,0,0.7);
+}
+
+.rcg-btn:hover {
+    background: rgba(191,167,106,0.25);
+    box-shadow: 0 0 15px var(--glow);
+    transform: translateY(-2px);
+    text-shadow: 0 0 8px var(--glow);
+}
+
+.rcg-btn:active {
+    transform: translateY(0);
+}
+
+/* ============================
+   PLACEHOLDER / MESSAGE
+============================ */
+.rcg-placeholder {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 1rem;
+    padding: 2rem 3rem;
+    max-width: 700px;
+    text-align: center;
+    color: var(--text);
+    text-shadow: 0 0 4px rgba(0,0,0,0.5);
+    box-shadow: 0 0 25px var(--panel-shadow);
+    animation: fadeUp 1s ease forwards;
+}
+
+/* ============================
+   RESPONSIVE
+============================ */
+@media (max-width: 768px) {
+    .rcg-title {
+        font-size: 2.2rem;
+    }
+
+    .rcg-btn {
+        font-size: 0.95rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .rcg-placeholder {
+        padding: 1.5rem 2rem;
+    }
+}

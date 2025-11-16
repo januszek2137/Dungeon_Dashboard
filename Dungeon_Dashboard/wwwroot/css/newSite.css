@@ -1,127 +1,128 @@
+/* ============================
+   RESET
+============================ */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* ============================
+   THEME VARIABLES
+============================ */
 :root {
     --light: #bfa76a;
     --text: #f2e5c4;
     --glow: #c4b47a;
+
+    /* Recommended (optional) — matches your site */
+    --text-light: #e0d6b1;
+    --accent-border: rgba(191, 167, 106, 0.4);
+    --accent-shadow: rgba(191, 167, 106, 0.25);
 }
 
-html, body {
-    margin: 0;
+/* ============================
+   BASE LAYOUT
+============================ */
+html,
+body {
     width: 100%;
-    font-family: 'Cinzel', serif;
-    overflow: hidden;
+    font-family: "Spectral", serif;
     color: var(--text);
-    background: url('brick.png') repeat;
+
+    overflow: hidden;
+    overflow-y: auto;
+
+    background: url("brick.png") repeat;
     background-size: 600px 600px;
 }
 
-html:before{
+/* Global dark overlay over background */
+html::before {
     content: "";
     position: fixed;
-    inset: 0; /* top:0, right:0, bottom:0, left:0 */
-    background: rgba(0, 0, 0, 0.75); /* black at 50% opacity */
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.75);
     z-index: 0;
 }
 
+/* ============================
+   PAGE WRAPPER
+============================ */
 .page-wrapper {
+    position: relative;
     width: 100%;
     height: 100vh;
-    position: relative; /* establishes containing block for absolute canvas */
 }
 
+/* ============================
+   BACKGROUND PARTICLES
+============================ */
 #fireflies {
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
+
     width: 100%;
     height: 100%;
+    min-height: 100vh;
+
     pointer-events: none;
-    z-index: 1;
+    z-index: 0;
 }
 
+/* ============================
+   MAIN BACKGROUND CONTAINER
+============================ */
 .background {
     position: relative;
     z-index: 2;
-    min-height: 100vh;
-    height: 100vh;   
+
     width: 100%;
-    max-width: none;
+    min-height: 100vh;
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
     text-align: center;
-    backdrop-filter: blur(2px);
     overflow-y: auto;
 }
 
-.logo-wrapper h1 {
-    font-size: 3rem;
-    color: var(--glow);
-    text-shadow: 0 0 10px rgba(0,0,0,0.6), 0 0 12px var(--glow);
-    margin: 0;
+/* Blur layer over wallpaper but under content */
+.background::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    backdrop-filter: blur(2px);
+    pointer-events: none;
+
+    z-index: 1;
 }
 
-.logo-wrapper img {
-    width: 8rem;
-    height: 8rem;
-    border-radius: 50%;
-    box-shadow: 0 0 15px rgba(255,255,200,0.3);
-    animation: bounceSlow 3s infinite ease-in-out;
-}
-
-.welcome {
-    font-family: 'Cinzel Decorative', cursive;
-    font-size: 1.25rem;
-    max-width: 700px;
-    color: #e0d6b1;
-    text-shadow: 0 0 6px rgba(0,0,0,0.5);
-    animation: fadeUp 2s ease forwards;
-}
-
-.welcome span {
-    color: var(--glow);
-    font-weight: 600;
-}
-
-.quote {
-    background: rgba(40, 30, 20, 0.55);
-    border: 1px solid rgba(191, 167, 106, 0.4);
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 0 25px rgba(191, 167, 106, 0.25);
-    animation: fadeUp 2.5s ease forwards;
-}
-
-.quote blockquote {
-    font-family: "Cormorant Garamond",serif;
-    color: #e0d6b1;
-    font-size: 1.2rem;
-    margin: 0 0 0.5rem;
-    text-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
-}
-
-.quote p {
-    font-family: "Cormorant Garamond",serif;
-    color: var(--glow);
-    font-size: 1rem;
-    text-align: right;
-    margin: 0;
-    font-weight: 600;
-}
-
-/* Animations */
+/* ============================
+   ANIMATIONS
+============================ */
 @keyframes fadeIn {
-    from {opacity: 0; transform: translateY(20px);} to {opacity: 1; transform: translateY(0);}
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
+
 @keyframes fadeUp {
-    from {opacity: 0; transform: translateY(40px);} to {opacity: 1; transform: translateY(0);}
-}
-@keyframes bounceSlow {
-    0%, 100% {transform: translateY(0);} 50% {transform: translateY(-10px);}
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

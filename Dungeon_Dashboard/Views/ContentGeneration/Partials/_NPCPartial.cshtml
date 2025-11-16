@@ -1,17 +1,19 @@
 ﻿@model Dungeon_Dashboard.ContentGeneration.Models.NPC
 
-<div class="col-md-12">
-    <div class="card npc">
+<link rel="stylesheet" href="~/css/randomCharacterGenerator/contentPartials.css" />
+<link rel="stylesheet" href="~/css/newSite.css" />
+<div class="content-container">
+    <div class="card card-npc">
         <h3>🧙 @Model.Name</h3>
-        <p><em>@Model.Description</em></p>
+        <p class="entity-description"><em>@Model.Description</em></p>
         <div class="card-content">
-            <div>
+            <div class="stats-primary">
                 <p><span class="icon">🎚️</span><strong>Level:</strong> @Model.Level</p>
                 <p><span class="icon">🎭</span><strong>Role:</strong> @Model.Role</p>
                 <p><span class="icon">❤️</span><strong>Health:</strong> @Model.Health</p>
                 <p><span class="icon">🛡️</span><strong>AC:</strong> @Model.ArmorClass</p>
             </div>
-            <div>
+            <div class="stats-attributes">
                 <table class="attributes-table">
                     <tr>
                         <td><span class="icon">💪</span><strong>STR:</strong> @Model.Strength</td>
@@ -29,4 +31,4 @@
             </div>
         </div>
     </div>
-    </div>
+</div>
