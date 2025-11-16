@@ -1,31 +1,32 @@
 ﻿@page
-@model ForgotPasswordModel
+@model ResendEmailConfirmationModel
 @{
-    ViewData["Title"] = "Forgot your password?";
+    ViewData["Title"] = "Resend email confirmation";
     Layout = "_NewLayout";
 }
-
+<link rel="stylesheet" href="~/css/auth/ResendEmail.css"/>
 <link rel="stylesheet" href="~/css/newSite.css"/>
 <link rel="stylesheet" href="~/css/auth/AuthForm.css"/>
 
 <div class="form-container">
     <div class="form-card">
         <h1 class="form-title">@ViewData["Title"]</h1>
-        <p class="form-subtitle">Enter your email to receive a password reset link</p>
+        <p class="form-subtitle">Enter your email to receive a new confirmation link</p>
         
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="validation-summary" role="alert"></div>
             
             <div class="form-group">
                 <label asp-for="Input.Email" class="form-label">Email</label>
-                <input asp-for="Input.Email" class="form-input" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <input asp-for="Input.Email" class="form-input" autocomplete="email" aria-required="true" placeholder="name@example.com" />
                 <span asp-validation-for="Input.Email" class="validation-error"></span>
             </div>
             
-            <button type="submit" class="btn-submit">Reset Password</button>
+            <button type="submit" class="btn-submit">Resend Confirmation Email</button>
         </form>
+        
         <div class="form-footer">
-            <p>Remember your credentials? <a asp-page="./Login" class="form-link">Login here</a></p>
+            <p>Got your confirmation email? <a asp-page="./Login" class="form-link">Login here</a></p>
         </div>
     </div>
 </div>
@@ -33,3 +34,4 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+

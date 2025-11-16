@@ -1,0 +1,39 @@
+﻿<link rel="stylesheet" href="~/css/partials/DiceRoller.css">
+<div class="modal fade" id="diceRollerModal" tabindex="-1" aria-labelledby="diceRollerLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content dice-modal">
+            <div class="modal-header dice-modal-header">
+                <h5 class="modal-title dice-modal-title" id="diceRollerLabel">🎲 Dice Roller</h5>
+                <button type="button" class="dice-close-btn" data-bs-dismiss="modal" aria-label="Close">✕</button>
+            </div>
+            <div class="modal-body dice-modal-body">
+                <form id="diceRollerForm">
+                    <div class="dice-form-group">
+                        <label for="diceType" class="dice-label">Type of Dice</label>
+                        <select class="dice-select" id="diceType">
+                            <option value="4">D4</option>
+                            <option value="6" selected>D6</option>
+                            <option value="8">D8</option>
+                            <option value="10">D10</option>
+                            <option value="12">D12</option>
+                            <option value="20">D20</option>
+                            <option value="100">D100</option>
+                        </select>
+                    </div>
+                    <div class="dice-form-group">
+                        <label for="diceCount" class="dice-label">Number of Dice</label>
+                        <input type="number" class="dice-input" id="diceCount" min="1" max="100" value="1" required>
+                    </div>
+                    <button type="button" class="dice-roll-btn" onclick="rollDice()">
+                        🎲 Roll the Dice
+                    </button>
+                </form>
+                <div id="errorMessage" class="dice-error"></div>
+                <div class="dice-results-container">
+                    <div id="diceContainer" class="dice-container"></div>
+                    <div id="diceResult" class="dice-total"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

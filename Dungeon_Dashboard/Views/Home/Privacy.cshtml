@@ -1,45 +1,30 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
+    Layout = "_NewLayout";
 }
-<link rel="stylesheet" href="/css/HomePrivacy.css" />
+<link rel="stylesheet" href="~/css/main/Privacy.css" />
+<link rel="stylesheet" href="~/css/newSite.css" />
 
-<div id="main">
-    <h1 class="mb-4">@ViewData["Title"]</h1>
-    
+<div id="privacy" class="privacy-container">
+    <h1 class="privacy-title">@ViewData["Title"]</h1>
 
-    <div class="section">
-        <h2>1. Introduction</h2>
-        <p>Welcome to our Dungeons & Dragons themed site. This Privacy Policy explains how we collect, use, and protect the personal data of our users.</p>
+    <div class="privacy-sections">
+        @foreach (var sec in new[]{
+                      new { Title="1. Introduction", Text="Welcome to our Dungeons & Dragons themed site. This Privacy Policy explains how we collect, use, and protect the personal data of our users." },
+                      new { Title="2. What Data We Collect", Text="We collect information that you provide us, such as your email address, username, and any other information you might provide during registration or while using our services." },
+                      new { Title="3. How We Use Your Data", Text="Your data helps us manage your account, personalize your experience, and improve our services. We also use it for security purposes, to comply with legal obligations, and to communicate with you." },
+                      new { Title="4. Data Protection", Text="We implement a variety of security measures to maintain the safety of your personal information. However, no security measures are perfect or impenetrable, and no method of data transmission can be guaranteed against any interception or other type of misuse." },
+                      new { Title="5. Your Rights", Text="You have rights over your personal data, including the right to access, correct, or delete your personal data hosted by us." },
+                      new { Title="6. Changes to This Policy", Text="We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page." },
+                      new { Title="7. Contact Us", Text="If you have any questions about this Privacy Policy, please contact us." }
+                  })
+        {
+            <div class="privacy-section">
+                <h2 class="privacy-section-title">@sec.Title</h2>
+                <p class="privacy-section-text">@sec.Text</p>
+            </div>
+        }
     </div>
 
-    <div class="section">
-        <h2>2. What Data We Collect</h2>
-        <p>We collect information that you provide us, such as your email address, username, and any other information you might provide during registration or while using our services.</p>
-    </div>
-
-    <div class="section">
-        <h2>3. How We Use Your Data</h2>
-        <p>Your data helps us manage your account, personalize your experience, and improve our services. We also use it for security purposes, to comply with legal obligations, and to communicate with you.</p>
-    </div>
-
-    <div class="section">
-        <h2>4. Data Protection</h2>
-        <p>We implement a variety of security measures to maintain the safety of your personal information. However, no security measures are perfect or impenetrable, and no method of data transmission can be guaranteed against any interception or other type of misuse.</p>
-    </div>
-
-    <div class="section">
-        <h2>5. Your Rights</h2>
-        <p>You have rights over your personal data, including the right to access, correct, or delete your personal data hosted by us.</p>
-    </div>
-
-    <div class="section">
-        <h2>6. Changes to This Policy</h2>
-        <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
-    </div>
-
-    <div class="section">
-        <h2>7. Contact Us</h2>
-        <p>If you have any questions about this Privacy Policy, please contact us.</p>
-    </div>
-    <p>Last updated: @DateTime.Now</p>
+    <p class="privacy-footer">Last updated: @DateTime.Now.ToString("MMMM dd, yyyy")</p>
 </div>

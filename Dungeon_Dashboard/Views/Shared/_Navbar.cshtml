@@ -1,0 +1,61 @@
+﻿@{
+    var userNameFull = User.Identity.Name;
+    var userName = "";
+    if (!string.IsNullOrEmpty(userNameFull))
+    {
+        userName = userNameFull.Split('@')[0];
+    }
+}
+<link rel="stylesheet" href="~/css/partials/Navbar.css"/>
+<script src="~/js/newSite.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<nav>
+    <ul>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="nav-left">
+                <a asp-area="" asp-controller="Home" asp-action="Index">
+                    <li>Home</li>
+                </a>
+                <a asp-controller="Sidebar" asp-action="Planner">
+                    <li>Session Planner</li>
+                </a>
+                <a asp-controller="CharacterModels" asp-action="Index">
+                    <li>Character</li>
+                </a>
+                <a asp-controller="ContentGeneration" asp-action="Index">
+                    <li>Generator</li>
+                </a>
+                <a asp-controller="TurnKeeperView" asp-action="Index">
+                    <li>Turn Keeper</li>
+                </a>
+                <a asp-controller="RoomsView" asp-action="Index">
+                    <li>Rooms</li>
+                </a>
+                @* <button type="button" class="btn-dice" data-bs-toggle="modal" data-bs-target="#diceRollerModal"> *@
+                @*     Dice Roller *@
+                @* </button> *@
+            </div>
+
+            <div class="nav-right">
+                <li><span class="user-greeting">Welcome, <strong>@userName</strong>!</span></li>
+                <li>
+                    <form asp-area="Identity" asp-page="/Account/Logout"
+                          asp-route-returnUrl="@Url.Action("Index", "Home")" method="post" class="logout-form">
+                        <button type="submit" class="btn-logout">Logout</button>
+                    </form>
+                </li>
+            </div>
+        }
+        else
+        {
+            <div class="nav-left">
+                <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+            </div>
+            <div class="nav-right">
+                <li><span class="login-text"><a asp-area="Identity" asp-page="/Account/Login">Login to start your journey</a></span>
+                </li>
+            </div>
+        }
+    </ul>
+</nav>
