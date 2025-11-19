@@ -1,17 +1,4 @@
 ﻿/* ============================
-   ROOT OVERRIDES
-============================ */
-body, html {
-    overflow-y: auto !important;
-    height: auto !important;
-    min-height: 100vh;
-}
-
-html::before {
-    position: fixed !important;
-}
-
-/* ============================
    CONTAINER
 ============================ */
 .privacy-container {

@@ -1,6 +1,3 @@
-/* ============================
-   RESET
-============================ */
 * {
     margin: 0;
     padding: 0;
@@ -15,7 +12,6 @@
     --text: #f2e5c4;
     --glow: #c4b47a;
 
-    /* Recommended (optional) — matches your site */
     --text-light: #e0d6b1;
     --accent-border: rgba(191, 167, 106, 0.4);
     --accent-shadow: rgba(191, 167, 106, 0.25);
@@ -29,12 +25,7 @@ body {
     width: 100%;
     font-family: "Spectral", serif;
     color: var(--text);
-
-    overflow: hidden;
-    overflow-y: auto;
-
     background: url("brick.png") repeat;
-    background-size: 600px 600px;
 }
 
 /* Global dark overlay over background */
