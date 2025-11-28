@@ -9,20 +9,15 @@ nav {
     z-index: 10;
 
     background: rgba(20, 15, 10, 0.85);
-    border-bottom: 2px solid var(--accent-border);
-    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--card-border);
     padding: 0.75rem 2rem;
 
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    font-family: "MedievalSharp", serif;
 }
 
-/* ============================
-   NAV STRUCTURE
-============================ */
 nav ul {
     list-style: none;
-    margin: 0;
-    padding: 0;
 
     display: flex;
     align-items: center;
@@ -31,23 +26,16 @@ nav ul {
     gap: 2rem;
 }
 
-nav li {
-    position: relative;
-}
-
 .nav-left,
 .nav-right {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
     flex-wrap: wrap;
 }
 
-.nav-left {
-    gap: 2rem;
-}
-
 .nav-right {
+    gap: 1.5rem;
     margin-left: auto;
 }
 
@@ -56,7 +44,6 @@ nav li {
 ============================ */
 nav a,
 .btn-logout {
-    font-family: "MedievalSharp", serif;
     font-size: 1.3rem;
 }
 
@@ -65,7 +52,7 @@ nav a {
     
     text-decoration: none;
 
-    padding: 0.3rem 1rem;
+    padding: 0.5rem 1rem;
     border-radius: 0.25rem;
 
     display: block;
@@ -81,27 +68,14 @@ nav a:hover {
     transform: translateY(-2px);
 }
 
-nav a.active {
-    color: var(--glow);
-    background: rgba(191, 167, 106, 0.2);
-    border-bottom: 2px solid var(--glow);
-}
-
 /* ============================
    LOGIN TEXT LINK
 ============================ */
-.login-text {
-    font-family: "MedievalSharp", serif;
-    color: var(--text);
-    font-size: 0.95rem;
-}
 
 .login-text a {
     color: var(--glow);
     padding: 0;
-    background: none;
     font-weight: 600;
-    text-shadow: none;
 }
 
 .login-text a:hover {
@@ -109,7 +83,6 @@ nav a.active {
             0 0 10px rgba(0, 0, 0, 0.6),
             0 0 12px var(--glow);
     background: none;
-    transform: none;
 }
 
 /* ============================
@@ -117,11 +90,9 @@ nav a.active {
 ============================ */
 .user-greeting {
     font-family: "Spectral", serif;
-    color: var(--text-light);
     font-size: 1rem;
 
     text-shadow: 0 0 4px rgba(0,0,0,0.8);
-    white-space: nowrap;
 }
 
 .user-greeting strong {
@@ -132,16 +103,12 @@ nav a.active {
 /* ============================
    LOGOUT BUTTON
 ============================ */
-.logout-form {
-    margin: 0;
-    padding: 0;
-}
-
 .btn-logout {
+    font-family: "MedievalSharp", serif;
     padding: 0.5rem 1.25rem;
 
     color: var(--glow);
-    background: rgba(191, 167, 106, 0.2);
+    background: var(--card-shadow);
     border: 2px solid var(--glow);
     border-radius: 0.25rem;
 
@@ -153,9 +120,9 @@ nav a.active {
 
 .btn-logout:hover {
     color: var(--text);
-    background: rgba(191, 167, 106, 0.4);
+    background: var(--card-border);
 
-    box-shadow: 0 0 15px var(--accent-shadow);
+    box-shadow: 0 0 15px var(--card-shadow);
     transform: translateY(-2px);
 
     text-shadow: 0 0 8px var(--glow);

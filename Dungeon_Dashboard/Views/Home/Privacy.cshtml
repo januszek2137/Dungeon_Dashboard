@@ -4,10 +4,11 @@
 }
 
 <link rel="stylesheet" href="~/css/main/Privacy.css" />
-<link rel="stylesheet" href="~/css/newSite.css" />
+<link rel="stylesheet" href="~/css/style.css" />
+<link rel="stylesheet" href="~/css/layout.css" />
 
 <div id="privacy" class="privacy-container">
-    <h1 class="privacy-title">@ViewData["Title"]</h1>
+    <h1 class="title privacy-title">@ViewData["Title"]</h1>
 
     <div class="privacy-sections">
         @foreach (var sec in new[]{
@@ -20,8 +21,8 @@
                       new { Title="7. Contact Us", Text="If you have any questions about this Privacy Policy, please contact us." }
                   })
         {
-            <div class="privacy-section">
-                <h2 class="privacy-section-title">@sec.Title</h2>
+            <div class="privacy-section card">
+                <h2 class="title privacy-section-title">@sec.Title</h2>
                 <p class="privacy-section-text">@sec.Text</p>
             </div>
         }

@@ -1,51 +1,53 @@
-﻿@using Dungeon_Dashboard.PlayerCharacters
-@using Dungeon_Dashboard.PlayerCharacters.Models
+﻿@using Dungeon_Dashboard.PlayerCharacters.Models
 @model CharacterModel
 
 @{
     ViewData["Title"] = "Delete";
+    Layout = "_NewLayout";
 }
 
-<link rel="stylesheet" href="~/css/CreateCharacter.css" />
+<link rel="stylesheet" href="~/css/character-models/CharacterDelete.css"/>
+<link rel="stylesheet" href="~/css/style.css"/>
+<link rel="stylesheet" href="~/css/layout.css"/>
 
-<h1>Delete Character</h1>
-<div class="container" id="main">
-    <h3>Are you sure you want to delete this character?</h3>
-    <hr />
-
-    <div class="card mb-4">
-        <div class="card-header">Character Information</div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>✨Name:</label>
-                        <p class="form-control-static">@Model.Name</p>
-                    </div>
-                    <div class="form-group">
-                        <label>🌍Race:</label>
-                        <p class="form-control-static">@Model.Race</p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>⚔️Class:</label>
-                        <p class="form-control-static">@Model.Class</p>
-                    </div>
-                    <div class="form-group">
-                        <label>📈Level:</label>
-                        <p class="form-control-static">@Model.Level</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="delete-container">
+    <div class="delete-header">
+        <h1 class="title">Delete Character</h1>
+        <h3>Are you sure you want to delete this character?</h3>
     </div>
 
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <div class="text-center">
-            <input type="submit" style="margin-bottom: 5px;" value="Delete Character" class="btn btn-primary btn-lg" />
-            <a asp-action="Index" class="btn btn-secondary btn-lg">Back to List</a>
+    <div class="delete-content">
+        <div class="info-card card">
+            <div class="info-title title">Character Information</div>
+
+            <div class="info-content">
+                <div class="info-field">
+                    <div class="field-name">Name:</div>
+                    <div class="field-value">@Model.Name</div>
+                </div>
+
+                <div class="info-field">
+                    <div class="field-name">Race:</div>
+                    <div class="field-value">@Model.Race</div>
+                </div>
+
+                <div class="info-field">
+                    <div class="field-name">Class:</div>
+                    <div class="field-value">@Model.Class</div>
+                </div>
+                <div class="info-field">
+                    <div class="field-name">Level:</div>
+                    <div class="field-value">@Model.Level</div>
+                </div>
+
+            </div>
         </div>
-    </form>
+        <div class="delete-actions">
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id"/>
+                <input type="submit" value="Delete Character" class="btn btn-danger"/>
+            </form>
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
 </div>

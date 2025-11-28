@@ -6,10 +6,12 @@
 }
 
 <link rel="stylesheet" href="~/css/randomCharacterGenerator/randomcharactergenerator.css"/>
-<link rel="stylesheet" href="~/css/newSite.css"/>
+<link rel="stylesheet" href="~/css/layout.css"/>
+<link rel="stylesheet" href="~/css/style.css"/>
+
 
 <div class="rcg-container">
-    <h1 class="rcg-title">Random Characters Generator</h1>
+    <h1 class="title">Random Characters Generator</h1>
 
     <div class="rcg-buttons">
         <form asp-controller="ContentGeneration" asp-action="GetRandomNPC" method="post">
@@ -33,7 +35,7 @@
     @switch (Model.ModelType)
     {
         case null or "":
-            <div class="rcg-placeholder">
+            <div class="placeholder card">
                 <h3>Welcome to the Random Characters Generator</h3>
                 <p>Click a button above to generate random NPCs, monsters, or encounters.</p>
             </div>
@@ -52,7 +54,7 @@
             break;
 
         case modelTypeError when !string.IsNullOrEmpty(Model.ErrorMessage):
-            <div class="rcg-placeholder">
+            <div class="placeholder card">
                 <h3>Oops!</h3>
                 <p>Something went wrong! @Model.ErrorMessage</p>
             </div>

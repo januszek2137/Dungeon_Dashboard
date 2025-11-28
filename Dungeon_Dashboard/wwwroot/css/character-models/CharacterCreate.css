@@ -1,0 +1,78 @@
+.character-container{
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 2rem 3rem;
+}
+
+.character-info{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 47%));
+    gap: 0.5rem 1rem;
+    justify-content: center;
+}
+
+.form-group{
+    margin-bottom: 1rem !important;
+}
+.card{
+    margin-top: 2rem !important;
+}
+
+.currencies{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+.currencies .form-group{
+    flex: 1 1 200px;
+    max-width: 250px;
+}
+.form-subtitle{
+    margin-top: 0 !important;
+    font-size: 2rem !important;
+    padding-bottom: 1.1rem;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.form-group button{
+    margin-top: 0.5rem;
+}
+.character-resources {
+    display: flex;
+    flex-wrap: wrap;                 /* allow wrapping */
+    gap: 1.5rem;                     /* spacing between blocks */
+}
+
+.character-resources .form-group {
+    flex: 1 1 200px;              /* keeps layout clean */
+}
+
+.form-links {
+    align-items: center;
+    border-top: 0 !important;
+}
+
+.form-links .btn {
+    font-size: 1.2rem;
+    width: fit-content;
+    padding: 0.7rem 3rem;
+}
+
+.form-group .btn{
+    font-size: 0.9rem;
+}
+
+@media (max-width: 1024px) {
+    .character-resources {
+        align-content: center;
+        flex-direction: column;
+    }
+    .character-resources .form-group {
+        max-width: 400px;
+        width: 100%;              /* ensures consistent centering */
+        flex: none;
+    }
+}

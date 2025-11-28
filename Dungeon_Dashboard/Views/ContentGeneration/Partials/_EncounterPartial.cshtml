@@ -1,10 +1,10 @@
 ﻿@model Dungeon_Dashboard.ContentGeneration.Models.RandomEncounter
 
 <link rel="stylesheet" href="~/css/randomCharacterGenerator/contentPartials.css" />
-<link rel="stylesheet" href="~/css/newSite.css" />
+<link rel="stylesheet" href="~/css/layout.css" />
 <div class="content-container">
-    <div class="card card-encounter">
-        <div class="encounter-header">
+    <div class="card-encounter">
+        <div class=" card encounter-header">
             <h3>⚔️ @Model.Name</h3>
             <p class="entity-description"><em>@Model.Description</em></p>
             <div class="card-content">
@@ -20,7 +20,7 @@
         </div>
 
         <div class="encounter-section encounter-npcs">
-            <h4>🧑‍🤝‍🧑 Involved NPCs:</h4>
+            <h4 class="title">🧑‍🤝‍🧑 Involved NPCs:</h4>
             @if (Model.InvolvedNPCs.Count > 0)
             {
                 <div class="entity-grid">
@@ -65,7 +65,7 @@
         </div>
 
         <div class="encounter-section encounter-monsters">
-            <h4>🦖 Involved Monsters:</h4>
+            <h4 class="title">🦖 Involved Monsters:</h4>
             @if (Model.InvolvedMonsters.Count > 0)
             {
                 <div class="entity-grid">

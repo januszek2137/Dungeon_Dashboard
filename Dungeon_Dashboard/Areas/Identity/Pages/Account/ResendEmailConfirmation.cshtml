@@ -4,33 +4,37 @@
     ViewData["Title"] = "Resend email confirmation";
     Layout = "_NewLayout";
 }
-<link rel="stylesheet" href="~/css/newSite.css"/>
-<link rel="stylesheet" href="~/css/auth/AuthForm.css"/>
+<link rel="stylesheet" href="~/css/layout.css"/>
+<link rel="stylesheet" href="~/css/style.css"/>
+<link rel="stylesheet" href="~/css/auth/forms.css"/>
 
 <div class="form-container">
-    <div class="form-card">
-        <h1 class="form-title">@ViewData["Title"]</h1>
+    <div class="form-card card">
+        <h1 class="form-title title">@ViewData["Title"]</h1>
         <p class="form-subtitle">Enter your email to receive a new confirmation link</p>
-        
+
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="validation-summary" role="alert"></div>
-            
+
             <div class="form-group">
                 <label asp-for="Input.Email" class="form-label">Email</label>
-                <input asp-for="Input.Email" class="form-input" autocomplete="email" aria-required="true" placeholder="name@example.com" />
+                <input asp-for="Input.Email" class="form-input" autocomplete="email" aria-required="true"
+                       placeholder="name@example.com"/>
                 <span asp-validation-for="Input.Email" class="validation-error"></span>
             </div>
-            
-            <button type="submit" class="btn-submit">Resend Confirmation Email</button>
+
+            <div class="form-group">
+                <button type="submit" class="btn-submit">Resend Confirmation Email</button>
+            </div>
         </form>
-        
-        <div class="form-footer">
-            <p>Got your confirmation email? <a asp-page="./Login" class="form-link">Login here</a></p>
+
+        <div class="form-links">
+            <a class="link" asp-page="./Login">Got your confirmation email? Login here</a>
         </div>
     </div>
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
 }
 

@@ -34,6 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\css\auth\" />
     <Folder Include="wwwroot\maps\" />
   </ItemGroup>
 
