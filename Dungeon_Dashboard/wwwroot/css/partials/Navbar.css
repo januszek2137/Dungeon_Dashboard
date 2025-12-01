@@ -42,12 +42,12 @@ nav ul {
 /* ============================
    LINK STYLES
 ============================ */
-nav a,
+nav a , nav button,
 .btn-logout {
     font-size: 1.3rem;
 }
 
-nav a {
+nav a, nav button {
     color: var(--text);
     
     text-decoration: none;
@@ -61,13 +61,17 @@ nav a {
     text-shadow: 0 0 4px rgba(0,0,0,0.8);
 }
 
-nav a:hover {
+nav a:hover, nav button:hover {
     color: var(--glow);
     background: rgba(191, 167, 106, 0.15);
     text-shadow: 0 0 8px var(--glow);
     transform: translateY(-2px);
 }
-
+nav button{
+    background: none;
+    border: none;
+    font-family: "MedievalSharp", serif;
+}
 /* ============================
    LOGIN TEXT LINK
 ============================ */

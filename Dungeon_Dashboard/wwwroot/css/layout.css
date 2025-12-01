@@ -63,10 +63,10 @@ html::before {
 
 .content{
     width: 100%;
+    margin-top: 70px;
     display: flex;
     justify-content: center;
-    padding-top: 60px;
-    padding-bottom: 60px;
+    align-items: center;
     z-index: 3;
 }
 

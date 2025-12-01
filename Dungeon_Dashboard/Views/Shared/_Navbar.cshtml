@@ -8,7 +8,7 @@
 }
 <link rel="stylesheet" href="~/css/partials/Navbar.css"/>
 <script src="~/js/newSite.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/dice-roller.js" defer></script>
 <nav>
     <ul>
         @if (User.Identity.IsAuthenticated)
@@ -32,9 +32,9 @@
                 <a asp-controller="RoomsView" asp-action="Index">
                     <li>Rooms</li>
                 </a>
-                @* <button type="button" class="btn-dice" data-bs-toggle="modal" data-bs-target="#diceRollerModal"> *@
-                @*     Dice Roller *@
-                @* </button> *@
+                <button type="button" onclick="openDiceModal()">
+                    Dice Roller
+                </button>
             </div>
 
             <div class="nav-right">

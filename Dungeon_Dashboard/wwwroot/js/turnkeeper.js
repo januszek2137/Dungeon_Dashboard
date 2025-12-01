@@ -20,7 +20,7 @@
                 <td>${p.name}</td>
                 <td>${p.initiative}</td>
                 <td>
-                    <span class="editable-hp" onclick="openHealthModal(${index})">${p.health}</span>
+                    <span class="editable-hp" onclick="openHealthModal(${index})">${p.health} ✏️</span>
                 </td>
                 <td>
                     <button onclick="removeParticipant(${index})" class="btn btn-danger">Remove</button>
@@ -56,6 +56,7 @@
     let editIndex = null;
 
     window.openHealthModal = function (index) {
+        const modal = document.getElementById("editHealthModal");
         const healthInput = document.getElementById("healthInput");
         const modalTitle = document.getElementById("editHealthLabel");
 
@@ -63,8 +64,12 @@
         modalTitle.innerText = `Edit Health for ${participants[index].name}`;
         healthInput.value = participants[index].health;
 
-        const modal = new bootstrap.Modal(document.getElementById("editHealthModal"));
-        modal.show();
+        modal.classList.add("show");
+    };
+
+    window.closeHealthModal = function () {
+        const modal = document.getElementById("editHealthModal");
+        modal.classList.remove("show");
     };
 
     window.saveHealth = function () {
@@ -75,9 +80,7 @@
             participants[editIndex].health = newHealth;
             saveParticipantsToLocalStorage();
             renderTable();
-
-            const modal = bootstrap.Modal.getInstance(document.getElementById("editHealthModal"));
-            modal.hide();
+            closeHealthModal();
         } else {
             alert("Please enter a valid number for health.");
         }
@@ -85,7 +88,11 @@
 
     window.removeParticipant = function (index) {
         participants.splice(index, 1);
-        currentIndex = currentIndex % participants.length;
+        if (participants.length > 0) {
+            currentIndex = currentIndex % participants.length;
+        } else {
+            currentIndex = 0;
+        }
         saveParticipantsToLocalStorage();
         renderTable();
         showCurrentTurn();
@@ -93,10 +100,19 @@
 
     window.removeAllParticipants = function () {
         participants = [];
+        currentIndex = 0;
         saveParticipantsToLocalStorage();
         renderTable();
         showCurrentTurn();
     };
+
+    // Close modal when clicking outside of it
+    window.addEventListener('click', (event) => {
+        const modal = document.getElementById("editHealthModal");
+        if (event.target === modal) {
+            closeHealthModal();
+        }
+    });
 
     document.getElementById("addParticipantForm").addEventListener("submit", addParticipant);
     document.getElementById("nextTurn").addEventListener("click", () => {
