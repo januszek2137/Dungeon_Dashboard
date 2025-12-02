@@ -105,8 +105,7 @@
         renderTable();
         showCurrentTurn();
     };
-
-    // Close modal when clicking outside of it
+    
     window.addEventListener('click', (event) => {
         const modal = document.getElementById("editHealthModal");
         if (event.target === modal) {
