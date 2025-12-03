@@ -310,7 +310,7 @@ public class InvitationServiceTest {
             Assert.IsTrue(result.Participants.Contains("user2"));
 
             var invitationInDb = await _context.InvitationModel.FindAsync(1);
-            Assert.IsTrue(invitationInDb.IsAccepted == true);
+            Assert.IsTrue(invitationInDb.IsAccepted);
         }
 
         [TestMethod]
