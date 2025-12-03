@@ -6,42 +6,32 @@
         userName = userNameFull.Split('@')[0];
     }
 }
+
 <link rel="stylesheet" href="~/css/partials/Navbar.css"/>
+<link rel="stylesheet" href="~/css/partials/Sidebar.css"/>
 <script src="~/js/newSite.js" defer></script>
 <script src="~/js/dice-roller.js" defer></script>
+
 <nav>
     <ul>
         @if (User.Identity.IsAuthenticated)
         {
             <div class="nav-left">
-                <a asp-area="" asp-controller="Home" asp-action="Index">
-                    <li>Home</li>
-                </a>
-                <a asp-controller="Sidebar" asp-action="Planner">
-                    <li>Session Planner</li>
-                </a>
-                <a asp-controller="CharacterModels" asp-action="Index">
-                    <li>Character</li>
-                </a>
-                <a asp-controller="ContentGeneration" asp-action="Index">
-                    <li>Generator</li>
-                </a>
-                <a asp-controller="TurnKeeperView" asp-action="Index">
-                    <li>Turn Keeper</li>
-                </a>
-                <a asp-controller="RoomsView" asp-action="Index">
-                    <li>Rooms</li>
-                </a>
-                <button type="button" onclick="openDiceModal()">
-                    Dice Roller
+
+                <!-- NEW BUTTON TO OPEN SIDEBAR -->
+                <button class="sidebar-toggle" onclick="toggleSidebar()">
+                    ⚔️ Menu
                 </button>
+
+                <a asp-area="" asp-controller="Home" asp-action="Index"><li>Home</li></a>
             </div>
 
             <div class="nav-right">
                 <li><span class="user-greeting">Welcome, <strong>@userName</strong>!</span></li>
                 <li>
                     <form asp-area="Identity" asp-page="/Account/Logout"
-                          asp-route-returnUrl="@Url.Action("Index", "Home")" method="post" class="logout-form">
+                          asp-route-returnUrl="@Url.Action("Index", "Home")"
+                          method="post" class="logout-form">
                         <button type="submit" class="btn-logout">Logout</button>
                     </form>
                 </li>
@@ -50,13 +40,83 @@
         else
         {
             <div class="nav-left">
+                <button class="sidebar-toggle" onclick="toggleSidebar()">
+                    ⚔️ Menu
+                </button>
                 <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
             </div>
+
             <div class="nav-right">
-                <li><span class="login-text"><a asp-area="Identity" asp-page="/Account/Login">Login to start your journey</a></span>
-                </li>
+                <li><a asp-area="Identity" asp-page="/Account/Login">Login to start your journey</a></li>
             </div>
         }
     </ul>
 </nav>
+
+<!-- Sword Toggle Button (Navbar) -->
+
+
+<!-- Sidebar -->
+<aside id="sidebar" class="sidebar closed">
+
+    <!-- Dragon close button -->
+    <button class="sidebar-close" onclick="toggleSidebar()">⚔️</button>
+
+    <ul>
+        <!-- your links stay unchanged -->
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="sidebar-section">
+                <a asp-controller="Home" asp-action="Index"><li>Home</li></a>
+                <a asp-controller="Sidebar" asp-action="Planner"><li>Session Planner</li></a>
+                <a asp-controller="CharacterModels" asp-action="Index"><li>Character</li></a>
+                <a asp-controller="ContentGeneration" asp-action="Index"><li>Generator</li></a>
+                <a asp-controller="TurnKeeperView" asp-action="Index"><li>Turn Keeper</li></a>
+                <a asp-controller="RoomsView" asp-action="Index"><li>Rooms</li></a>
+
+                <button type="button" class="dice-btn" onclick="openDiceModal()">Dice Roller</button>
+            </div>
+
+            <div class="sidebar-footer">
+                <li>Welcome, <strong>@userName</strong>!</li>
+                <li>
+                    <form asp-area="Identity" asp-page="/Account/Logout" method="post">
+                        <button class="btn-logout">Logout</button>
+                    </form>
+                </li>
+            </div>
+        }
+        else
+        {
+            <a asp-controller="Home" asp-action="Index"><li>Home</li></a>
+            <a asp-area="Identity" asp-page="/Account/Login"><li>Login</li></a>
+        }
+    </ul>
+</aside>
+
+<!-- Overlay -->
+<div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
 <partial name="_DiceRollerModal"/>
+<script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("sidebar-overlay");
+
+        const isOpen = sidebar.classList.contains("open");
+
+        if (isOpen) {
+            // closing animation (dragon wing closing)
+            sidebar.classList.remove("open");
+            sidebar.classList.add("closing");
+            setTimeout(() => {
+                sidebar.classList.remove("closing");
+            }, 350);
+            overlay.style.display = "none";
+        } else {
+            // opening animation (dragon wing rising)
+            sidebar.classList.add("open");
+            overlay.style.display = "block";
+        }
+    }
+</script>
