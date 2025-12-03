@@ -1,0 +1,42 @@
+.page-container{
+    width: 80%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+}
+.btn-new{
+    margin-top: 1rem;
+    width: 50%;
+}
+ul{
+    width: 100%;
+}  
+.page-container li{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style: none;
+    margin-bottom: 1rem;
+}
+
+.card{
+    padding: 1rem !important;
+}
+.actions{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.room-info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#invite-username{
+    width: 100%;
+    max-width: 500px;
+}

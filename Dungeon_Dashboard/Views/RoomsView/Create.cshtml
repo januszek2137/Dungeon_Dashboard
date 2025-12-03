@@ -1,24 +1,34 @@
-﻿@using Dungeon_Dashboard.Room
-@using Dungeon_Dashboard.Room.Models
+﻿@using Dungeon_Dashboard.Room.Models
 @model RoomModel
 @{
     ViewData["Title"] = "Create Room";
+    Layout = "_NewLayout";
 }
+<link rel="stylesheet" href="~/css/style.css"/>
+<link rel="stylesheet" href="~/css/rooms/rooms.css"/>
+<link rel="stylesheet" href="~/css/rooms/create.css"/>
+<link rel="stylesheet" href="~/css/forms.css"/>
+<link rel="stylesheet" href="~/css/layout.css"/>
 
-<h2>Create a room</h2>
+<div class="page-container">
+    <h2 class="title">Create a room</h2>
 
-<div id="create-room" style="background-color: #2f2b3a; color: #ba9ffb; padding: 20px; border-radius: 10px; max-width: 600px; margin: auto;">
-    <form asp-action="Create" method="post" id="createRoomForm">
-        <div class="form-group">
-            <label asp-for="Name" style="color: #ba9ffb;"></label>
-            <input asp-for="Name" class="form-control" placeholder="Room name" style="background-color: #3a3548; color: #ffffff; border: none; border-radius: 5px;" />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Description" style="color: #ba9ffb;"></label>
-            <textarea asp-for="Description" class="form-control" rows="4" placeholder="Room description" style="background-color: #3a3548; color: #ffffff; border: none; border-radius: 5px;"></textarea>
-            <span asp-validation-for="Description" class="text-danger"></span>
-        </div>
-        <button type="submit" id="createRoomBtn" class="btn btn-primary" style="margin-top: 15px; background-color: #ba9ffb; color: #2f2b3a; border: none; border-radius: 5px;">Create room</button>
-    </form>
+    <div id="create-room" class="card form-new-room">
+        <form asp-action="Create" method="post" id="createRoomForm">
+            <div class="form-group">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-input" placeholder="Room name" />
+                <span asp-validation-for="Name" class="validation-error"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description" class="form-input" rows="4" placeholder="Room description"></textarea>
+                <span asp-validation-for="Description" class="validation-error"></span>
+            </div>
+            <div class="form-links">
+                <button type="submit" id="createRoomBtn" class="btn btn-submit">Create room</button>
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
 </div>

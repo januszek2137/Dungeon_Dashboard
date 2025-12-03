@@ -46,28 +46,8 @@
             <tbody></tbody>
         </table>
 
-        <div class="modal" id="editHealthModal">
-            <div class="modal-dialog">
-                <div class="modal-content card">
-                    <div class="modal-header">
-                        <h5 class="modal-title title" id="editHealthLabel">Edit Health</h5>
-                        <button type="button" class="btn-close-modal" onclick="closeHealthModal()"></button>
-                    </div>
-
-                    <div class="modal-body">
-                        <form id="editHealthForm">
-                                <label for="healthInput" class="form-label">❤️ New Health</label>
-                                <input type="number" class="form-input" id="healthInput" min="0" required>
-
-                            <button type="button" class="btn btn-primary" onclick="saveHealth()"
-                                    style="margin-top: 1rem;">
-                                Save
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <partial name="_EditHealthModal"/>
+        
         <div id="currentTurn"></div>
         <div id="buttons">
             <button id="removeAllButton" class="btn btn-danger" onclick="removeAllParticipants()">Remove All

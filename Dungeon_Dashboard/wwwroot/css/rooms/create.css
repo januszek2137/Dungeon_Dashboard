@@ -1,0 +1,15 @@
+.form-new-room{
+    width: 80%;
+}
+.form-links{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.btn-submit{
+    margin-top: 0 !important;
+    width: 75% !important;
+}
+.btn-secondary{
+    width: 50% !important;
+}
