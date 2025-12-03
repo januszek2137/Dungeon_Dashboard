@@ -7,7 +7,7 @@ using Moq;
 namespace Dungeon_DashboardTests.ContentGeneration.Services {
     
     [TestClass]
-    public class DataServiceTests {
+    public class DataServiceTest {
         private string _testDataPath;
         private Mock<IHostEnvironment> _mockEnvironment;
         private Mock<ILogger<DataService>> _mockLogger;
