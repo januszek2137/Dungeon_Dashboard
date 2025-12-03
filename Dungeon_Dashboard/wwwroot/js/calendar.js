@@ -2,8 +2,7 @@
     function clearModalForm() {
         $('#newTitle').val('');
         $('#newDescription').val('');
-        $('#newDate').val('');
-        $('#newTime').val('');
+        $('#newDateTime').val('');
         $('#newLocation').val('');
     }
 
@@ -18,23 +17,30 @@
         eventSources: [
             {
                 url: '/api/eventmodels',
-                failure: function () {
+                failure: function (error) {
+                    console.error('Failed to load events:', error);
                     alert('There was an error while fetching events!');
+                },
+                success: function(data) {
+                    console.log('✅ Events loaded:', data);
                 }
             }
         ],
         eventClick: function (info) {
             $('#title').val(info.event.title);
             $('#description').val(info.event.extendedProps.description);
-            $('#date').val(info.event.start.toISOString().substring(0, 10));
-            $('#time').val(info.event.start.toISOString().substring(11, 16));
+            const datetime = info.event.start.toISOString().substring(0, 16);
+            $('#datetime').val(datetime);
             $('#location').val(info.event.extendedProps.location);
             $('#detailsModal').modal('show');
+        },
+        eventDidMount: function(info) {
+            console.log('Event rendered:', info.event.title);
         }
     });
     calendar.render();
 
-    $("#openModalButton").on('click', function () {
+    $("button[data-target='#newEventModal']").on('click', function () {
         clearModalForm();
         $("#newEventModal").modal('show');
     });
@@ -47,17 +53,24 @@
 
     $("#newEventForm").on('submit', function (e) {
         e.preventDefault();
-        console.log("Submitting form");
+        console.log("📝 Submitting form");
+
+        var datetimeValue = $("#newDateTime").val();
+        console.log("📅 DateTime from input:", datetimeValue);
+
+        if (!datetimeValue) {
+            alert("Please select date and time!");
+            return;
+        }
 
         var eventData = {
             title: $("#newTitle").val(),
             description: $("#newDescription").val(),
-            date: $("#newDate").val(),
-            time: $("#newTime").val(),
+            start: datetimeValue,  // ✅ zmienione z dateTime na start
             location: $("#newLocation").val()
         };
 
-        console.log("Event data prepared", eventData);
+        console.log("📤 Sending to API:", JSON.stringify(eventData, null, 2));
 
         $.ajax({
             url: '/api/eventmodels',
@@ -65,20 +78,32 @@
             data: JSON.stringify(eventData),
             contentType: 'application/json',
             success: function (data) {
-                console.log("Success response received");
+                console.log("✅ Success response:", data);
 
-                calendar.getEventSources().forEach((source) => {
-                    source.refetch();
+                // Dodaj event do kalendarza
+                calendar.addEvent({
+                    id: data.id,
+                    title: data.title,
+                    start: data.start,
+                    extendedProps: {
+                        description: data.description,
+                        location: data.location
+                    }
                 });
-                $("#closeclose").click();
-                console.log($(".close"));
+
+                $("#newEventModal").modal('hide');
+                clearModalForm();
+
+                alert("Event added successfully!");
             },
             error: function (xhr, status, error) {
-                console.error("Error saving event", xhr, status, error);
+                console.error("❌ Error details:", {
+                    status: xhr.status,
+                    statusText: xhr.statusText,
+                    response: xhr.responseText
+                });
+                alert("Error saving event: " + (xhr.responseJSON?.error || error));
             }
         });
     });
-});
-
-$(document).ready(function () {
 });
