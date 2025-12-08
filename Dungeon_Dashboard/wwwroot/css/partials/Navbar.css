@@ -26,6 +26,7 @@ nav ul {
     gap: 2rem;
 }
 
+
 .nav-left,
 .nav-right {
     display: flex;
@@ -139,17 +140,17 @@ nav button{
 /* ============================
    RESPONSIVE BEHAVIOR
 ============================ */
-@media (max-width: 1024px) {
+@media (max-width: 730px) {
     nav ul {
         justify-content: center;
     }
 
-    .nav-left,
-    .nav-right {
+    .nav-left{
         justify-content: center;
     }
 
     .nav-right {
+        display: none;
         margin-left: 0;
         width: 100%;
     }
