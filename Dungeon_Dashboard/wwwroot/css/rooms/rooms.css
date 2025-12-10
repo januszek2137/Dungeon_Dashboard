@@ -40,3 +40,29 @@ ul{
     width: 100%;
     max-width: 500px;
 }
+
+.ui-autocomplete {
+    font-family: "Spectral", serif;
+    color: var(--text);
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 0.5rem;
+    z-index: 9999 !important;
+    background: none;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.ui-menu-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    background: rgba(40, 30, 20, 1);
+    border: 1px solid var(--card-border) !important;
+}
+
+.ui-state-active, .ui-state-focus {
+    background: var(--card-border) !important;
+    border: 1px solid var(--card-border) !important;
+}

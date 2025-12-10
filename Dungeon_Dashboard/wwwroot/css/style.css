@@ -151,6 +151,10 @@ html, body {
     outline: 0;
 }
 
+.modal .card{
+    background: rgba(40, 30, 20, 0.9) !important;
+}
+
 .modal-header {
     display: flex;
     align-items: center;
@@ -195,28 +199,4 @@ html, body {
 
 #autocomplete-wrapper {
     position: relative;
-}
-
-.autocomplete-container .ui-autocomplete {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box;
-}
-
-/* Optional: style the dropdown to match your form */
-.ui-autocomplete {
-    z-index: 9999 !important; /* above modal */
-    background: none;
-    /*border: 1px solid #ddd;*/
-    max-height: 200px;
-    overflow-y: auto;
-}
-
-.ui-menu-item {
-    padding: 8px 12px;
-    cursor: pointer;
-}
-
-.ui-state-active, .ui-state-focus {
-    /*background: #f0f0f0;*/
 }
