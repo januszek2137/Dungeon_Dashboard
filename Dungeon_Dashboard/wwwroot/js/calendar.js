@@ -9,6 +9,7 @@
 
     const calendarEl = document.getElementById('calendar');
     const calendar = new FullCalendar.Calendar(calendarEl, {
+        timezone: 'local',
         initialView: 'dayGridMonth',
         headerToolbar: {
             left: 'prev,next today',
@@ -26,11 +27,21 @@
         eventClick: function (info) {
             $('#title').val(info.event.title);
             $('#description').val(info.event.extendedProps.description);
-            $('#date').val(info.event.start.toISOString().substring(0, 10));
-            $('#time').val(info.event.start.toISOString().substring(11, 16));
+
+            var eventDate = info.event.start;
+            var year = eventDate.getFullYear();
+            var month = String(eventDate.getMonth() + 1).padStart(2, '0');
+            var day = String(eventDate.getDate()).padStart(2, '0');
+            var hours = String(eventDate.getHours()).padStart(2, '0');
+            var minutes = String(eventDate.getMinutes()).padStart(2, '0');
+
+            $('#date').val(`${year}-${month}-${day}`);
+            $('#time').val(`${hours}:${minutes}`);
+
             $('#location').val(info.event.extendedProps.location);
             $('#detailsModal').modal('show');
         }
+
     });
     calendar.render();
 
@@ -52,9 +63,8 @@
         var eventData = {
             title: $("#newTitle").val(),
             description: $("#newDescription").val(),
-            date: $("#newDate").val(),
-            time: $("#newTime").val(),
-            location: $("#newLocation").val()
+            location: $("#newLocation").val(),
+            start: $("#newDate").val() + "T" + $("#newTime").val() + ":00"
         };
 
         console.log("Event data prepared", eventData);
