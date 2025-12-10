@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="~/css/style.css"/>
 <link rel="stylesheet" href="~/css/rooms/rooms.css"/>
 <script src="~/js/roomsindex.js"></script>
+<script src="~/js/userautocomplete.js" asp-append-version="true"></script>
+<script src="~/js/toast.js" asp-append-version="true"></script>
 <div class="page-container">
 	<h2 class="title">Your Rooms</h2>
 
@@ -42,12 +44,4 @@
 </div>
 
 <partial name="_InviteModal"/>
-
-<script>
-	window.openInviteModal = function (roomId) {
-		document.getElementById("invite-roomId").value = roomId;
-		document.getElementById("invite-username").value = "";
-		$('#inviteModal').modal('show');
-	}
-</script>
 

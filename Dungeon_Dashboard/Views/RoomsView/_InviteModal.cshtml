@@ -1,22 +1,24 @@
 <link rel="stylesheet" href="~/css/style.css">
 <link rel="stylesheet" href="~/css/forms.css">
+<script src="~/js/userautocomplete.js" asp-append-version="true"></script>
 
 <div class="modal" id="inviteModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content card">
             <div class="modal-header">
                 <h5 class="modal-title title" id="inviteModalLabel">✉️ Invite someone</h5>
-                <button type="button" id="modalCloseBtn" class="btn-close-modal"></button>
+                <button type="button" id="modalCloseBtn" class="btn-close-modal" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <input type="hidden" id="invite-roomId" />
                 <div class="autocomplete-container">
-                    <input id="userSearch" type="text" class="form-control" placeholder="Search for users..." autocomplete="off">
-                    <div id="autocomplete-list" class="autocomplete-items"></div>
+                    <label for="invite-username" class="form-label">🧑‍🧑‍🧒‍🧒 Username</label>
+                    <div id="autocomplete-wrapper">
+                        <input type="text" id="invite-username" class="form-input" placeholder="Search for users...">
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary">Cancel</button>
                 <button type="button" id="invite-submit" class="btn btn-primary">Invite</button>
             </div>
         </div>

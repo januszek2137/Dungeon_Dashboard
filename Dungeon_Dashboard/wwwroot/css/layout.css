@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 /* ============================
    BASE LAYOUT
 ============================ */
@@ -61,7 +62,7 @@ html::before {
     min-height: 100vh;
 }
 
-.content{
+.content {
     width: 100%;
     margin-top: 70px;
     padding-bottom: 50px;
@@ -72,8 +73,38 @@ html::before {
     z-index: 3;
 }
 
+.toast-list {
+    z-index: 15;
+    position: absolute;
+    top: 100px;
+    right: 10px;
+}
+
+.toast-container {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 0.5rem !important;
+}
+
+.toast {
+    width: fit-content !important;
+}
+
+.toast-body {
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.toast-message {
+    font-size: 1rem;
+}
+
 @media (max-width: 1024px) {
-    .content{
+    .content {
         padding-top: 90px;
         padding-bottom: 90px;
     }
