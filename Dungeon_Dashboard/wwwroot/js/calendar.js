@@ -49,8 +49,8 @@
         clearModalForm();
         $("#newEventModal").modal('show');
     });
-
-    $('.close').on('click', function () {
+    
+    $('.btn-close-modal').on('click', function () {
         $('#detailsModal').modal('hide');
         $('#newEventModal').modal('hide');
         clearModalForm();
@@ -80,7 +80,7 @@
                 calendar.getEventSources().forEach((source) => {
                     source.refetch();
                 });
-                $("#closeclose").click();
+                $("#btn-close-modal").click();
                 console.log($(".close"));
             },
             error: function (xhr, status, error) {

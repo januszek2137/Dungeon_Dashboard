@@ -1,5 +1,195 @@
-﻿#calendar {
-    max-width: 100%;
-    margin: 0 auto;
+﻿#main {
+    width: 80%;
+    max-width: 1000px;
+    margin-top: 2rem;
 }
 
+#calendar {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.fc {
+    font-family: "Spectral", serif;
+    color: var(--text);
+}
+
+.fc .fc-view-harness,
+.fc .fc-scrollgrid {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 1rem;
+    box-shadow: 0 0 25px var(--card-shadow);
+    overflow: hidden;
+}
+
+.fc .fc-toolbar-title {
+    font-family: "MedievalSharp", serif;
+    font-size: 2.2rem;
+    color: var(--glow);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+.fc .fc-toolbar {
+    margin-bottom: 1.5rem;
+}
+
+.fc .fc-button {
+    text-transform: capitalize;
+
+    font-family: "Spectral", serif;
+    background: var(--card-bg);
+    border: 2px solid var(--glow);
+    color: var(--glow);
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.fc .fc-button:hover {
+    border: 2px solid var(--glow);
+    background: rgba(80, 60, 40, 0.55);
+    box-shadow: 0 0 13px var(--glow);
+    transform: translateY(-2px);
+}
+
+.fc .fc-button:active {
+    transform: translateY(0);
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active {
+    border: 2px solid var(--glow);
+    background: rgba(191, 167, 106, 0.25);
+    box-shadow: 0 0 15px var(--glow);
+}
+
+.fc .fc-button:disabled {
+    opacity: 0.4;
+}
+
+.fc .fc-col-header-cell {
+    background: rgba(40, 30, 20, 0.75);
+    border-color: var(--card-border);
+}
+
+.fc .fc-col-header-cell-cushion {
+    color: var(--glow);
+    font-family: "MedievalSharp", serif;
+    font-size: 1rem;
+    padding: 0.75rem 0;
+}
+
+.fc .fc-daygrid-day {
+    background: rgba(30, 20, 10, 0.55);
+    border-color: rgba(191, 167, 106, 0.15);
+}
+
+.fc .fc-daygrid-day:hover {
+    background: rgba(191, 167, 106, 0.08);
+}
+
+.fc .fc-day-today {
+    background: rgba(191, 167, 106, 0.18) !important;
+    box-shadow: inset 0 0 20px rgba(191, 167, 106, 0.3);
+}
+
+.fc .fc-daygrid-day-number {
+    color: var(--text);
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.fc-event {
+    font-family: "Spectral", serif;
+    background: rgba(191, 167, 106, 0.25);
+    border: 1px solid var(--glow);
+    border-radius: 0.5rem;
+    padding: 2px 6px;
+    font-size: 0.85rem;
+    color: var(--text);
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(191, 167, 106, 0.35);
+    transition: all 0.25s ease;
+}
+
+.fc-event:hover {
+    background: rgba(191, 167, 106, 0.4);
+    box-shadow: 0 0 14px var(--glow);
+    transform: translateY(-1px);
+}
+
+.fc-event-title {
+    font-weight: 500;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+.fc .fc-timegrid-slot {
+    border-color: rgba(191, 167, 106, 0.15);
+}
+
+.fc .fc-timegrid-axis {
+    color: var(--text);
+    border-color: var(--card-border);
+    opacity: 0.7;
+}
+
+.fc-scroller::-webkit-scrollbar {
+    width: 8px;
+}
+
+.fc-scroller::-webkit-scrollbar-thumb {
+    background: rgba(191, 167, 106, 0.4);
+    border-radius: 4px;
+}
+
+.fc-scroller::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.fc a {
+    color: inherit;
+}
+
+.fc a:focus {
+    outline: none;
+}
+.fc table,
+.fc th,
+.fc td {
+    border-color: rgba(191, 167, 106, 0.15) !important;
+}
+
+/* Outer grid borders */
+.fc-scrollgrid,
+.fc-scrollgrid-section,
+.fc-scrollgrid-sync-table {
+    border-color: var(--card-border) !important;
+}
+
+/* Header row borders */
+.fc .fc-col-header-cell,
+.fc .fc-col-header {
+    border-color: var(--card-border) !important;
+}
+
+/* Day cell borders */
+.fc .fc-daygrid-day-frame {
+    border: 1px solid rgba(191, 167, 106, 0.15);
+}
+
+.fc .fc-timegrid-slot,
+.fc .fc-timegrid-col,
+.fc .fc-timegrid-axis {
+    border-color: rgba(191, 167, 106, 0.15) !important;
+}
+
+.fc-theme-standard td,
+.fc-theme-standard th {
+    border: 1px solid rgba(191, 167, 106, 0.15) !important;
+}
+
+.fc *:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
