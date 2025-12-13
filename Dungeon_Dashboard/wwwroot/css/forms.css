@@ -91,6 +91,7 @@
 }
 
 .form-input {
+    font-family: "Spectral", serif;
     color: var(--text);
     width: 100%;
     padding: 0.75rem 1rem;

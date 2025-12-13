@@ -9,6 +9,10 @@
     margin-bottom: 2rem;
 }
 
+.form-input{
+    font-size: 1.1rem !important;
+}
+
 .fc {
     font-family: "Spectral", serif;
     color: var(--text);
