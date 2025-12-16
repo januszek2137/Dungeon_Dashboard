@@ -66,3 +66,18 @@ ul{
     background: var(--card-border) !important;
     border: 1px solid var(--card-border) !important;
 }
+
+@media (max-width: 768px) {
+    .btn-new{
+        width: 100%;
+    }
+    .room-info{
+        display: inline-block;
+    }
+    #rooms li{
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+    }
+}

@@ -37,6 +37,10 @@
     color: #ffcccc;
 }
 
+.validation-summary ul{
+    list-style-type: none;
+}
+
 .validation-error {
     display: block;
     font-size: 0.9rem;
@@ -214,6 +218,10 @@
 
 /* Very small screens → 1 slider per row */
 @media (max-width: 570px) {
+    .form-container{
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
     .slider-item {
         min-width: 0;
         width: 100%;

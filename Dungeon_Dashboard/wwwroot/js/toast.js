@@ -11,9 +11,9 @@
             <div class="toast-body card">
                 <div class="toast-message">
                     ${options.message}
-                    <div class="mt-2">
-                        <button class="btn btn-sm btn-accept me-2" data-invitation-id="${options.invitationId}" data-room-id="${options.roomId}">Accept</button>
-                        <button class="btn btn-sm btn-reject" data-invitation-id="${options.invitationId}">Decline</button>
+                    <div class="">
+                        <button class="btn btn-primary" data-invitation-id="${options.invitationId}" data-room-id="${options.roomId}">Accept</button>
+                        <button class="btn btn-secondary" data-invitation-id="${options.invitationId}">Decline</button>
                     </div>
                 </div>
                 <button type="button" class="btn-close-modal" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -33,7 +33,7 @@
 
     toastContainer.appendChild(toastEl);
 
-    const bsToast = new bootstrap.Toast(toastEl, {delay: options.delay || 50000}); //todo delete one 0
+    const bsToast = new bootstrap.Toast(toastEl, {delay: options.delay || 5000});
     bsToast.show();
 
     toastEl.addEventListener('hidden.bs.toast', () => {

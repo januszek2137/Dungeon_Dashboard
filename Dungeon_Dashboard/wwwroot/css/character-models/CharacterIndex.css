@@ -2,7 +2,9 @@
    CONTAINER
 ============================ */
 .characters-container {
-    min-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     max-width: 95vw;
     padding: 4rem 5rem;
 }
@@ -137,6 +139,11 @@
 }
 
 @media (max-width: 480px) {
+    .btn-secondary {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
     .character-name {
         font-size: 1.4rem;

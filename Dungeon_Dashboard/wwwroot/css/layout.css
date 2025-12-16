@@ -103,9 +103,9 @@ html::before {
     font-size: 1rem;
 }
 
-@media (max-width: 1024px) {
-    .content {
-        padding-top: 90px;
-        padding-bottom: 90px;
-    }
-}
+/*@media (max-width: 1024px) {*/
+/*    .content {*/
+/*        padding-top: 90px;*/
+/*        padding-bottom: 90px;*/
+/*    }*/
+/*}*/

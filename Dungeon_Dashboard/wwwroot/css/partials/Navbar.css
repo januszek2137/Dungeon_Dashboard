@@ -45,6 +45,7 @@ nav ul {
 ============================ */
 nav a , nav button,
 .btn-logout {
+    cursor: pointer;
     font-size: 1.3rem;
 }
 
@@ -140,7 +141,7 @@ nav button{
 /* ============================
    RESPONSIVE BEHAVIOR
 ============================ */
-@media (max-width: 730px) {
+@media (max-width: 740px) {
     nav ul {
         justify-content: center;
     }

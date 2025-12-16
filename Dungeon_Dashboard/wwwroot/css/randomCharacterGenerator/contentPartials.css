@@ -21,7 +21,7 @@
    TYPOGRAPHY
 ============================ */
 .card h3,
-/*.encounter-section h4,*/
+    /*.encounter-section h4,*/
 .card h5 {
     font-family: 'MedievalSharp', serif;
     color: var(--glow);
@@ -72,7 +72,7 @@
 }
 
 .card-content > div {
-    flex: 1 1 200px;
+    flex: 1 1;
 }
 
 /* Stats sections */
