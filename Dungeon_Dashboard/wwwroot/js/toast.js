@@ -12,8 +12,8 @@
                 <div class="toast-message">
                     ${options.message}
                     <div class="">
-                        <button class="btn btn-primary" data-invitation-id="${options.invitationId}" data-room-id="${options.roomId}">Accept</button>
-                        <button class="btn btn-secondary" data-invitation-id="${options.invitationId}">Decline</button>
+                        <button class="btn btn-primary btn-accept" data-invitation-id="${options.invitationId}" data-room-id="${options.roomId}">Accept</button>
+                        <button class="btn btn-secondary btn-reject" data-invitation-id="${options.invitationId}">Decline</button>
                     </div>
                 </div>
                 <button type="button" class="btn-close-modal" data-bs-dismiss="toast" aria-label="Close"></button>
