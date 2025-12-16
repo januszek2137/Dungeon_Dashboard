@@ -13,6 +13,7 @@
    HEADER
 ============================ */
 .characters-header {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -50,9 +51,6 @@
     width: clamp(300px, 18%, 400px);
 }
 
-/* ============================
-   CHARACTER HEADER
-============================ */
 .character-header {
     display: flex;
     justify-content: space-between;

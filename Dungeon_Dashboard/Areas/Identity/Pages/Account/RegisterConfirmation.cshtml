@@ -2,9 +2,11 @@
 @model RegisterConfirmationModel
 @{
     ViewData["Title"] = "Register confirmation";
+    Layout = "_NewLayout";
 }
-
-<h1>@ViewData["Title"]</h1>
+<link rel="stylesheet" href="~/css/style.css"/>
+<link rel="stylesheet" href="~/css/layout.css">
+<h1 class="title">@ViewData["Title"]</h1>
 @{
     if (@Model.DisplayConfirmAccountLink)
     {
