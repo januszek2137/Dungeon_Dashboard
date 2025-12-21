@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Always update marker size based on current scale
-        const markerSize = Math.max(24, Math.min(displayGridSize - 2, Math.floor(40 * scale)));
+        const markerSize = Math.max(24, Math.min(displayGridSize, Math.floor(55 * scale)));
         el.style.width = markerSize + "px";
         el.style.height = markerSize + "px";
         el.style.fontSize = Math.max(12, Math.floor(16 * scale)) + "px";
