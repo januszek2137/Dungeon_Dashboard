@@ -1,0 +1,47 @@
+﻿<link rel="stylesheet" href="~/css/partials/DiceRoller.css">
+<link rel="stylesheet" href="~/css/style.css">
+<link rel="stylesheet" href="~/css/forms.css">
+<div class="modal" id="diceRollerModal">
+    <div class="modal-dialog">
+        <div class="modal-content card">
+
+            <div class="modal-header">
+                <h5 class="modal-title title">🎲 Dice Roller</h5>
+                <button type="button" id="diceCloseBtn" class="btn-close-modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <form id="diceRollerForm" class="form-container">
+                    <div class="form-group">
+                        <label for="diceType" class="form-label">Type of Dice</label>
+                        <select class="form-input select" id="diceType">
+                            <option value="4">D4</option>
+                            <option value="6" selected>D6</option>
+                            <option value="8">D8</option>
+                            <option value="10">D10</option>
+                            <option value="12">D12</option>
+                            <option value="20">D20</option>
+                            <option value="100">D100</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="diceCount" class="form-label">Number of Dice</label>
+                        <input type="number" class="form-input" id="diceCount" min="1" max="100" value="1" required>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" onclick="rollDice()">
+                        🎲 Roll the Dice
+                    </button>
+                </form>
+
+                <div id="errorMessage" class="dice-error"></div>
+                <div class="dice-results-container">
+                    <div id="diceContainer" class="dice-container"></div>
+                    <div id="diceResult" class="dice-total title"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

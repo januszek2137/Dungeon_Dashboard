@@ -1,39 +1,40 @@
 ﻿@model IEnumerable<Dungeon_Dashboard.Room.Models.RoomModel>
 @{
 	ViewData["Title"] = "Your Rooms";
-
 }
 
-<h2>Your Rooms</h2>
+<link rel="stylesheet" href="~/css/style.css"/>
+<link rel="stylesheet" href="~/css/layout.css"/>
+<link rel="stylesheet" href="~/css/rooms/rooms.css"/>
+<script src="~/js/roomsindex.js"></script>
+<script src="~/js/userautocomplete.js" asp-append-version="true"></script>
+<script src="~/js/toast.js" asp-append-version="true"></script>
 
-<a asp-action="Create" class="btn btn-primary w-100">Create New</a>
+<div class="page-container">
+	<h2 class="title">Your Rooms</h2>
 
-<div id="rooms-list" style="background-color: #2f2b3a; color: #ba9ffb; padding: 20px; border-radius: 10px;">
-	<ul id="rooms" style="list-style: none; padding: 0; margin: 0;">
+	<a asp-action="Create" class="btn btn-primary btn-new">Create New</a>
+
+	<ul id="rooms">
 		@foreach (var room in Model)
 		{
-			<li style="display: flex; justify-content: space-between; align-items: center;
-	                           margin-bottom: 12px; padding: 10px 15px;
-	                           border-bottom: 1px solid #3c3650; border-radius: 8px;">
-				<div>
-					<strong>@room.Name</strong> - Created by: @room.CreatedBy
+			<li class="card">
+				<div class="room-info">
+					<strong>@room.Name</strong>&nbsp;-&nbsp;Created by: @room.CreatedBy
 				</div>
-				<div>
+				<div class="actions">
 					@if (User.Identity.Name == room.CreatedBy)
 					{
 						<button type="button"
-								style="background-color: #ba9ffb; color: #2f2b3a; border: none;
-		                                               padding: 6px 12px; border-radius: 5px; cursor: pointer;
-		                                               margin-right: 8px;"
-								onclick="openInviteModal(@room.Id)">
+						        class="btn btn-secondary"
+						        onclick="openInviteModal(@room.Id)">
 							Invite
 						</button>
 					}
 
-					<form asp-action="Room" asp-route-id="@room.Id" method="get" style="display: inline;">
+					<form asp-action="Room" asp-route-id="@room.Id" method="get">
 						<button type="submit"
-								style="background-color: #ba9ffb; color: #2f2b3a; border: none;
-	                                           padding: 6px 12px; border-radius: 5px; cursor: pointer;">
+						        class="btn btn-primary">
 							Enter Room
 						</button>
 					</form>
@@ -43,12 +44,5 @@
 	</ul>
 </div>
 
-
-<script>
-	window.openInviteModal = function (roomId) {
-		document.getElementById("invite-roomId").value = roomId;
-		document.getElementById("invite-username").value = "";
-		$('#inviteModal').modal('show');
-	}
-</script>
+<partial name="Partials/_InviteModal"/>
 

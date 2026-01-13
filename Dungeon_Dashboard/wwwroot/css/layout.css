@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ============================
+   BASE LAYOUT
+============================ */
+html,
+body {
+    background: url("brick.png") repeat;
+}
+
+/* Global dark overlay over background */
+html::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 0;
+}
+
+/* ============================
+   MAIN BACKGROUND CONTAINER
+============================ */
+.background {
+    position: relative;
+
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    overflow-y: auto;
+}
+
+/* Blur layer over wallpaper but under content */
+.background::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    backdrop-filter: blur(2px);
+
+    z-index: 1;
+}
+
+/* ============================
+   BACKGROUND PARTICLES
+============================ */
+#fireflies {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+}
+
+.content {
+    width: 100%;
+    margin-top: 70px;
+    padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+}
+
+.toast-list {
+    z-index: 15;
+    position: absolute;
+    top: 100px;
+    right: 10px;
+}
+
+.toast-container {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 0.5rem !important;
+}
+
+.toast {
+    width: fit-content !important;
+}
+
+.toast-body {
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.toast-message {
+    font-size: 1rem;
+}
+
+/*@media (max-width: 1024px) {*/
+/*    .content {*/
+/*        padding-top: 90px;*/
+/*        padding-bottom: 90px;*/
+/*    }*/
+/*}*/

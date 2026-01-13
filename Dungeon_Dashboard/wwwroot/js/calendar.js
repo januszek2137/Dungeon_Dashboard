@@ -8,6 +8,7 @@
 
     const calendarEl = document.getElementById('calendar');
     const calendar = new FullCalendar.Calendar(calendarEl, {
+        timezone: 'local',
         initialView: 'dayGridMonth',
         headerToolbar: {
             left: 'prev,next today',
@@ -29,14 +30,24 @@
         eventClick: function (info) {
             $('#title').val(info.event.title);
             $('#description').val(info.event.extendedProps.description);
-            const datetime = info.event.start.toISOString().substring(0, 16);
-            $('#datetime').val(datetime);
+
+            var eventDate = info.event.start;
+            var year = eventDate.getFullYear();
+            var month = String(eventDate.getMonth() + 1).padStart(2, '0');
+            var day = String(eventDate.getDate()).padStart(2, '0');
+            var hours = String(eventDate.getHours()).padStart(2, '0');
+            var minutes = String(eventDate.getMinutes()).padStart(2, '0');
+
+            $('#date').val(`${year}-${month}-${day}`);
+            $('#time').val(`${hours}:${minutes}`);
+
             $('#location').val(info.event.extendedProps.location);
             $('#detailsModal').modal('show');
         },
         eventDidMount: function(info) {
             console.log('Event rendered:', info.event.title);
         }
+
     });
     calendar.render();
 
@@ -44,8 +55,8 @@
         clearModalForm();
         $("#newEventModal").modal('show');
     });
-
-    $('.close').on('click', function () {
+    
+    $('.btn-close-modal').on('click', function () {
         $('#detailsModal').modal('hide');
         $('#newEventModal').modal('hide');
         clearModalForm();
@@ -66,8 +77,8 @@
         var eventData = {
             title: $("#newTitle").val(),
             description: $("#newDescription").val(),
-            start: datetimeValue,  // ✅ zmienione z dateTime na start
-            location: $("#newLocation").val()
+            location: $("#newLocation").val(),
+            start: $("#newDate").val() + "T" + $("#newTime").val() + ":00"
         };
 
         console.log("📤 Sending to API:", JSON.stringify(eventData, null, 2));
@@ -90,11 +101,8 @@
                         location: data.location
                     }
                 });
-
-                $("#newEventModal").modal('hide');
-                clearModalForm();
-
-                alert("Event added successfully!");
+                $("#btn-close-modal").click();
+                console.log($(".close"));
             },
             error: function (xhr, status, error) {
                 console.error("❌ Error details:", {

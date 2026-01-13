@@ -1,0 +1,158 @@
+﻿/* ============================
+   NAVBAR CONTAINER
+============================ */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+
+    background: rgba(20, 15, 10, 0.85);
+    border-bottom: 2px solid var(--card-border);
+    padding: 0.75rem 2rem;
+
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    font-family: "MedievalSharp", serif;
+}
+
+nav ul {
+    list-style: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+
+.nav-left,
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.nav-right {
+    gap: 1.5rem;
+    margin-left: auto;
+}
+
+/* ============================
+   LINK STYLES
+============================ */
+nav a , nav button,
+.btn-logout {
+    cursor: pointer;
+    font-size: 1.3rem;
+}
+
+nav a, nav button {
+    color: var(--text);
+    
+    text-decoration: none;
+
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+
+    display: block;
+    transition: all 0.3s ease;
+
+    text-shadow: 0 0 4px rgba(0,0,0,0.8);
+}
+
+nav a:hover, nav button:hover {
+    color: var(--glow);
+    background: rgba(191, 167, 106, 0.15);
+    text-shadow: 0 0 8px var(--glow);
+    transform: translateY(-2px);
+}
+nav button{
+    background: none;
+    border: none;
+    font-family: "MedievalSharp", serif;
+}
+/* ============================
+   LOGIN TEXT LINK
+============================ */
+
+.login-text a {
+    color: var(--glow);
+    padding: 0;
+    font-weight: 600;
+}
+
+.login-text a:hover {
+    text-shadow:
+            0 0 10px rgba(0, 0, 0, 0.6),
+            0 0 12px var(--glow);
+    background: none;
+}
+
+/* ============================
+   USER GREETING
+============================ */
+.user-greeting {
+    font-family: "Spectral", serif;
+    font-size: 1rem;
+
+    text-shadow: 0 0 4px rgba(0,0,0,0.8);
+}
+
+.user-greeting strong {
+    color: var(--glow);
+    font-weight: 600;
+}
+
+/* ============================
+   LOGOUT BUTTON
+============================ */
+.btn-logout {
+    font-family: "MedievalSharp", serif;
+    padding: 0.5rem 1.25rem;
+
+    color: var(--glow);
+    background: var(--card-shadow);
+    border: 2px solid var(--glow);
+    border-radius: 0.25rem;
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    text-shadow: 0 0 4px rgba(0,0,0,0.8);
+}
+
+.btn-logout:hover {
+    color: var(--text);
+    background: var(--card-border);
+
+    box-shadow: 0 0 15px var(--card-shadow);
+    transform: translateY(-2px);
+
+    text-shadow: 0 0 8px var(--glow);
+}
+
+.btn-logout:active {
+    transform: translateY(0);
+}
+
+/* ============================
+   RESPONSIVE BEHAVIOR
+============================ */
+@media (max-width: 740px) {
+    nav ul {
+        justify-content: center;
+    }
+
+    .nav-left{
+        justify-content: center;
+    }
+
+    .nav-right {
+        display: none;
+        margin-left: 0;
+        width: 100%;
+    }
+}

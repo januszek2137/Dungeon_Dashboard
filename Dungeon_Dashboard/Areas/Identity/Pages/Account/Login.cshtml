@@ -5,45 +5,52 @@
     ViewData["Title"] = "Log in";
 }
 
-<h1>@ViewData["Title"]</h1>
-<div class="row">
-    <div class="col-md-6">
-        <section>
-            <form id="account" method="post">
-                <h3>Use a local account to log in.</h3>
-                <hr />
-                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                    <label asp-for="Input.Email" class="form-label">Email</label>
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
-                    <label asp-for="Input.Password" class="form-label">Password</label>
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div class="checkbox mb-3">
-                    <label asp-for="Input.RememberMe" class="form-label">
-                        <input class="form-check-input" asp-for="Input.RememberMe" />
-                        @Html.DisplayNameFor(m => m.Input.RememberMe)
-                    </label>
-                </div>
-                <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
-                </div>
-                <div class="btn-stack mt-3" role="group" aria-label="User Actions">
-                    <a class="btn btn-outline-primary" asp-page="./ForgotPassword">Forgot your password?</a>
-                    <a class="btn btn-outline-primary" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    <a class="btn btn-outline-primary" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                </div>
+<link rel="stylesheet" href="~/css/layout.css"/>
+<link rel="stylesheet" href="~/css/style.css"/>
+<link rel="stylesheet" href="~/css/forms.css"/>
 
-            </form>
-        </section>
+<div class="form-container">
+    <div class="form-card card">
+        <h1 class="form-title title">@ViewData["Title"]</h1>
+        <p class="form-subtitle">Use your account to enter the realm</p>
+
+        <form id="account" method="post">
+            <div asp-validation-summary="ModelOnly" class="validation-summary" role="alert"></div>
+
+            <div class="form-group">
+                <label asp-for="Input.Email" class="form-label">Email</label>
+                <input asp-for="Input.Email" class="form-input" autocomplete="username" aria-required="true"
+                       placeholder="name@example.com"/>
+                <span asp-validation-for="Input.Email" class="validation-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Password" class="form-label">Password</label>
+                <input asp-for="Input.Password" class="form-input" type="password" autocomplete="current-password"
+                       aria-required="true" placeholder="Enter your password"/>
+                <span asp-validation-for="Input.Password" class="validation-error"></span>
+            </div>
+
+            <div class="form-checkbox">
+                <input class="checkbox-input" asp-for="Input.RememberMe" type="checkbox"/>
+                <label asp-for="Input.RememberMe" class="checkbox-label">
+                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                </label>
+            </div>
+
+            <div class="form-group">
+                <button id="login-submit" type="submit" class="btn-submit">Enter the Dungeon</button>
+            </div>
+        </form>
+        
+        <div class="form-links">
+            <a class="link" asp-page="./ForgotPassword">Forgot your password?</a>
+            <a class="link" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+            <a class="link" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+        </div>
     </div>
-    
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
 }

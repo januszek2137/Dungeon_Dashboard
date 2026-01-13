@@ -1,0 +1,83 @@
+.page-container{
+    width: 80%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+}
+.btn-new{
+    margin-top: 1rem;
+    width: 50%;
+}
+ul{
+    width: 100%;
+}  
+.page-container li{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style: none;
+    margin-bottom: 1rem;
+}
+
+.card{
+    padding: 1rem !important;
+}
+.actions{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.room-info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#invite-username{
+    width: 100%;
+    max-width: 500px;
+}
+
+.ui-autocomplete {
+    font-family: "Spectral", serif;
+    color: var(--text);
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 0.5rem;
+    z-index: 9999 !important;
+    background: none;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.ui-menu-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    background: rgba(40, 30, 20, 1);
+    border: 1px solid var(--card-border) !important;
+}
+
+.ui-state-active, .ui-state-focus {
+    background: var(--card-border) !important;
+    border: 1px solid var(--card-border) !important;
+}
+
+@media (max-width: 768px) {
+    .btn-new{
+        width: 100%;
+    }
+    .room-info{
+        display: inline-block;
+    }
+    #rooms li{
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+    }
+}

@@ -1,0 +1,203 @@
+:root {
+    --light: #bfa76a;
+    --text: #f2e5c4;
+    --glow: #c4b47a;
+
+    --card-bg: rgba(40, 30, 20, 0.55);
+    --card-border: rgba(191, 167, 106, 0.4);
+    --card-shadow: rgba(191, 167, 106, 0.25);
+
+    --danger: #d32f2f;
+    --danger-hover: #f44336;
+}
+
+html, body {
+    font-family: "Spectral", serif;
+    color: var(--text);
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 1rem;
+    box-shadow: 0 0 25px var(--card-shadow);
+    padding: 1.5rem;
+}
+
+.title {
+    text-align: center;
+    font-size: 3.5rem;
+    font-family: "MedievalSharp", serif;
+    text-shadow:
+            0 0 10px rgba(0, 0, 0, 0.6),
+            0 0 12px var(--glow);
+    color: var(--glow);
+}
+
+.btn{
+    font-family: "MedievalSharp", serif;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 2px solid;
+    gap: 0.5rem;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    color: var(--glow);
+    background: var(--card-bg);
+    border-color: var(--glow);
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+}
+
+.btn-primary:hover {
+    background: rgba(80, 60, 40, 0.55);
+    box-shadow: 0 0 13px var(--glow);
+}
+
+.btn-secondary{
+    color: var(--text);
+    background: rgba(191,167,106,0.15);
+    border-color: var(--card-border);
+}
+.btn-secondary:hover {
+    background: rgba(191,167,106,0.25);
+    border-color: var(--glow);
+    box-shadow: 0 0 10px rgba(191,167,106,0.3);
+}
+.btn-danger {
+    color: #ffcdd2;
+    background: rgba(211, 47, 47, 0.2);
+    border-color: var(--danger) !important;
+}
+
+.btn-danger:hover {
+    background: rgba(211, 47, 47, 0.35);
+    border-color: var(--danger-hover);
+    box-shadow: 0 0 10px rgba(211, 47, 47, 0.4);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    overflow-y: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    display: flex !important;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 60px;
+    opacity: 1;
+}
+
+.modal-dialog {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    transform: translateY(-50px);
+    transition: transform 0.3s ease;
+}
+
+.modal.show .modal-dialog {
+    transform: translateY(0);
+}
+
+.modal-content {
+    margin-top: 2rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    outline: 0;
+}
+
+.modal .card{
+    background: rgba(40, 30, 20, 0.9) !important;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.modal-title {
+    font-size: 1.5rem !important;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.5) !important;
+}
+
+.modal-body {
+    padding: 1rem;
+}
+
+.btn-close-modal {
+    background: transparent;
+    border: none;
+    font-weight: bold;
+    line-height: 1;
+    color: var(--text);
+    opacity: 0.5;
+    cursor: pointer;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-close-modal:hover {
+    opacity: 1;
+    color: var(--glow);
+}
+
+.btn-close-modal::before {
+    content: "×";
+    font-size: 2rem;
+}
+
+#autocomplete-wrapper {
+    position: relative;
+}

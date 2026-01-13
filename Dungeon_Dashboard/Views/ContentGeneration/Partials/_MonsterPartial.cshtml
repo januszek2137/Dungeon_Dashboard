@@ -1,17 +1,19 @@
 ﻿@model Dungeon_Dashboard.ContentGeneration.Models.Monster
 
-<div class="col-md-12">
-    <div class="card monster">
+<link rel="stylesheet" href="~/css/randomCharacterGenerator/contentPartials.css" />
+<link rel="stylesheet" href="~/css/layout.css" />
+<div class="content-container">
+    <div class="card card-monster">
         <h3>🐲 @Model.Species</h3>
-        <p><em>@Model.Description</em></p>
+        <p class="entity-description"><em>@Model.Description</em></p>
         <div class="card-content">
-            <div>
+            <div class="stats-primary">
                 <p><span class="icon">🗺️</span><strong>Type:</strong> @Model.Type</p>
                 <p><span class="icon">🎚️</span><strong>Level:</strong> @Model.Level</p>
                 <p><span class="icon">❤️</span><strong>Health:</strong> @Model.Health</p>
                 <p><span class="icon">🛡️</span><strong>AC:</strong> @Model.ArmorClass</p>
             </div>
-            <div>
+            <div class="stats-secondary">
                 <p><span class="icon">⚔️</span><strong>Damage:</strong> @Model.Damage</p>
                 <p><span class="icon">✨</span><strong>Abilities:</strong> @Model.Abilities</p>
             </div>

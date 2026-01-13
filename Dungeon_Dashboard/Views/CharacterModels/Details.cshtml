@@ -1,72 +1,123 @@
-﻿@using Dungeon_Dashboard.PlayerCharacters
-@using Dungeon_Dashboard.PlayerCharacters.Models
+﻿@using Dungeon_Dashboard.PlayerCharacters.Models
 @model CharacterModel
 
 @{
     ViewData["Title"] = "Character Details";
 }
-<link rel="stylesheet" href="/css/CharacterDetails.css" />
-<div class="character-details">
-    <h1 class="character-header text-center">
-        <span class="character-name badge custom-primary">@Model.Name</span>
-        <span class="character-class badge custom-secondary">@Model.Class</span>
-        <span class="character-race badge custom-secondary">@Model.Race</span>
-    </h1>
 
-    <div class="row">
-        <div class="col-md-6">
-            <h3 class="section-title">Stats</h3>
-            <ul class="list-group">
-                <li class="list-group-item">
-                    💪 Strength: <strong>@Model.Strength</strong>
-                </li>
-                <li class="list-group-item">
-                    🤸 Dexterity: <strong>@Model.Dexterity</strong>
-                </li>
-                <li class="list-group-item">
-                    🏋️ Constitution: <strong>@Model.Constitution</strong>
-                </li>
-                <li class="list-group-item">
-                    🧠 Intelligence: <strong>@Model.Intelligence</strong>
-                </li>
-                <li class="list-group-item">
-                    🦉 Wisdom: <strong>@Model.Wisdom</strong>
-                </li>
-                <li class="list-group-item">
-                    😎 Charisma: <strong>@Model.Charisma</strong>
-                </li>
-            </ul>
-        </div>
-
-        <div class="col-md-6">
-            <h3 class="section-title">Skills, Equipment & Inventory</h3>
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <strong>Skills:</strong> @string.Join(", ", Model.Skills ?? new string[] { "None" })
-                </li>
-                <li class="list-group-item">
-                    <strong>Equipment:</strong> @string.Join(", ", Model.Equipment ?? new string[] { "None" })
-                </li>
-                <li class="list-group-item">
-                    <strong>Inventory:</strong> @string.Join(", ", Model.Inventory ?? new string[] { "None" })
-                </li>
-            </ul>
+<link rel="stylesheet" href="~/css/character-models/CharacterDetails.css" />
+<link rel="stylesheet" href="~/css/layout.css" />
+<link rel="stylesheet" href="~/css/style.css" />
 
 
-            <h3 class="section-title">Currency</h3>
-            <ul class="list-group">
-                <li class="list-group-item">🪙 Copper: <strong>@Model.Copper</strong></li>
-                <li class="list-group-item">🥈 Silver: <strong>@Model.Silver</strong></li>
-                <li class="list-group-item">⚡ Electrum: <strong>@Model.Electrum</strong></li>
-                <li class="list-group-item">🏆 Gold: <strong>@Model.Gold</strong></li>
-                <li class="list-group-item">💎 Platinum: <strong>@Model.Platinum</strong></li>
-            </ul>
+<div class="details-container">
+    <div class="details-header">
+        <h1 class="details-title title">@Model.Name</h1>
+        <div class="details-badges">
+            <span class="badge">@Model.Class</span>
+            <span class=" badge badge-race">@Model.Race</span>
         </div>
     </div>
 
-    <div class="actions mt-4 text-center">
-        <a href="@Url.Action("Edit", "CharacterModels", new { id = Model.Id })" class="btn btn-primary">Edit</a>
-        <a href="@Url.Action("GenerateCharacterPdf", "CharacterModels", new{ id=Model.Id })" class="btn btn-primary">Generate PDF</a>
-        <a href="@Url.Action("Index", "CharacterModels")" class="btn btn-secondary">Back to List</a>
+    <div class="details-content">
+        <!-- Stats Section -->
+        <div class="main-section card">
+            <h3 class="section-title title">Stats</h3>
+            <div class="list">
+                <div class="item card">
+                    <span class="icon">💪</span>
+                    <span>Strength:</span>
+                    <span class="value">@Model.Strength</span>
+                </div>
+                <div class="item card">
+                    <span class="icon">🤸</span>
+                    <span>Dexterity:</span>
+                    <span class="value">@Model.Dexterity</span>
+                </div>
+                <div class="item card">
+                    <span class="icon">🏋️</span>
+                    <span>Constitution:</span>
+                    <span class="value">@Model.Constitution</span>
+                </div>
+                <div class="item card">
+                    <span class="icon">🧠</span>
+                    <span>Intelligence:</span>
+                    <span class="value">@Model.Intelligence</span>
+                </div>
+                <div class="item card">
+                    <span class="icon">🦉</span>
+                    <span>Wisdom:</span>
+                    <span class="value">@Model.Wisdom</span>
+                </div>
+                <div class="item card">
+                    <span class="icon">😎</span>
+                    <span>Charisma:</span>
+                    <span class="value">@Model.Charisma</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills, Equipment & Inventory Section -->
+        <div class="main-section card">
+            <h3 class="section-title title">Skills, Equipment & Inventory</h3>
+            <div class="list ">
+                <div class="field card">
+                    <span class="label">⚔️ Skills:</span>
+                    <span>@string.Join(", ", Model.Skills ?? ["None"])</span>
+                </div>
+                <div class="field card">
+                    <span class="label">🛡️ Equipment:</span>
+                    <span>@string.Join(", ", Model.Equipment ?? ["None"])</span>
+                </div>
+                <div class="field card">
+                    <span class="label">📦 Inventory:</span>
+                    <span>@string.Join(", ", Model.Inventory ?? ["None"])</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Currency Section -->
+        <div class="main-section card">
+            <h3 class="section-title title">Currency</h3>
+            <div class="grid">
+                <div class="field card">
+                    <span class="icon">🪙</span>
+                    <span>Copper:</span>
+                    <span class="value">@Model.Copper</span>
+                </div>
+                <div class="field card">
+                    <span class="icon">🥈</span>
+                    <span>Silver:</span>
+                    <span class="value">@Model.Silver</span>
+                </div>
+                <div class="field card">
+                    <span class="icon">⚡</span>
+                    <span>Electrum:</span>
+                    <span class="value">@Model.Electrum</span>
+                </div>
+                <div class="field card">
+                    <span class="icon">🏆</span>
+                    <span>Gold:</span>
+                    <span class="value">@Model.Gold</span>
+                </div>
+                <div class="field card">
+                    <span class="icon">💎</span>
+                    <span>Platinum:</span>
+                    <span class="value">@Model.Platinum</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="details-actions">
+        <a href="@Url.Action("Edit", "CharacterModels", new { id = Model.Id })" class="btn btn-primary">
+            ✏️ Edit
+        </a>
+        <a href="@Url.Action("GenerateCharacterPdf", "CharacterModels", new{ id=Model.Id })" class="btn btn-primary">
+            📄 Generate PDF
+        </a>
+        <a href="@Url.Action("Index", "CharacterModels")" class="btn btn-secondary">
+            ↩️ Back to List
+        </a>
     </div>
 </div>

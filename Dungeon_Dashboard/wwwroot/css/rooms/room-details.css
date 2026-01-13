@@ -1,0 +1,199 @@
+﻿.room-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 20px;
+}
+
+.room-header {
+    margin-top: 2rem;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+}
+.notes, .map{
+    width: 100%;
+}
+
+#notesContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+.note-item{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    gap: 1rem;
+    width: 100%;
+}
+.note-text{
+    text-align: start;
+    display: inline-block;
+}
+
+#addNoteBtn{
+    margin-top: 0.5rem;
+}
+
+aside {
+    width: 270px !important;
+}
+
+.card-header{
+    margin-bottom: 1rem;
+    font-size: 2rem !important;
+    text-shadow: none !important;
+}
+aside .card-header{
+    margin-bottom: 0.5rem;
+}
+#participantsList {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+#participantsList::-webkit-scrollbar {
+    width: 6px;
+}
+
+#participantsList .list-group-item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+}
+
+.status-dot {
+    margin-top: 0.4rem;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.status-dot.offline {
+    background-color: #dc3545;
+}
+
+.status-dot.online {
+    background-color: #28a745;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.user-name {
+    font-weight: 500;
+}
+
+.user-status {
+    font-size: 0.7rem;
+    margin-top: 2px;
+}
+
+.user-status.online {
+    color: #28a745;
+}
+
+.user-status.offline {
+    color: #dc3545;
+}
+
+#wrap {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+}
+
+#map {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+#grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+}
+
+#markers {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+}
+
+.marker {
+    cursor: grab;
+    border: 2px solid #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    z-index: 4;
+    user-select: none;
+    -webkit-user-drag: none;
+    transition: left 0.1s linear, top 0.1s linear;
+}
+
+.marker:active {
+    cursor: grabbing;
+}
+
+.map form{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+.map form input{
+    cursor: pointer;
+}
+
+.btn-submit {
+    margin-top: 0 !important;
+    padding: 0.5rem 1rem !important;
+    min-width: fit-content !important;
+    font-size: 1rem !important;
+}
+
+@media (max-width: 1100px) {
+    main{
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    .room-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    #participantsList{
+        width: fit-content;
+        max-height: 128px;
+        overflow-y: auto;
+    }
+}

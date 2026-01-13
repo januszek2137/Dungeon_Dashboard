@@ -1,0 +1,72 @@
+﻿.dice-results-container {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid var(--card-border);
+    text-align: center;
+}
+
+.form-container{
+    padding-top: 0 !important;
+    flex-direction: column;
+}
+.form-group{
+    width: 100% !important;
+}
+
+.dice-total {
+    margin-top: 30px;
+}
+.dice-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    perspective: 1000px;
+}
+
+.die {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: radial-gradient(circle at 30% 30%, #4a4a4a, #1a1a1a);
+    border: 2px solid #666;
+    border-radius: 12px;
+
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(224, 208, 176, 0.6);
+
+    box-shadow:
+            inset -3px -3px 5px rgba(0,0,0,0.8),
+            inset 2px 2px 5px rgba(255,255,255,0.2),
+            0 5px 8px rgba(0,0,0,0.5);
+    
+    animation: dropDice 0.4s ease-out forwards;
+    user-select: none;
+    position: relative;
+}
+
+.die.d4  { border-color: #8a1c1c; background: radial-gradient(circle at 30% 30%, #5e2626, #2e0e0e); }
+.die.d6  { border-color: #5d3a1a; background: radial-gradient(circle at 30% 30%, #5e4626, #2b1d0e); }
+.die.d8  { border-color: #2e5e26; background: radial-gradient(circle at 30% 30%, #365e26, #122b0e); }
+.die.d10 { border-color: #263c5e; background: radial-gradient(circle at 30% 30%, #263e5e, #0e182b); }
+.die.d12 { border-color: #5e265c; background: radial-gradient(circle at 30% 30%, #58265e, #290e2b); }
+.die.d20 { border-color: #c5a059; background: radial-gradient(circle at 30% 30%, #b8860b, #4a3c10); color: #fff; }
+
+/* Animation Keyframes */
+@keyframes dropDice {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px) rotate(180deg) scale(0.5);
+    }
+    70% {
+        transform: translateY(0) rotate(-10deg) scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotate(var(--rotation, 0deg)) scale(1);
+    }
+}

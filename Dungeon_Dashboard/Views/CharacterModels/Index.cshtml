@@ -1,79 +1,86 @@
-﻿@using Dungeon_Dashboard.PlayerCharacters
-@using Dungeon_Dashboard.PlayerCharacters.Models
+﻿@using Dungeon_Dashboard.PlayerCharacters.Models
 @model IEnumerable<CharacterModel>
 
 @{
     ViewData["Title"] = "Characters";
 }
 
-<h1>Characters👤</h1>
-<hr />
-<link rel="stylesheet" href="~/css/CharacterIndex.css" />
-<p>
-    <a asp-action="Create" class="btn btn-primary w-100">Create New</a>
-</p>
-<div id="main">
-<div class="character-grid">
+<link rel="stylesheet" href="~/css/character-models/CharacterIndex.css"/>
+<link rel="stylesheet" href="~/css/layout.css"/>
+<link rel="stylesheet" href="~/css/style.css"/>
+
+<div class="characters-container">
+
+    <div class="characters-header">
+        <h1 class="characters-title title">Characters</h1>
+        <a asp-action="Create" class="btn btn-primary">✨ Create New Character</a>
+    </div>
+
+    <div class="character-grid">
         @{
             var userNameFull = User.Identity.Name;
             var userName = "";
-            if(!string.IsNullOrEmpty(userNameFull)) {
+            if (!string.IsNullOrEmpty(userNameFull))
+            {
                 userName = userNameFull.Split('@')[0];
             }
 
             var userCharacters = Model.Where(item => item.CreatedBy == userName);
         }
-        @if(!userCharacters.Any()) {
-            <div class="character-card placeholder-card">
-                <h2>No characters found</h2>
-                <p>You have not created any characters yet. Click "Create New" to get started!</p>
+
+        @if (!userCharacters.Any())
+        {
+            <div class="card">
+                <h2>No Characters Found</h2>
+                <p>You haven't created any characters yet. Click "Create New Character" to get started on your
+                    adventure!</p>
             </div>
-        }else{
+        }
+        else
+        {
+            @foreach (var item in userCharacters)
+            {
+                var emoji = item.Class switch
+                {
+                    Classes.Barbarian => "💪",
+                    Classes.Bard => "🎵",
+                    Classes.Cleric => "🙏",
+                    Classes.Druid => "🌿",
+                    Classes.Fighter => "⚔️",
+                    Classes.Monk => "🧘",
+                    Classes.Paladin => "🛡️",
+                    Classes.Ranger => "🏹",
+                    Classes.Rogue => "🗡️",
+                    Classes.Sorcerer => "✨",
+                    Classes.Warlock => "🔮",
+                    Classes.Wizard => "📖",
+                    _ => "❓"
+                };
 
-        @foreach(var item in Model) {
-            string emoji = "";
+                <div class="card card-character">
+                    <div class="character-header">
+                        <h2 class="character-name">@item.Name</h2>
+                        <span class="character-emoji">@emoji</span>
+                    </div>
 
-            if(item.Class == Classes.Barbarian) {
-                emoji = "💪";
-            } else if(item.Class == Classes.Bard) {
-                emoji = "🎵";
-            } else if(item.Class == Classes.Cleric) {
-                emoji = "🙏";
-            } else if(item.Class == Classes.Druid) {
-                emoji = "🌿";
-            } else if(item.Class == Classes.Fighter) {
-                emoji = "⚔️";
-            } else if(item.Class == Classes.Monk) {
-                emoji = "🧘";
-            } else if(item.Class == Classes.Paladin) {
-                emoji = "🛡️";
-            } else if(item.Class == Classes.Ranger) {
-                emoji = "🏹";
-            } else if(item.Class == Classes.Rogue) {
-                emoji = "🗡️";
-            } else if(item.Class == Classes.Sorcerer) {
-                emoji = "✨";
-            } else if(item.Class == Classes.Warlock) {
-                emoji = "🔮";
-            } else if(item.Class == Classes.Wizard) {
-                emoji = "📖";
-            } else {
-                emoji = "❓";
-            }
-            if(userName == item.CreatedBy){
-            <div class="character-card">
-                <h2 style="color: #8a6de6">@item.Name</h2>
-                <p><strong>@($"{emoji}Class: ")</strong>@item.Class</p>
-                <p><strong>📈Level: </strong>@item.Level</p>
-                <p><strong>📝Created by: </strong>@item.CreatedBy</p>
-                <div class="character-card-actions">
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-lg">Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary btn-lg">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-primary btn-lg">Delete</a>
+                    <div class="character-info">
+                        <p><span class="icon">@emoji</span><strong>Class:</strong> @item.Class</p>
+                        <p><span class="icon">📈</span><strong>Level:</strong> @item.Level</p>
+                    </div>
+
+                    <div class="character-actions">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary">
+                            <span class="icon">✏️</span> Edit
+                        </a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">
+                            <span class="icon">👁️</span> Details
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">
+                            <span class="icon">🗑️</span> Delete
+                        </a>
+                    </div>
                 </div>
-            </div>
             }
         }
-        }
-</div>
+    </div>
 </div>

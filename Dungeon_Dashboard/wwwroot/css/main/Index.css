@@ -1,0 +1,64 @@
+﻿.index-container {
+    max-width: 700px;
+}
+
+.logo-wrapper {
+    padding-top: 2rem;
+    padding-bottom: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    animation: fade-in 2s ease forwards;
+}
+
+.logo-wrapper img {
+    width: 8rem;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    animation: bounceSlow 3s infinite ease-in-out;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+/* Welcome Text */
+.welcome {
+    font-size: 1.25rem;
+    text-shadow: 0 0 6px rgba(0,0,0,0.5);
+    animation: fade-up 2s ease forwards;
+}
+
+.welcome span {
+    color: var(--glow);
+    font-weight: 600;
+}
+
+/* Quote Box */
+.quote {
+    margin-top: 0.5rem;
+    animation: fade-up 2.5s ease forwards;
+}
+
+.quote blockquote {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 6px rgba(0,0,0,0.5);
+}
+
+.quote p {
+    color: var(--glow);
+    font-size: 1rem;
+    text-align: right;
+    font-weight: 600;
+}
+
+@keyframes bounceSlow {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}

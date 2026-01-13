@@ -1,0 +1,142 @@
+/* ============================
+   SIDEBAR BASE
+============================ */
+.sidebar {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+
+    width: 300px;
+    height: 100vh;
+
+    background: rgba(20, 15, 10, 0.85);
+    border-right: 3px solid var(--card-border);
+    box-shadow: 6px 0 25px rgba(0, 0, 0, 0.7);
+
+    transform: translateX(-100%);
+    animation-duration: 0.35s;
+    animation-fill-mode: both;
+
+    font-family: "MedievalSharp", serif;
+    padding: 2rem 1.5rem;
+
+    z-index: 2000;
+}
+
+.sidebar.open {
+    animation-name: slide-in;
+    transform: translateX(0);
+}
+
+.sidebar.closing {
+    animation-name: slide-out;
+}
+
+@keyframes slide-in {
+    0% {
+        transform: translateX(-100%) rotateY(40deg);
+    }
+    70% {
+        transform: translateX(10px) rotateY(0deg);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slide-out {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%) rotateY(40deg);
+    }
+}
+
+/* ============================
+   OVERLAY BACKGROUND
+============================ */
+.sidebar-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(5, 0, 0, 0.6);
+    display: none;
+    z-index: 1500;
+    backdrop-filter: blur(2px);
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: end;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--card-border);
+}
+
+.sidebar-header button {
+    padding: 0.5rem 1rem !important;
+    font-family: "MedievalSharp", serif;
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-toggle{
+    border: 2px solid var(--card-border);
+    border-radius: 0.35rem !important;
+}
+
+.sidebar-toggle:hover{
+    background: rgba(191, 167, 106, 0.15);
+    box-shadow: 0 0 10px var(--glow);
+    transform: translateY(-2px) rotate(-1deg);
+}
+
+.sidebar-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.sidebar-items p {
+    font-family: Spectral, serif;
+    font-size: 2.5rem;
+    margin-top: 50%;
+}
+
+aside a,
+aside button {
+    width: fit-content;
+    text-decoration: none;
+    padding: 0.7rem 0.5rem;
+    font-size: 1.4rem;
+
+    color: var(--text);
+    border-radius: 0.25rem;
+
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
+    transition: all 0.35s ease;
+
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+aside a:hover,
+.sidebar-items button:hover {
+    background: rgba(150, 120, 70, 0.35);
+    color: var(--glow);
+
+    transform: translateX(10px);
+    text-shadow: 0 0 12px var(--glow);
+}
+
+aside button {
+    font-family: "MedievalSharp", serif;
+}
+
+.sidebar-footer {
+    padding-top: 0.5rem;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-top: 2px solid var(--card-border);
+}

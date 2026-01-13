@@ -4,50 +4,59 @@
     ViewData["Title"] = "Random Characters Dashboard";
 }
 
-<link rel="stylesheet" href="~/css/randomcharactergenerator.css"/>
+<link rel="stylesheet" href="~/css/randomCharacterGenerator/randomcharactergenerator.css"/>
+<link rel="stylesheet" href="~/css/layout.css"/>
+<link rel="stylesheet" href="~/css/style.css"/>
 
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Random Characters Generator💡</h1>
-    <hr/>
-    <div class="d-flex justify-content-center mb-4">
-        <div class="btn-group" role="group" aria-label="Character Actions">
-            <form asp-controller="ContentGeneration" asp-action="GetRandomNPC" method="post">
-                <button type="submit" class="btn btn-primary">🧙 Load Random NPC</button>
-            </form>
-            <form asp-controller="ContentGeneration" asp-action="GetRandomMonster" method="post">
-                <button type="submit" class="btn btn-primary">🐲 Load Random Monster</button>
-            </form>
-            <form asp-controller="ContentGeneration" asp-action="GetRandomEncounter" method="post">
-                <button type="submit" class="btn btn-primary">⚔️ Load Random Encounter</button>
-            </form>
-        </div>
+
+<div class="rcg-container">
+    <h1 class="title">Random Characters Generator</h1>
+
+    <div class="rcg-buttons">
+        <form asp-controller="ContentGeneration" asp-action="GetRandomNPC" method="post">
+            <button type="submit" class="rcg-btn">🧙 Load Random NPC</button>
+        </form>
+        <form asp-controller="ContentGeneration" asp-action="GetRandomMonster" method="post">
+            <button type="submit" class="rcg-btn">🐲 Load Random Monster</button>
+        </form>
+        <form asp-controller="ContentGeneration" asp-action="GetRandomEncounter" method="post">
+            <button type="submit" class="rcg-btn">⚔️ Load Random Encounter</button>
+        </form>
     </div>
-    
-    @if (Model.ModelType == string.Empty) {
-        <div id="placeholder" class="text-center">
-            <div class="placeholder p-5 border rounded bg-dark">
+
+    @{
+        const string modelTypeNpc       = "NPC";
+        const string modelTypeMonster   = "Monster";
+        const string modelTypeEncounter = "Encounter";
+        const string modelTypeError     = "Error";
+    }
+
+    @switch (Model.ModelType)
+    {
+        case null or "":
+            <div class="placeholder card">
                 <h3>Welcome to the Random Characters Generator</h3>
-                <p class="">Click a button above to generate random NPCs, monsters, or encounters.</p>
+                <p>Click a button above to generate random NPCs, monsters, or encounters.</p>
             </div>
-        </div>
-    }
-    else if (Model.ModelType == "NPC" && Model.Npc != null) {
-        <partial name="Partials/_NPCPartial" model="Model.Npc"/>
-    }
-    else if (Model.ModelType == "Monster" && Model.Monster != null) {
-        <partial name="Partials/_MonsterPartial" model="Model.Monster"/>
-    }
-    else if (Model.ModelType == "Encounter" && Model.Encounter != null) {
-        <partial name="Partials/_EncounterPartial" model="Model.Encounter"/>
-    }
-    else if (Model.ModelType == "Error" && !string.IsNullOrEmpty(Model.ErrorMessage)) {
-        <div id="placeholder" class="text-center">
-            <div class="placeholder p-5 border rounded bg-dark">
+            break;
+
+        case modelTypeNpc when Model.Npc is not null:
+            <partial name="Partials/_NPCPartial" model="Model.Npc" />
+            break;
+
+        case modelTypeMonster when Model.Monster is not null:
+            <partial name="Partials/_MonsterPartial" model="Model.Monster" />
+            break;
+
+        case modelTypeEncounter when Model.Encounter is not null:
+            <partial name="Partials/_EncounterPartial" model="Model.Encounter" />
+            break;
+
+        case modelTypeError when !string.IsNullOrEmpty(Model.ErrorMessage):
+            <div class="placeholder card">
                 <h3>Oops!</h3>
-                <p class="">Something went wrong! @Model.ErrorMessage</p>
+                <p>Something went wrong! @Model.ErrorMessage</p>
             </div>
-        </div>
+            break;
     }
-
-
 </div>

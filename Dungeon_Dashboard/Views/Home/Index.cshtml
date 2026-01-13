@@ -2,21 +2,23 @@
     ViewData["Title"] = "Home Page";
 }
 
-<link rel="stylesheet" href="/css/HomeIndex.css" />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="~/css/main/Index.css" />
+<link rel="stylesheet" href="~/css/style.css" />
 
-<div class="text-center" id="main">
-    <div class="header">
-        <h1 class="display-4">Dungeon Dashboard</h1>
-        <img src="/css/logo.png" />
+<div class="index-container">
+    <div class="logo-wrapper">
+        <h1 class="title">Dungeon Dashboard</h1>
+        <img src="css/logo.png" alt="Dungeon Dashboard Logo"/>
     </div>
 
-    <p>Welcome to the Dungeon Dashboard! This is a tool for Dungeon Masters to help manage their Dungeons & Dragons campaigns. You can use the sidebar to navigate to different sections of the dashboard.</p>
+    <p class="welcome">
+        Welcome to the <span>Dungeon Dashboard</span>! This is a tool for Dungeon Masters to manage their Dungeons & Dragons campaigns.
+        Use the sidebar to navigate to different sections of the dashboard.
+    </p>
 
-    <div class="quote mt-4">
-        <blockquote>
-            "The imagination is the limit in a game where anything can happen."
-        </blockquote>
-        <p class="quote-author">— Gary Gygax, Co-Creator of D&D</p>
+    <div class="quote card">
+        <blockquote>"The imagination is the limit in a game where anything can happen."</blockquote>
+        <p>— Gary Gygax, Co-Creator of D&D</p>
     </div>
 </div>
-

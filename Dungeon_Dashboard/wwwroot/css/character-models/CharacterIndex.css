@@ -1,0 +1,153 @@
+﻿/* ============================
+   CONTAINER
+============================ */
+.characters-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 95vw;
+    padding: 4rem 5rem;
+}
+
+/* ============================
+   HEADER
+============================ */
+.characters-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+    animation: fadeIn 1s ease forwards;
+}
+
+/* ============================
+   CHARACTER GRID
+============================ */
+.character-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+/* ============================
+   CARD STYLES
+============================ */
+.card {
+    transition: all 0.3s ease;
+    animation: fadeUp 1s ease forwards;
+}
+
+/* Character card */
+.card-character {
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    animation: fadeUp 1s ease forwards;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: clamp(300px, 18%, 400px);
+}
+
+.character-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(191, 167, 106, 0.2);
+}
+
+.character-name {
+    font-family: 'MedievalSharp', serif;
+    color: var(--glow);
+    font-size: 1.6rem;
+    margin: 0;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.character-emoji {
+    font-size: 2rem;
+    filter: drop-shadow(0 0 4px rgba(0,0,0,0.5));
+}
+
+/* ============================
+   CHARACTER INFO
+============================ */
+.character-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-grow: 1;
+}
+
+.character-info p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.icon {
+    margin-right: 0.5rem;
+    display: inline-block;
+}
+
+/* ============================
+   CHARACTER ACTIONS
+============================ */
+.character-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(191, 167, 106, 0.2);
+}
+
+.character-actions .btn {
+    flex: 1 1 calc(50% - 0.375rem);
+    font-size: 0.95rem;
+    padding: 0.65rem 1rem;
+}
+
+/* ============================
+   RESPONSIVE
+============================ */
+@media (max-width: 768px) {
+
+    .characters-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .characters-title {
+        font-size: 2.2rem;
+        text-align: center;
+    }
+
+    .char-btn-primary {
+        width: 100%;
+    }
+
+    .character-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-secondary {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .character-name {
+        font-size: 1.4rem;
+    }
+
+    .character-card {
+        padding: 1.25rem;
+    }
+}

@@ -1,0 +1,115 @@
+﻿@{
+    var userNameFull = User.Identity.Name;
+    var userName = "";
+    if (!string.IsNullOrEmpty(userNameFull))
+    {
+        userName = userNameFull.Split('@')[0];
+    }
+}
+
+<link rel="stylesheet" href="~/css/partials/Navbar.css"/>
+<link rel="stylesheet" href="~/css/partials/Sidebar.css"/>
+<script src="~/js/dice-roller.js" defer></script>
+
+<nav>
+    <ul>
+        <div class="nav-left">
+            <button class="sidebar-toggle" onclick="toggleSidebar()">
+                ⚔️ Menu
+            </button>
+
+            <a asp-area="" asp-controller="Home" asp-action="Index">
+                <li>Home</li>
+            </a>
+            <a asp-area="" asp-controller="Home" asp-action="Privacy">
+                <li>Privacy</li>
+            </a>
+        </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="nav-right">
+                <li><span class="user-greeting">Welcome, <strong>@userName</strong>!</span></li>
+                <li>
+                    <form asp-area="Identity" asp-page="/Account/Logout"
+                          asp-route-returnUrl="@Url.Action("Index", "Home")"
+                          method="post" class="logout-form">
+                        <button type="submit" class="btn-logout">Logout</button>
+                    </form>
+                </li>
+            </div>
+        }
+        else
+        {
+            <div class="nav-right">
+                <li><a asp-area="Identity" asp-page="/Account/Login">Login to start your journey</a></li>
+            </div>
+        }
+    </ul>
+</nav>
+
+<!-- Sidebar -->
+<aside id="sidebar" class="sidebar closed">
+
+    <div class="sidebar-header">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">Close ⚔️</button>
+    </div>
+
+    <div class="sidebar-items">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a asp-controller="Sidebar" asp-action="Planner">Session Planner</a>
+            <a asp-controller="CharacterModels" asp-action="Index">Character</a>
+            <a asp-controller="ContentGeneration" asp-action="Index">Generator</a>
+            <a asp-controller="TurnKeeperView" asp-action="Index">Turn Keeper</a>
+            <a asp-controller="RoomsView" asp-action="Index">Rooms</a>
+            <button type="button" onclick="openDiceModal()">Dice Roller</button>
+        }
+        else
+        {
+            <p>Log in to access the dashboard</p>
+        }
+    </div>
+
+    <div class="sidebar-footer">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <span class="user-greeting">Welcome, <strong>@userName</strong>!</span>
+           
+                <form asp-area="Identity" asp-page="/Account/Logout"
+                      asp-route-returnUrl="@Url.Action("Index", "Home")"
+                      method="post" class="logout-form">
+                    <button type="submit" class="btn-logout">Logout</button>
+                </form>
+        }else
+        {
+            <a asp-area="Identity" asp-page="/Account/Login">
+                Login
+            </a>
+        }
+    </div>
+</aside>
+
+<!-- Overlay -->
+<div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+<partial name="_DiceRollerModal"/>
+<script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("sidebar-overlay");
+
+        const isOpen = sidebar.classList.contains("open");
+
+        if (isOpen) {
+            sidebar.classList.remove("open");
+            sidebar.classList.add("closing");
+            setTimeout(() => {
+                sidebar.classList.remove("closing");
+            }, 350);
+            overlay.style.display = "none";
+        } else {
+            sidebar.classList.add("open");
+            overlay.style.display = "block";
+        }
+    }
+</script>
