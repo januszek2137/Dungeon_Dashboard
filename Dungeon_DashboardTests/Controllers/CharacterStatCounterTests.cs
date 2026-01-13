@@ -1,6 +1,6 @@
 ﻿using Dungeon_Dashboard.PlayerCharacters;
 
-namespace Dungeon_Dashboard.Controllers.Tests {
+namespace Dungeon_DashboardTests.Controllers {
 
     [TestClass()]
     public class CharacterStatCounterTests {
